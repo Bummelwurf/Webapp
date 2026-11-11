@@ -14,7 +14,7 @@
 
   <meta name="apple-mobile-web-app-title" content="Pendler-Lotse">
 
-  <meta name="theme-color" content="#0b0f19">
+  <meta id="metaThemeColor" name="theme-color" content="#0b0f19">
 
   <link rel="apple-touch-icon" href="app_icon.png">
 
@@ -23,6 +23,25 @@
   <link rel="icon" type="image/png" href="app_icon.png">
 
   <title>Pendler-Lotse Straelen ➔ Geldern</title>
+
+  <!-- AUTO-THEME DETECTION (LIGHT / DARK PREFERENCE & PERSISTENCE) -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('pendler_theme');
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        if (saved === 'light' || (!saved && prefersLight)) {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+          const meta = document.getElementById('metaThemeColor');
+          if (meta) meta.content = '#FAF7F2';
+        } else {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -82,33 +101,18 @@
 
       --border-light: rgba(255, 255, 255, 0.08);
 
-      
-
+      /* 2-FARBEN SIGNALSYSTEM: NUR GRÜN & ROT (+ NEUTRALE ABSTUFUNGEN) */
       --emerald-500: #10b981;
 
       --emerald-400: #34d399;
 
       --emerald-300: #6ee7b7;
 
-      --cyan-500: #06b6d4;
-
-      --cyan-400: #22d3ee;
-
-      --cyan-300: #67e8f9;
-
-      --amber-500: #f59e0b;
-
-      --amber-400: #fbbf24;
-
-      --amber-300: #fcd34d;
-
       --rose-500: #f43f5e;
 
       --rose-400: #fb7185;
 
       --rose-300: #fda4af;
-
-      
 
       --text-main: #f8fafc;
 
@@ -674,143 +678,317 @@
 
 
 
-    .text-cyan-200 { color: #a5f3fc; }
+    /* 2-FARBEN SIGNALKONZEPT: GRÜN & ROT */
+    .text-rose-300, .text-red-300 { color: #fda4af; }
+    .text-rose-400, .text-red-400 { color: #fb7185; }
+    .text-rose-500, .text-red-500 { color: #f43f5e; }
+    .bg-rose-500, .bg-red-500 { background-color: #f43f5e; }
+    .bg-rose-500\/10, .bg-red-500\/10 { background-color: rgba(244, 63, 94, 0.1); }
+    .bg-rose-500\/20, .bg-red-500\/20 { background-color: rgba(244, 63, 94, 0.2); }
+    .bg-rose-950\/10, .bg-red-950\/10 { background-color: rgba(76, 5, 25, 0.1); }
+    .bg-rose-950\/30, .bg-red-950\/30 { background-color: rgba(76, 5, 25, 0.3); }
+    .bg-rose-950\/70, .bg-red-950\/70 { background-color: rgba(76, 5, 25, 0.7); }
+    .bg-rose-950\/80, .bg-red-950\/80 { background-color: rgba(76, 5, 25, 0.8); }
+    .bg-rose-950\/90, .bg-red-950\/90 { background-color: rgba(76, 5, 25, 0.9); }
 
-    .text-cyan-300 { color: #67e8f9; }
-
-    .text-cyan-400 { color: #22d3ee; }
-
-    .bg-cyan-400 { background-color: #22d3ee; }
-
-    .bg-cyan-500\/10 { background-color: rgba(6, 182, 212, 0.1); }
-
-    .bg-cyan-500\/20 { background-color: rgba(6, 182, 212, 0.2); }
-
-    .bg-cyan-950\/30 { background-color: rgba(8, 51, 68, 0.3); }
-
-    .bg-cyan-950\/70 { background-color: rgba(8, 51, 68, 0.7); }
-
-    .bg-cyan-950\/80 { background-color: rgba(8, 51, 68, 0.8); }
-
-    .bg-cyan-950\/90 { background-color: rgba(8, 51, 68, 0.9); }
-
-
-
-    .text-amber-300 { color: #fcd34d; }
-
-    .text-amber-400 { color: #fbbf24; }
-
-    .bg-amber-400 { background-color: #fbbf24; }
-
-    .bg-amber-500\/10 { background-color: rgba(245, 158, 11, 0.1); }
-
-    .bg-amber-500\/20 { background-color: rgba(245, 158, 11, 0.2); }
-
-    .bg-amber-950\/30 { background-color: rgba(69, 26, 3, 0.3); }
-
-    .bg-amber-950\/60 { background-color: rgba(69, 26, 3, 0.6); }
-
-    .bg-amber-950\/70 { background-color: rgba(69, 26, 3, 0.7); }
-
-    .bg-amber-950\/80 { background-color: rgba(69, 26, 3, 0.8); }
-
-    .bg-amber-950\/90 { background-color: rgba(69, 26, 3, 0.9); }
-
-
-
-    .text-rose-300 { color: #fda4af; }
-
-    .text-rose-400 { color: #fb7185; }
-
-    .bg-rose-500\/10 { background-color: rgba(244, 63, 94, 0.1); }
-
-    .bg-rose-500\/20 { background-color: rgba(244, 63, 94, 0.2); }
-
-    .bg-rose-950\/10 { background-color: rgba(76, 5, 25, 0.1); }
-
-    .bg-rose-950\/30 { background-color: rgba(76, 5, 25, 0.3); }
-
-    .bg-rose-950\/70 { background-color: rgba(76, 5, 25, 0.7); }
-
-    .bg-rose-950\/80 { background-color: rgba(76, 5, 25, 0.8); }
-
-    .bg-rose-950\/90 { background-color: rgba(76, 5, 25, 0.9); }
-
-
+    /* SICHERHEITS-ALIASES: CYAN & AMBER WERDEN STRIKTE AUF GRÜN/ROT/SLATE GELEITET */
+    .text-cyan-200, .text-cyan-300, .text-cyan-400 { color: #34d399; }
+    .bg-cyan-400 { background-color: #10b981; }
+    .bg-cyan-500\/10, .bg-cyan-500\/20, .bg-cyan-950\/30, .bg-cyan-950\/70, .bg-cyan-950\/80, .bg-cyan-950\/90 { background-color: rgba(6, 78, 59, 0.7); }
+    .text-amber-300, .text-amber-400 { color: #fb7185; }
+    .bg-amber-400 { background-color: #f43f5e; }
+    .bg-amber-500\/10, .bg-amber-500\/20, .bg-amber-950\/30, .bg-amber-950\/60, .bg-amber-950\/70, .bg-amber-950\/80, .bg-amber-950\/90 { background-color: rgba(76, 5, 25, 0.7); }
 
     /* Borders */
-
     .border { border-width: 1px; border-style: solid; border-color: rgba(51, 65, 85, 0.7); }
-
     .border-2 { border-width: 2px; border-style: solid; }
-
     .border-b { border-bottom-width: 1px; border-bottom-style: solid; }
-
     .border-t { border-top-width: 1px; border-top-style: solid; }
-
     .border-l { border-left-width: 1px; border-left-style: solid; }
 
-
-
     .border-slate-900 { border-color: #0f172a; }
-
     .border-slate-800 { border-color: #1e293b; }
-
     .border-slate-700 { border-color: #334155; }
-
     .border-slate-800\/40 { border-color: rgba(30, 41, 59, 0.4); }
-
     .border-slate-800\/60 { border-color: rgba(30, 41, 59, 0.6); }
-
     .border-slate-800\/80 { border-color: rgba(30, 41, 59, 0.8); }
-
     .border-slate-700\/60 { border-color: rgba(51, 65, 85, 0.6); }
-
     .border-slate-700\/80 { border-color: rgba(51, 65, 85, 0.8); }
 
-
-
     .border-emerald-500 { border-color: #10b981; }
-
     .border-emerald-500\/20 { border-color: rgba(16, 185, 129, 0.2); }
-
     .border-emerald-500\/30 { border-color: rgba(16, 185, 129, 0.3); }
-
     .border-emerald-500\/40 { border-color: rgba(16, 185, 129, 0.4); }
-
     .border-emerald-500\/50 { border-color: rgba(16, 185, 129, 0.5); }
 
+    .border-rose-500, .border-red-500 { border-color: #f43f5e; }
+    .border-rose-500\/20, .border-red-500\/20 { border-color: rgba(244, 63, 94, 0.2); }
+    .border-rose-500\/30, .border-red-500\/30 { border-color: rgba(244, 63, 94, 0.3); }
+    .border-rose-500\/40, .border-red-500\/40 { border-color: rgba(244, 63, 94, 0.4); }
+    .border-rose-500\/50, .border-red-500\/50 { border-color: rgba(244, 63, 94, 0.5); }
 
+    .border-cyan-500\/20, .border-cyan-500\/30, .border-cyan-500\/40, .border-cyan-500\/50 { border-color: rgba(16, 185, 129, 0.4); }
+    .border-amber-400, .border-amber-500\/20, .border-amber-500\/30, .border-amber-500\/40, .border-amber-500\/50 { border-color: rgba(244, 63, 94, 0.4); }
 
-    .border-cyan-500\/20 { border-color: rgba(6, 182, 212, 0.2); }
+    /* ==========================================================================
+       NEUER LIGHT MODE (SYSTEM-GESTEUERT & MANUELL)
+       - Hintergrund: Edles leichtes Beige-Weiß (#FAF7F2)
+       - Kacheln/Karten: Sanftes Weiß (#FFFFFF) mit dezentem Rand (#E7E2DA)
+       - Text: Dunkles Schiefergrau / Anthrazit (#18181B / #27272A)
+       - Signalfarben: Ausschließlich klares Grün (#15803d / #DCFCE7) & Rot (#B91C1C / #FEE2E2)
+       ========================================================================== */
 
-    .border-cyan-500\/30 { border-color: rgba(6, 182, 212, 0.3); }
+    html.light,
+    html.light body {
+      background-color: #FAF7F2 !important;
+      color: #18181B !important;
+    }
 
-    .border-cyan-500\/40 { border-color: rgba(6, 182, 212, 0.4); }
+    html.light header {
+      background-color: rgba(250, 247, 242, 0.94) !important;
+      border-bottom-color: #E7E2DA !important;
+    }
 
-    .border-cyan-500\/50 { border-color: rgba(6, 182, 212, 0.5); }
+    html.light footer {
+      background-color: #F4F0EB !important;
+      border-top-color: #E7E2DA !important;
+      color: #71717A !important;
+    }
 
+    html.light .glass-card {
+      background: #FFFFFF !important;
+      border-color: #E7E2DA !important;
+      box-shadow: 0 4px 16px -2px rgba(24, 24, 27, 0.05), 0 2px 6px -1px rgba(24, 24, 27, 0.03) !important;
+    }
 
+    /* Light Mode Text */
+    html.light .text-white,
+    html.light .text-slate-100,
+    html.light .text-slate-200 {
+      color: #18181B !important;
+    }
 
-    .border-amber-400 { border-color: #fbbf24; }
+    html.light .text-slate-300 {
+      color: #27272A !important;
+    }
 
-    .border-amber-500\/20 { border-color: rgba(245, 158, 11, 0.2); }
+    html.light .text-slate-400 {
+      color: #52525B !important;
+    }
 
-    .border-amber-500\/30 { border-color: rgba(245, 158, 11, 0.3); }
+    html.light .text-slate-500,
+    html.light .text-slate-600 {
+      color: #71717A !important;
+    }
 
-    .border-amber-500\/40 { border-color: rgba(245, 158, 11, 0.4); }
+    /* Light Mode Backgrounds */
+    html.light .bg-slate-950,
+    html.light .bg-slate-950\/30,
+    html.light .bg-slate-950\/40,
+    html.light .bg-slate-950\/50,
+    html.light .bg-slate-950\/70,
+    html.light .bg-slate-950\/80 {
+      background-color: #F4F0EB !important;
+    }
 
-    .border-amber-500\/50 { border-color: rgba(245, 158, 11, 0.5); }
+    html.light .bg-slate-900,
+    html.light .bg-slate-900\/60,
+    html.light .bg-slate-900\/70,
+    html.light .bg-slate-900\/80,
+    html.light .bg-slate-900\/90,
+    html.light .bg-slate-900\/95 {
+      background-color: #FFFFFF !important;
+    }
 
+    html.light .bg-slate-800,
+    html.light .bg-slate-800\/40,
+    html.light .bg-slate-800\/60,
+    html.light .bg-slate-800\/80 {
+      background-color: #F4F0EB !important;
+    }
 
+    html.light .bg-slate-700,
+    html.light .bg-slate-700\/60,
+    html.light .bg-slate-700\/80 {
+      background-color: #E7E2DA !important;
+    }
 
-    .border-rose-500\/20 { border-color: rgba(244, 63, 94, 0.2); }
+    /* Light Mode Borders */
+    html.light .border-slate-900,
+    html.light .border-slate-800,
+    html.light .border-slate-700,
+    html.light .border-slate-800\/40,
+    html.light .border-slate-800\/60,
+    html.light .border-slate-800\/80,
+    html.light .border-slate-700\/60,
+    html.light .border-slate-700\/80 {
+      border-color: #E7E2DA !important;
+    }
 
-    .border-rose-500\/30 { border-color: rgba(244, 63, 94, 0.3); }
+    html.light .divide-slate-800\/40 > * + *,
+    html.light .divide-slate-800\/60 > * + * {
+      border-top-color: #E7E2DA !important;
+    }
 
-    .border-rose-500\/40 { border-color: rgba(244, 63, 94, 0.4); }
+    /* Light Mode Hovers */
+    html.light tr.hover\:bg-slate-800\/40:hover,
+    html.light tr:hover {
+      background-color: #FAF7F2 !important;
+    }
 
-    .border-rose-500\/50 { border-color: rgba(244, 63, 94, 0.5); }
+    html.light button.hover\:bg-slate-700:hover {
+      background-color: #EAE5DE !important;
+    }
+
+    /* Light Mode Native iOS Switch */
+    html.light .ios-switch-track {
+      background-color: #D8D2C8 !important;
+      border-color: #E7E2DA !important;
+    }
+
+    html.light .ios-switch-input:checked + .ios-switch-track {
+      background-color: #16A34A !important;
+      border-color: #15803d !important;
+      box-shadow: 0 0 10px rgba(22, 163, 74, 0.3) !important;
+    }
+
+    /* Light Mode Signalfarben: Grün */
+    html.light .text-emerald-300,
+    html.light .text-emerald-400,
+    html.light .text-emerald-500,
+    html.light .text-cyan-200,
+    html.light .text-cyan-300,
+    html.light .text-cyan-400 {
+      color: #15803d !important;
+    }
+
+    html.light .bg-emerald-500,
+    html.light .bg-cyan-400 {
+      background-color: #16A34A !important;
+    }
+
+    html.light .bg-emerald-600 {
+      background-color: #15803d !important;
+    }
+
+    html.light .bg-emerald-500\/10,
+    html.light .bg-emerald-500\/20,
+    html.light .bg-emerald-950\/20,
+    html.light .bg-emerald-950\/30,
+    html.light .bg-emerald-950\/70,
+    html.light .bg-emerald-950\/80,
+    html.light .bg-emerald-950\/90,
+    html.light .bg-cyan-500\/10,
+    html.light .bg-cyan-500\/20,
+    html.light .bg-cyan-950\/30,
+    html.light .bg-cyan-950\/70,
+    html.light .bg-cyan-950\/80,
+    html.light .bg-cyan-950\/90 {
+      background-color: #DCFCE7 !important;
+    }
+
+    html.light .border-emerald-500,
+    html.light .border-emerald-500\/20,
+    html.light .border-emerald-500\/30,
+    html.light .border-emerald-500\/40,
+    html.light .border-emerald-500\/50,
+    html.light .border-cyan-500\/20,
+    html.light .border-cyan-500\/30,
+    html.light .border-cyan-500\/40,
+    html.light .border-cyan-500\/50 {
+      border-color: #86EFAC !important;
+    }
+
+    /* Light Mode Signalfarben: Rot */
+    html.light .text-rose-300,
+    html.light .text-rose-400,
+    html.light .text-rose-500,
+    html.light .text-red-300,
+    html.light .text-red-400,
+    html.light .text-red-500,
+    html.light .text-amber-300,
+    html.light .text-amber-400 {
+      color: #B91C1C !important;
+    }
+
+    html.light .bg-rose-500,
+    html.light .bg-red-500,
+    html.light .bg-amber-400 {
+      background-color: #DC2626 !important;
+    }
+
+    html.light .bg-rose-500\/10,
+    html.light .bg-rose-500\/20,
+    html.light .bg-rose-950\/10,
+    html.light .bg-rose-950\/30,
+    html.light .bg-rose-950\/70,
+    html.light .bg-rose-950\/80,
+    html.light .bg-rose-950\/90,
+    html.light .bg-red-950\/10,
+    html.light .bg-red-950\/30,
+    html.light .bg-red-950\/70,
+    html.light .bg-red-950\/80,
+    html.light .bg-red-950\/90,
+    html.light .bg-amber-500\/10,
+    html.light .bg-amber-500\/20,
+    html.light .bg-amber-950\/30,
+    html.light .bg-amber-950\/60,
+    html.light .bg-amber-950\/70,
+    html.light .bg-amber-950\/80,
+    html.light .bg-amber-950\/90 {
+      background-color: #FEE2E2 !important;
+    }
+
+    html.light .border-rose-500,
+    html.light .border-rose-500\/20,
+    html.light .border-rose-500\/30,
+    html.light .border-rose-500\/40,
+    html.light .border-rose-500\/50,
+    html.light .border-red-500,
+    html.light .border-red-500\/30,
+    html.light .border-red-500\/40,
+    html.light .border-amber-400,
+    html.light .border-amber-500\/20,
+    html.light .border-amber-500\/30,
+    html.light .border-amber-500\/40,
+    html.light .border-amber-500\/50 {
+      border-color: #FCA5A5 !important;
+    }
+
+    /* Light Mode Scrollbar & Specifics */
+    html.light .table-scroll-wrapper::-webkit-scrollbar-track {
+      background: #F4F0EB !important;
+    }
+    html.light .table-scroll-wrapper::-webkit-scrollbar-thumb {
+      background: #D8D2C8 !important;
+    }
+    html.light #recommendationHero {
+      background: #FFFFFF !important;
+      border-color: #86EFAC !important;
+    }
+    html.light #btnRefresh {
+      background-color: #16A34A !important;
+      color: #FFFFFF !important;
+    }
+    html.light #btnRefresh:hover {
+      background-color: #15803d !important;
+    }
+    html.light #recActionButton {
+      background-color: #16A34A !important;
+      color: #FFFFFF !important;
+    }
+    html.light #recActionButton:hover {
+      background-color: #15803d !important;
+    }
+
+    /* System Light Preference Media Query */
+    @media (prefers-color-scheme: light) {
+      html:not(.dark),
+      html:not(.dark) body {
+        background-color: #FAF7F2;
+        color: #18181B;
+      }
+    }
 
 
 
@@ -1304,7 +1482,7 @@
 
           <div class="flex flex-wrap items-center gap-x-2 text-xs text-slate-400">
 
-            <span class="text-amber-400 font-semibold flex items-center space-x-1">
+            <span class="text-slate-300 font-semibold flex items-center space-x-1">
 
               <svg class="w-3.5 h-3.5 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
 
@@ -1338,6 +1516,14 @@
 
         </div>
 
+        <!-- Theme Toggle Button (Light / Dark) -->
+
+        <button id="btnThemeToggle" title="Design umschalten (Hell / Dunkel)" class="min-h-[44px] min-w-[44px] p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition flex items-center justify-center cursor-pointer">
+
+          <span id="themeToggleIcon" class="text-base select-none">☀️</span>
+
+        </button>
+
 
 
         <!-- Audio Gong Test Button -->
@@ -1356,7 +1542,7 @@
 
         <!-- Notification Permission Button -->
 
-        <button id="btnNotificationPrompt" class="hidden sm:flex items-center space-x-1.5 min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-medium border transition bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20 cursor-pointer">
+        <button id="btnNotificationPrompt" class="hidden sm:flex items-center space-x-1.5 min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-medium border transition bg-slate-800 text-slate-300 border-slate-700 hover:text-white hover:bg-slate-700 cursor-pointer">
 
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
@@ -1420,7 +1606,7 @@
 
             <span class="flex items-center space-x-2">
 
-              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
 
               <span class="font-bold uppercase tracking-wider text-slate-200">FEIERABEND-TIMER</span>
 
@@ -1436,7 +1622,7 @@
 
             <div id="countdownTitle" class="text-xs text-slate-400">Countdown bis zur 16:25 Uhr Feierabend-Entscheidung</div>
 
-            <div id="countdownDisplay" class="hero-countdown text-4xl sm:text-5xl font-extrabold font-mono text-cyan-400 tracking-tight mt-1">--:--:--</div>
+            <div id="countdownDisplay" class="hero-countdown text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1">--:--:--</div>
 
           </div>
 
@@ -1454,7 +1640,7 @@
 
             <div class="flex items-start space-x-2.5 mb-2">
 
-              <div class="w-5 h-5 rounded-full border border-amber-400 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+              <div class="w-5 h-5 rounded-full border border-slate-600 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
 
                 !
 
@@ -1476,7 +1662,7 @@
 
             <div class="my-2.5">
 
-              <span id="re10SummaryBadge" class="inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-amber-950/60 text-amber-400 border border-amber-500/30">
+              <span id="re10SummaryBadge" class="inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-rose-950/70 text-rose-300 border border-rose-500/40">
 
                 Heute: 1 Ausfall, 4 Verspätungen im Feierabendfenster
 
@@ -1490,7 +1676,7 @@
 
             <div class="flex items-center p-1 rounded-xl bg-slate-950/70 border border-slate-800/80 my-2 sm:hidden text-xs">
 
-              <button id="btnTabRe10" type="button" class="flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition bg-slate-800 text-cyan-300 shadow-sm cursor-pointer">
+              <button id="btnTabRe10" type="button" class="flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition bg-slate-800 text-emerald-300 border border-emerald-500/30 shadow-sm cursor-pointer">
 
                 🚆 RE10
 
@@ -1582,7 +1768,7 @@
 
         <!-- 1. LUCAS TRANSIT GMBH MÖGLICH LEISTE -->
 
-        <div class="glass-card p-4 sm:p-5 border-amber-500/25 bg-slate-900/80 shadow-md">
+        <div class="glass-card p-4 sm:p-5 border-slate-800 bg-slate-900/80 shadow-md">
 
           <!-- Obere Zeile: Icon, Titel, Status-Badge & iOS Switch rechts -->
 
@@ -1590,7 +1776,7 @@
 
             <div class="flex items-center space-x-3 min-w-0">
 
-              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-xl shrink-0">
+              <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xl shrink-0">
 
                 🚗
 
@@ -1648,13 +1834,13 @@
 
           <div class="flex flex-wrap items-center gap-2 pt-3 text-xs">
 
-            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-500/10 text-amber-300 border border-amber-500/20">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/60">
 
               🚗 Zum Friedhof: ~3–4 Min
 
             </span>
 
-            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/60">
 
               🚶 Nach Boekholt: ~5–7 Min
 
@@ -1674,7 +1860,7 @@
 
         <!-- 2. GROSSE HERO-EMPFEHLUNGS-KARTE -->
 
-        <div id="recommendationHero" class="glass-card p-5 sm:p-6 border-2 border-cyan-500/40 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-slate-950 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300">
+        <div id="recommendationHero" class="glass-card p-5 sm:p-6 border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-slate-950 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300">
 
           <div>
 
@@ -1684,9 +1870,9 @@
 
               <div class="flex items-center space-x-2.5">
 
-                <span id="recBadgePill" class="px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-cyan-950/70 text-cyan-400 border border-cyan-500/40 flex items-center space-x-1.5 shadow-sm">
+                <span id="recBadgePill" class="px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm">
 
-                  <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
 
                   <span id="recBadgeText">KLARE EMPFEHLUNG: BAHN RE10</span>
 
@@ -1696,7 +1882,7 @@
 
               </div>
 
-              <div id="recSpeedComparison" class="text-xs sm:text-sm font-bold text-cyan-400 font-mono">
+              <div id="recSpeedComparison" class="text-xs sm:text-sm font-bold text-emerald-400 font-mono">
 
                 Ankunft Geldern: ca. 17:05 Uhr
 
@@ -1760,7 +1946,7 @@
 
             </div>
 
-            <button id="recActionButton" class="w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-cyan-950/90 hover:bg-cyan-900/90 text-cyan-300 border border-cyan-500/50 shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center">
+            <button id="recActionButton" class="w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center">
 
               Um 16:25 Uhr zu Fuß nach Boekholt gehen
 
@@ -1782,7 +1968,7 @@
 
             <div class="flex items-center space-x-2.5">
 
-              <div class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-sm shrink-0">
+              <div class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 font-bold text-sm shrink-0">
 
                 📡
 
@@ -1850,7 +2036,7 @@
 
               <div class="flex items-center space-x-1.5 text-slate-300">
 
-                <span class="w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+                <span class="w-2 h-2 rounded-full bg-slate-500 shrink-0"></span>
 
                 <span class="font-bold" id="progStartStation">Start: Kempen Bf</span>
 
@@ -1884,7 +2070,7 @@
               <div class="relative w-full flex items-center" style="height: 10px; position: relative; display: flex; align-items: center;">
                 <!-- Track Line -->
                 <div class="h-2.5 w-full bg-slate-950/80 rounded-full border border-slate-800 relative overflow-hidden" style="height: 10px;">
-                  <div id="progBarFill" class="h-full rounded-full bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]" style="width: 65%;"></div>
+                  <div id="progBarFill" class="h-full rounded-full bg-emerald-500 transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.4)]" style="width: 65%;"></div>
                 </div>
 
                 <!-- Fahrzeug-Marker: Perfekt vertikal und horizontal auf der Schiene zentriert -->
@@ -2160,7 +2346,7 @@
 
       <!-- BAHN RE10 CARD (STRAELEN BOEKHOLT VIA FUSSWEG ➔ NIEUKERK ➔ GELDERN) -->
 
-      <div id="cardRoute2" class="glass-card p-6 border-slate-700 hover:border-cyan-500/50 transition duration-200 relative flex flex-col justify-between">
+      <div id="cardRoute2" class="glass-card p-6 border-slate-700 hover:border-slate-500 transition duration-200 relative flex flex-col justify-between">
 
         <div>
 
@@ -2170,7 +2356,7 @@
 
             <div class="flex items-center space-x-3">
 
-              <span class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-bold flex items-center justify-center text-xs">
+              <span class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 font-bold flex items-center justify-center text-xs">
 
                 RE10
 
@@ -2230,7 +2416,7 @@
 
           <!-- SB41 Alert Banner -->
 
-          <div id="r2Sb41Alert" class="hidden mb-4 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-300 flex items-start space-x-2">
+          <div id="r2Sb41Alert" class="hidden mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 flex items-start space-x-2">
 
             <span id="r2Sb41AlertIcon" class="text-sm">⚠️</span>
 
@@ -2248,7 +2434,7 @@
 
             <div class="flex-1 leading-relaxed">
 
-              <span id="r2StatusTitle" class="font-semibold text-amber-300 block">Status RE10 16:53 Uhr: pünktlich ➔ nicht erreichbar</span>
+              <span id="r2StatusTitle" class="font-semibold text-rose-400 block">Status RE10 16:53 Uhr: pünktlich ➔ nicht erreichbar</span>
 
               <span id="r2StatusDetail" class="text-slate-400 block mt-0.5">Planmäßiger Zielzug: <strong class="text-white">RE10 um 17:23/17:25 Uhr</strong> (Ankunft Geldern: <strong class="text-white">ca. 17:31 Uhr</strong>). 24–26 Min Puffer in Nieukerk.</span>
 
@@ -2300,7 +2486,7 @@
 
             <div class="flex items-center space-x-3">
 
-              <div class="w-5 h-5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center text-[10px]">3</div>
+              <div class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-[10px]">3</div>
 
               <div class="flex-1">
 
@@ -2324,7 +2510,7 @@
 
         <div class="pt-4 mt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
 
-          <span class="text-slate-400">Verlässlichkeit: <strong id="r2Score" class="text-cyan-400">85/100</strong></span>
+          <span class="text-slate-400">Verlässlichkeit: <strong id="r2Score" class="text-emerald-400">85/100</strong></span>
 
           <span class="text-slate-400">Status: <span id="r2Risk" class="text-slate-300">Regulärer Zielzug 17:23/17:25 Uhr</span></span>
 
@@ -2360,7 +2546,7 @@
 
           <div class="flex items-center space-x-3">
 
-            <span class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-bold flex items-center justify-center text-xs sm:text-sm shadow-sm shrink-0">
+            <span class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 font-bold flex items-center justify-center text-xs sm:text-sm shadow-sm shrink-0">
 
               RE10
 
@@ -2382,7 +2568,7 @@
 
           <div class="text-[11px] sm:text-xs text-slate-400 font-mono flex items-center space-x-2 self-start sm:self-auto">
 
-            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
 
             <span>Richtung Geldern / Kleve</span>
 
@@ -2392,7 +2578,7 @@
 
 
 
-        <div class="flex items-center text-[10px] text-cyan-400/80 sm:hidden mb-2 px-0.5"><span>↔️ Tabelle horizontal wischbar</span></div>
+        <div class="flex items-center text-[10px] text-slate-400 sm:hidden mb-2 px-0.5"><span>↔️ Tabelle horizontal wischbar</span></div>
 
         <div class="table-scroll-wrapper rounded-xl border border-slate-800/80 bg-slate-950/40">
 
@@ -2440,7 +2626,7 @@
 
           <div class="flex items-center space-x-3">
 
-            <span class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 font-bold flex items-center justify-center text-xs sm:text-sm shadow-sm shrink-0">
+            <span class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 font-bold flex items-center justify-center text-xs sm:text-sm shadow-sm shrink-0">
 
               SB41
 
@@ -2462,7 +2648,7 @@
 
           <div class="text-[11px] sm:text-xs text-slate-400 font-mono flex items-center space-x-2 self-start sm:self-auto">
 
-            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span class="w-2 h-2 rounded-full bg-slate-500"></span>
 
             <span>Richtung Nieukerk Bf</span>
 
@@ -2472,7 +2658,7 @@
 
 
 
-        <div class="flex items-center text-[10px] text-cyan-400/80 sm:hidden mb-2 px-0.5"><span>↔️ Tabelle horizontal wischbar</span></div>
+        <div class="flex items-center text-[10px] text-slate-400 sm:hidden mb-2 px-0.5"><span>↔️ Tabelle horizontal wischbar</span></div>
 
         <div class="table-scroll-wrapper rounded-xl border border-slate-800/80 bg-slate-950/40">
 
@@ -2552,7 +2738,7 @@
 
 
 
-        <div class="flex items-center text-[10px] text-cyan-400/80 sm:hidden mb-2 px-0.5"><span>↔️ Tabelle horizontal wischbar</span></div>
+        <div class="flex items-center text-[10px] text-slate-400 sm:hidden mb-2 px-0.5"><span>↔️ Tabelle horizontal wischbar</span></div>
 
         <div class="table-scroll-wrapper rounded-xl border border-slate-800/80 bg-slate-950/40">
 
@@ -2906,7 +3092,7 @@
 
         state.permissionGranted = false;
 
-        btn.className = "hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20";
+        btn.className = "hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition bg-slate-800 text-slate-300 border-slate-700 hover:text-white hover:bg-slate-700 cursor-pointer";
 
         btnText.textContent = "Benachrichtigung erlauben";
 
@@ -3412,11 +3598,11 @@
 
             badge: "🚀 SPEED-EMPFEHLUNG: BAHN RE10",
 
-            theme: "cyan",
+            theme: "green",
 
             title: "Bahn RE10 früher erreichbar! (via SB41 Straelen Boekholt ➔ Nieukerk)",
 
-            explanation: `${r1UnfeasibleMsg}.<br><strong class="text-white">🚀 Glücksfall:</strong> Feierabend um 16:30 Uhr ➔ Fußweg nach Boekholt (Eintreffen ~16:36 Uhr) ➔ SB41 (${sb41Info}). RE10 (Plan 16:53 Uhr) hat aktuell <strong>+${r2.re10Delay} Min Verspätung</strong> (Abfahrt ca. ${r2.targetDep} Uhr) und wird mit <strong>${transferMargin} Min Umsteigezeit</strong> noch erreicht! <strong>Spart ca. 24 Minuten Wartezeit</strong> gegenüber dem regulären 17:23 Uhr Zug! Express-Ankunft Geldern: <strong class="text-cyan-300">ca. ${r2.arrivalGeldern} Uhr</strong>.`,
+            explanation: `${r1UnfeasibleMsg}.<br><strong class="text-white">🚀 Glücksfall:</strong> Feierabend um 16:30 Uhr ➔ Fußweg nach Boekholt (Eintreffen ~16:36 Uhr) ➔ SB41 (${sb41Info}). RE10 (Plan 16:53 Uhr) hat aktuell <strong>+${r2.re10Delay} Min Verspätung</strong> (Abfahrt ca. ${r2.targetDep} Uhr) und wird mit <strong>${transferMargin} Min Umsteigezeit</strong> noch erreicht! <strong>Spart ca. 24 Minuten Wartezeit</strong> gegenüber dem regulären 17:23 Uhr Zug! Express-Ankunft Geldern: <strong class="text-emerald-400">ca. ${r2.arrivalGeldern} Uhr</strong>.`,
 
             confidence: "93%",
 
@@ -3438,7 +3624,7 @@
 
             badge: "KLARE EMPFEHLUNG: BAHN RE10",
 
-            theme: "cyan",
+            theme: "green",
 
             title: "Bahn RE10 um 17:23 Uhr (via SB41 Straelen Boekholt ➔ Nieukerk)",
 
@@ -3784,179 +3970,73 @@
 
 
 
-      if (rec.theme === "green") {
-
-        hero.className = "glass-card p-5 sm:p-6 border-2 border-emerald-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-emerald-950/20 flex-1 flex flex-col justify-between shadow-[0_0_25px_-5px_rgba(16,185,129,0.3)] transition-all duration-300";
-
-        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-emerald-950/70 text-emerald-400 border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm";
-
-        recBadgeText.textContent = "KLARE EMPFEHLUNG: BUS 63";
-
-        recSpeed.className = "text-xs sm:text-sm font-bold text-emerald-400 font-mono";
-
-        recSpeed.textContent = `Ankunft Geldern: ca. ${r1.arrivalGeldern} Uhr (⚡ ~32 Min vor Bahn)`;
-
-        recTitle.textContent = "Bus 63";
-
-
-
-        if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-emerald-400 mb-3 flex items-center space-x-1.5";
-
-        if (recStatusIcon) recStatusIcon.textContent = "🟢";
-
-        if (recStatusText) recStatusText.textContent = `Optimal machbar (+${r1.delayMin} Min Verspätung an Straelen Friedhof & Lucas fährt Auto).`;
-
-
-
-        recExpl.innerHTML = `Feierabend um 16:30 Uhr am Kromsteg 29. Fahre mit Lucas per Auto (ca. 3–4 Min ab Kromsteg 29, Eintreffen Friedhof ~16:35 Uhr) zur Haltestelle Straelen Friedhof. Bus 63 fährt verspätet um ca. <strong>${r1.liveDep} Uhr</strong> ab (Plan 16:35 Uhr, +${r1.delayMin}m). Direkte Ankunft in Geldern bereits um <strong>ca. ${r1.arrivalGeldern} Uhr</strong> – ca. 32–33 Minuten schneller als die reguläre Bahn RE10! Keine Umstiege.`;
-
-
-
-        if (recAction) {
-
-          recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-950/90 hover:bg-emerald-900/90 text-emerald-300 border border-emerald-500/50 shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
-
-          recAction.textContent = "Um 16:30 Uhr mit Lucas zu Bus 63 fahren";
-
-        }
-
-        recSummaryPills.innerHTML = `
-
-          <span>🚗 Lucas Transit Auto</span>
-
-          <span>🚌 Bus 63 Direkt</span>
-
-          <span>🔄 0 Umstiege</span>
-
-        `;
-
-      } else if (rec.theme === "cyan") {
-
-        hero.className = "glass-card p-5 sm:p-6 border-2 border-cyan-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-slate-950 flex-1 flex flex-col justify-between shadow-[0_0_25px_-5px_rgba(6,182,212,0.3)] transition-all duration-300";
-
-        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-cyan-950/70 text-cyan-400 border border-cyan-500/40 flex items-center space-x-1.5 shadow-sm";
-
-        recBadgeText.textContent = rec.type === "ROUTE_2_FAST" ? "🚀 SPEED-EMPFEHLUNG: BAHN RE10" : "KLARE EMPFEHLUNG: BAHN RE10";
-
-        recSpeed.className = "text-xs sm:text-sm font-bold text-cyan-400 font-mono";
-
-        recSpeed.textContent = `Ankunft Geldern: ${rec.arrival.includes('Ankunft') ? rec.arrival : (rec.arrival.startsWith('ca.') ? rec.arrival : 'ca. ' + rec.arrival)}`;
-
-        recTitle.textContent = "Bahn RE10";
-
-
-
-        if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-rose-400 mb-3 flex items-center space-x-1.5";
-
-        if (recStatusIcon) recStatusIcon.textContent = "❌";
-
-        if (recStatusText) recStatusText.textContent = state.r1UnfeasibleMsg ? state.r1UnfeasibleMsg.replace("❌ ", "") : "Nicht machbar (Bus 63 zu pünktlich, mind. 3 Min Verspätung erforderlich).";
-
-
-
-        recExpl.innerHTML = `Verlasse Kromsteg 29 um 16:25 Uhr zu Fuß nach Boekholt (ca. 5–7 Min Gehzeit, SB41 fährt um ${r2.sb41Live} Uhr). Sicherer Anschluss an die Bahn RE10 in Nieukerk nach Geldern.`;
-
-
-
-        if (recAction) {
-
-          recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-cyan-950/90 hover:bg-cyan-900/90 text-cyan-300 border border-cyan-500/50 shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
-
-          recAction.textContent = "Um 16:25 Uhr zu Fuß nach Boekholt gehen";
-
-        }
-
-        recSummaryPills.innerHTML = `
-
-          <span>🚶 Fußweg Boekholt (~5–7 Min)</span>
-
-          <span>🚌 SB41 ➔ Nieukerk</span>
-
-          <span>🚆 Bahn RE10 nach Geldern</span>
-
-        `;
-
-      } else if (rec.theme === "red") {
-
-        hero.className = "glass-card p-5 sm:p-6 border-2 border-rose-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-rose-950/30 flex-1 flex flex-col justify-between shadow-[0_0_25px_-5px_rgba(244,63,94,0.3)] transition-all duration-300";
-
-        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-rose-950/70 text-rose-400 border border-rose-500/40 flex items-center space-x-1.5 shadow-sm";
-
+      if (rec.theme === "red") {
+        hero.className = "glass-card p-5 sm:p-6 border-2 border-rose-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-rose-950/30 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300";
+        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-rose-950/70 text-rose-300 border border-rose-500/40 flex items-center space-x-1.5 shadow-sm";
         recBadgeText.textContent = rec.badge;
-
         recSpeed.className = "text-xs sm:text-sm font-bold text-rose-400 font-mono";
-
         recSpeed.textContent = `Ankunft: ${rec.arrival}`;
-
         recTitle.textContent = rec.type.startsWith("ROUTE_1") ? "Bus 63 (Ausfall-Fallback)" : "Achtung: Störung!";
 
-
-
         if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-rose-400 mb-3 flex items-center space-x-1.5";
-
         if (recStatusIcon) recStatusIcon.textContent = "🚨";
-
         if (recStatusText) recStatusText.textContent = rec.type === "ROUTE_1_CHAOS_FALLBACK" ? "Bahn RE10 Ausfall in Nieukerk! Nieukerk meiden." : "Störungsmeldung im Feierabendfenster beachten!";
 
-
-
         recExpl.innerHTML = rec.explanation;
 
-
-
         if (recAction) {
-
-          recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-rose-950/90 hover:bg-rose-900/90 text-rose-300 border border-rose-500/50 shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
-
+          recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
           recAction.textContent = rec.type === "ROUTE_1_CHAOS_FALLBACK" ? "Mit Lucas zu Bus 63 fahren" : "Verbindung vor Abgang prüfen";
-
         }
-
         recSummaryPills.innerHTML = `
-
-          <span class="text-rose-400">⚠️ Störungsmeldung beachten</span>
-
+          <span class="text-rose-400 font-medium">⚠️ Störungsmeldung beachten</span>
         `;
-
       } else {
-
-        hero.className = "glass-card p-5 sm:p-6 border-2 border-amber-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-amber-950/30 flex-1 flex flex-col justify-between shadow-[0_0_25px_-5px_rgba(245,158,11,0.3)] transition-all duration-300";
-
-        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-amber-950/70 text-amber-400 border border-amber-500/40 flex items-center space-x-1.5 shadow-sm";
-
+        // REINE 2-FARBEN-SIGNAL-EMPFEHLUNG: ALLE AKTIVEN EMPFEHLUNGEN IN SATTE/KLARE GRÜNE SIGNALFARBE
+        hero.className = "glass-card p-5 sm:p-6 border-2 border-emerald-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-slate-950 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300";
+        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm";
         recBadgeText.textContent = rec.badge;
+        recSpeed.className = "text-xs sm:text-sm font-bold text-emerald-400 font-mono";
+        recSpeed.textContent = `Ankunft Geldern: ${rec.arrival.includes('Ankunft') ? rec.arrival : (rec.arrival.startsWith('ca.') ? rec.arrival : 'ca. ' + rec.arrival)}`;
+        
+        const isBus63 = rec.type === "ROUTE_1";
+        recTitle.textContent = isBus63 ? "Bus 63" : "Bahn RE10";
 
-        recSpeed.className = "text-xs sm:text-sm font-bold text-amber-400 font-mono";
+        if (isBus63) {
+          if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-emerald-400 mb-3 flex items-center space-x-1.5";
+          if (recStatusIcon) recStatusIcon.textContent = "🟢";
+          if (recStatusText) recStatusText.textContent = `Optimal machbar (+${r1.delayMin} Min Verspätung an Straelen Friedhof & Lucas fährt Auto).`;
 
-        recSpeed.textContent = `Ankunft: ${rec.arrival}`;
+          recExpl.innerHTML = `Feierabend um 16:30 Uhr am Kromsteg 29. Fahre mit Lucas per Auto (ca. 3–4 Min ab Kromsteg 29, Eintreffen Friedhof ~16:35 Uhr) zur Haltestelle Straelen Friedhof. Bus 63 fährt verspätet um ca. <strong>${r1.liveDep} Uhr</strong> ab (Plan 16:35 Uhr, +${r1.delayMin}m). Direkte Ankunft in Geldern bereits um <strong>ca. ${r1.arrivalGeldern} Uhr</strong> – ca. 32–33 Minuten schneller als die reguläre Bahn RE10! Keine Umstiege.`;
 
-        recTitle.textContent = rec.title;
+          if (recAction) {
+            recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
+            recAction.textContent = "Um 16:30 Uhr mit Lucas zu Bus 63 fahren";
+          }
+          recSummaryPills.innerHTML = `
+            <span>🚗 Lucas Transit Auto</span>
+            <span>🚌 Bus 63 Direkt</span>
+            <span>🔄 0 Umstiege</span>
+          `;
+        } else {
+          // RE10 Empfehlung (Reine grüne Signalfarbe für die Empfehlung, roter Status für nicht machbaren Bus)
+          if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-rose-400 mb-3 flex items-center space-x-1.5";
+          if (recStatusIcon) recStatusIcon.textContent = "❌";
+          if (recStatusText) recStatusText.textContent = state.r1UnfeasibleMsg ? state.r1UnfeasibleMsg.replace("❌ ", "") : "Nicht machbar (Bus 63 zu pünktlich, mind. 3 Min Verspätung erforderlich).";
 
+          recExpl.innerHTML = rec.explanation;
 
-
-        if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-amber-400 mb-3 flex items-center space-x-1.5";
-
-        if (recStatusIcon) recStatusIcon.textContent = "⚠️";
-
-        if (recStatusText) recStatusText.textContent = "Aktuelle Verbindungslage prüfen";
-
-
-
-        recExpl.innerHTML = rec.explanation;
-
-
-
-        if (recAction) {
-
-          recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-amber-950/90 hover:bg-amber-900/90 text-amber-300 border border-amber-500/50 shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
-
-          recAction.textContent = "Verbindung vor Abgang prüfen";
-
+          if (recAction) {
+            recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
+            recAction.textContent = "Um 16:25 Uhr zu Fuß nach Boekholt gehen";
+          }
+          recSummaryPills.innerHTML = `
+            <span>🚶 Fußweg Boekholt (~5–7 Min)</span>
+            <span>🚌 SB41 ➔ Nieukerk</span>
+            <span>🚆 Bahn RE10 nach Geldern</span>
+          `;
         }
-
       }
-
-
 
       // BUS 63 CARD
 
@@ -4122,11 +4202,11 @@ const r2RiskEl = document.getElementById("r2Risk");
 
       } else if (r2.sb41Delay > 0) {
 
-        r2Sb41TimeEl.innerHTML = `${r2.sb41Live} <span class="text-xs text-amber-400 font-semibold">(+${r2.sb41Delay}m)</span>`;
+        r2Sb41TimeEl.innerHTML = `${r2.sb41Live} <span class="text-xs text-rose-400 font-semibold">(+${r2.sb41Delay}m)</span>`;
 
         if (r2Sb41SubEl) {
 
-          r2Sb41SubEl.className = "text-[10px] text-amber-300 mt-0.5 font-medium";
+          r2Sb41SubEl.className = "text-[10px] text-rose-300 mt-0.5 font-medium";
 
           r2Sb41SubEl.textContent = `Ank. Nieukerk: ~${r2.arrivalNieukerk}`;
 
@@ -4174,7 +4254,7 @@ const r2RiskEl = document.getElementById("r2Risk");
 
         } else if (r2.sb41Delay >= 5) {
 
-          r2Sb41Alert.className = "mb-4 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-300 flex items-start space-x-2";
+          r2Sb41Alert.className = "mb-4 p-3 rounded-xl bg-rose-950/30 border border-rose-500/40 text-xs text-rose-300 flex items-start space-x-2";
 
           r2Sb41Alert.classList.remove("hidden");
 
@@ -4422,9 +4502,9 @@ r2RiskEl.className = "text-rose-400 font-bold";
 
         if (r2Re10Label) r2Re10Label.textContent = "RE10 Nieukerk (16:53)";
 
-        r2Re10El.innerHTML = `${r2.targetDep} <span class="text-xs text-amber-400 font-semibold">(+${r2.re10Delay})</span>`;
+        r2Re10El.innerHTML = `${r2.targetDep} <span class="text-xs text-emerald-400 font-semibold">(+${r2.re10Delay})</span>`;
 
-        r2ArrEl.innerHTML = `${r2.arrivalGeldern} <span class="text-xs text-cyan-400 font-normal">(Express)</span>`;
+        r2ArrEl.innerHTML = `${r2.arrivalGeldern} <span class="text-xs text-emerald-400 font-normal">(Express)</span>`;
 
         if (r2Re10Sub) r2Re10Sub.textContent = "Speed-Tipp!";
 
@@ -4432,7 +4512,7 @@ r2RiskEl.className = "text-rose-400 font-bold";
 
 
 
-r2RiskEl.className = "text-cyan-400 font-semibold";
+r2RiskEl.className = "text-emerald-400 font-semibold";
 
         r2RiskEl.textContent = `Express-Chance (+${r2.re10Delay}m Verspätung)`;
 
@@ -4444,13 +4524,13 @@ r2RiskEl.className = "text-cyan-400 font-semibold";
 
         if (r2StatusBox) {
 
-          r2StatusBox.className = "mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-cyan-500/10 border-cyan-500/30 text-cyan-200";
+          r2StatusBox.className = "mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-emerald-950/30 border-emerald-500/40 text-emerald-200";
 
           if (r2StatusIcon) r2StatusIcon.textContent = "🚀";
 
           if (r2StatusTitle) {
 
-            r2StatusTitle.className = "font-bold text-cyan-300 block";
+            r2StatusTitle.className = "font-bold text-emerald-300 block";
 
             r2StatusTitle.textContent = `🚀 SPEED-TIPP: RE10 16:53 Uhr erreichbar!`;
 
@@ -4458,7 +4538,7 @@ r2RiskEl.className = "text-cyan-400 font-semibold";
 
           if (r2StatusDetail) {
 
-            r2StatusDetail.innerHTML = `Glücksfall: RE10 16:53 hat Verspätung (+${r2.re10Delay} Min, Abfahrt ca. ${r2.targetDep} Uhr) und wird nach Eintreffen des SB41 (${r2.arrivalNieukerk} Uhr) mit <strong class="text-white">${transferMargin} Min Umsteigezeit</strong> noch erreicht! Spart ca. 24 Minuten Wartezeit! Express-Ankunft Geldern: <strong class="text-cyan-300">ca. ${r2.arrivalGeldern} Uhr</strong>.`;
+            r2StatusDetail.innerHTML = `Glücksfall: RE10 16:53 hat Verspätung (+${r2.re10Delay} Min, Abfahrt ca. ${r2.targetDep} Uhr) und wird nach Eintreffen des SB41 (${r2.arrivalNieukerk} Uhr) mit <strong class="text-white">${transferMargin} Min Umsteigezeit</strong> noch erreicht! Spart ca. 24 Minuten Wartezeit! Express-Ankunft Geldern: <strong class="text-emerald-300">ca. ${r2.arrivalGeldern} Uhr</strong>.`;
 
           }
 
@@ -4466,7 +4546,7 @@ r2RiskEl.className = "text-cyan-400 font-semibold";
 
 
 
-        r2TransferPill.className = "text-cyan-400 font-mono font-semibold";
+        r2TransferPill.className = "text-emerald-400 font-mono font-semibold";
 
         r2TransferPill.textContent = `${transferMargin} Min Umstiegszeit`;
 
@@ -4512,7 +4592,7 @@ r2RiskEl.className = "text-slate-300";
 
           if (r2StatusTitle) {
 
-            r2StatusTitle.className = "font-semibold text-amber-300 block";
+            r2StatusTitle.className = "font-semibold text-slate-200 block";
 
             if (r2.re10Delay >= 5) {
 
@@ -4583,184 +4663,107 @@ r2RiskEl.className = "text-slate-300";
 
 
     function populateMonitorTable() {
-
       const tbody = document.getElementById("monitorTableBody");
-
       const summaryBadge = document.getElementById("re10SummaryBadge");
-
       if (!tbody) return;
 
-
-
       const r1 = state.route1;
-
       const r2 = state.route2;
 
-
-
       // STRIKTE FILTERUNG: NUR FAHRTEN IN RICHTUNG GELDERN / KLEVE!
-
       // Links: RE10 (Nieukerk Richtung Geldern / Kleve)
-
       // Rechts: Bus 63 (Straelen Friedhof Richtung Geldern Bf)
 
-
-
       const re10LiveStatus = r2.re10Cancelled ? "CANCEL" : (r2.canCatchEarlier ? "SPEED" : (r2.re10Delay > 0 ? "DELAY" : "ONTIME"));
-
       const re10LiveText = r2.re10Cancelled ? "AUSFALL" : (r2.re10Delay > 0 ? `16:${String(53 + r2.re10Delay).padStart(2, "0")} (+${r2.re10Delay}m)` : "16:53");
 
-
-
       const bus63LiveStatus = r1.cancelled ? "CANCEL" : (r1.delayMin >= 3 ? "OPTIMAL" : (r1.delayMin > 0 ? "DELAY" : "ONTIME"));
-
       const bus63LiveText = r1.cancelled ? "AUSFALL" : (r1.delayMin > 0 ? `${r1.liveDep} (+${r1.delayMin}m)` : "16:35");
 
-
+      // Zielzug 17:23 Uhr Status für die kleine obere Quick-Tabelle
+      let targetTrain1723Status = "ONTIME";
+      let targetTrain1723Live = "17:23 (Ziel)";
+      if (r2.re10Cancelled) {
+        targetTrain1723Status = "CANCEL";
+        targetTrain1723Live = "AUSFALL";
+      } else if (r2.targetTrainMissed) {
+        targetTrain1723Status = "CANCEL";
+        targetTrain1723Live = "VERPASST";
+      }
 
       const rows = [
-
         {
-
           re10: { id: "RE10 (82280)", plan: "14:55", live: "15:18 (+23m)", delay: 23, status: "DELAY" },
-
           bus63: { id: "Bus 63 (35418)", plan: "13:35", live: "13:35", delay: 0, status: "ONTIME" }
-
         },
-
         {
-
           re10: { id: "RE10 (82282)", plan: "15:25", live: "15:25", delay: 0, status: "ONTIME" },
-
           bus63: { id: "Bus 63 (35420)", plan: "14:35", live: "14:38 (+3m)", delay: 3, status: "DELAY" }
-
         },
-
         {
-
           re10: { id: "RE10 (82284)", plan: "15:55", live: "16:15 (+20m)", delay: 20, status: "DELAY" },
-
           bus63: { id: "Bus 63 (35422)", plan: "15:35", live: "15:37 (+2m)", delay: 2, status: "DELAY" }
-
         },
-
         {
-
           re10: { id: "RE10 (82286)", plan: "16:25", live: "AUSFALL", delay: 999, status: "CANCEL" },
-
           bus63: { id: "Bus 63 (35424)", plan: r1.plannedDep || "16:35", live: bus63LiveText, delay: r1.delayMin, status: bus63LiveStatus }
-
         },
-
         {
-
           re10: { id: "RE10 (82288)", plan: "16:53", live: re10LiveText, delay: r2.re10Delay, status: re10LiveStatus },
-
           bus63: { id: "Bus 63 (35426)", plan: "17:35", live: "17:35", delay: 0, status: "ONTIME" }
-
+        },
+        {
+          // 17:23 UHR ZIELZUG FEST IN DER OBEREN QUICK-TABELLE
+          re10: { id: "RE10 (82290) 🎯", plan: "17:23", live: targetTrain1723Live, delay: 0, status: targetTrain1723Status },
+          bus63: { id: "Bus 63 (35428)", plan: "18:35", live: "18:35", delay: 0, status: "ONTIME" }
         }
-
       ];
 
-
-
-      let html = "";
-
+      let htmlRows = "";
       rows.forEach(r => {
-
         const reBadge = formatStatusBadge(r.re10);
-
         const busBadge = formatStatusBadge(r.bus63);
 
-
-
-        html += `
-
+        htmlRows += `
           <tr class="hover:bg-slate-800/40 transition">
-
             <td class="col-re10 py-1.5 px-2 font-semibold text-slate-200 whitespace-nowrap">${r.re10.id}</td>
-
             <td class="col-re10 py-1.5 px-1 text-slate-400 whitespace-nowrap">${r.re10.plan}</td>
-
             <td class="col-re10 py-1.5 px-1.5 whitespace-nowrap">${reBadge}</td>
-
             <td class="col-bus63 py-1.5 px-2 font-semibold text-slate-200 border-l border-slate-800/80 whitespace-nowrap">${r.bus63.id}</td>
-
             <td class="col-bus63 py-1.5 px-1 text-slate-400 whitespace-nowrap">${r.bus63.plan}</td>
-
             <td class="col-bus63 py-1.5 px-1.5 whitespace-nowrap">${busBadge}</td>
-
           </tr>
-
         `;
-
       });
 
-
-
-      tbody.innerHTML = html;
-
-
+      tbody.innerHTML = htmlRows;
 
       if (summaryBadge) {
-
         if (r2.re10Cancelled || r1.cancelled) {
-
-          summaryBadge.textContent = "⚠️ Akute Störung / Ausfall im aktuellen Feierabendfenster!";
-
+          summaryBadge.textContent = "🚨 Akute Störung / Ausfall im aktuellen Feierabendfenster!";
+          summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-rose-950/70 text-rose-300 border border-rose-500/40";
         } else if (r1.delayMin >= 3 && state.lucasAvailable) {
-
           summaryBadge.textContent = `🟢 Bus 63 (+${r1.delayMin}m) & Lucas Auto optimal machbar!`;
-
+          summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-500/40";
         } else {
-
           summaryBadge.textContent = "Heute: 1 Ausfall, 4 Verspätungen im Feierabendfenster";
-
+          summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-rose-950/70 text-rose-300 border border-rose-500/40";
         }
-
       }
-
     }
 
-
-
+    // 2-FARBEN SIGNALKONZEPT: NUR GRÜN (Pünktlich/Machbar/Zielzug) & ROT (Verspätung/Ausfall/Verpasst)
     function formatStatusBadge(item) {
-
       if (item.status === "CANCEL") {
-
-        return `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">AUSFALL</span>`;
-
+        return `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${item.live || 'AUSFALL'}</span>`;
       }
-
-      if (item.status === "SPEED") {
-
-        return `<span class="bg-cyan-950/80 text-cyan-400 border border-cyan-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${item.live}</span>`;
-
-      }
-
-      if (item.status === "OPTIMAL") {
-
-        return `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${item.live}</span>`;
-
-      }
-
       if (item.status === "DELAY" || item.delay > 0) {
-
-        return `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium">${item.live}</span>`;
-
+        return `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium">${item.live}</span>`;
       }
-
-      return `<span class="text-slate-300 font-mono text-[10px] px-1 py-0.5">${item.live}</span>`;
-
+      // PÜNKTLICH / ZIELZUG / SPEED / OPTIMAL -> SATTE GRÜNE SIGNALFARBE
+      return `<span class="bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${item.live}</span>`;
     }
 
-
-
-    // --- DEEP-DIVE: 3 DETAILLIERTE TABELLEN (FEIERABENDFENSTER) ---
-
-    
-
-    // --- 5.1 LIVE-ZULAUF-ZEITSTRAHL & HALTESTELLEN-STATUS ENGINE ---
     function renderProgressTimeline() {
       const mode = state.progressVehicle || "bus63";
       const r1 = state.route1;
@@ -4836,7 +4839,7 @@ r2RiskEl.className = "text-slate-300";
       let stops = [];
 
       if (mode === "bus63") {
-        btnBus63.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40`;
+        btnBus63.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
         vehicleIcon = "🚌";
         vehicleLabel = "Bus 63";
         startStationName = "Kempen Bf";
@@ -4851,7 +4854,7 @@ r2RiskEl.className = "text-slate-300";
           startActualTime = "Ausfall";
           targetLiveTime = "AUSFALL";
           targetBadgeText = "AUSFALL (Fahrt entfällt)";
-          targetBadgeClass = "bg-rose-950/80 text-rose-400 border-rose-500/40";
+          targetBadgeClass = "bg-rose-950/80 text-rose-300 border border-rose-500/40";
           themeColor = "rose";
         } else {
           delayMin = Math.max(0, r1.delayMin || 0);
@@ -4859,11 +4862,11 @@ r2RiskEl.className = "text-slate-300";
           startActualTime = delayMin > 0 ? `16:03 (+${Math.min(2, delayMin)}m)` : "16:03";
           targetLiveTime = r1.liveDep || "16:35";
           targetBadgeText = delayMin > 0 ? `${targetLiveTime} Live (+${delayMin}m)` : `${targetLiveTime} Live (pünktlich)`;
-          targetBadgeClass = delayMin >= 3 ? "bg-emerald-950/80 text-emerald-300 border-emerald-500/40" : (delayMin > 0 ? "bg-amber-950/80 text-amber-300 border-amber-500/40" : "bg-rose-950/80 text-rose-300 border-rose-500/40");
-          themeColor = delayMin >= 3 ? "emerald" : (delayMin > 0 ? "amber" : "rose");
+          targetBadgeClass = delayMin >= 3 ? "bg-emerald-950/80 text-emerald-300 border border-emerald-500/40" : "bg-rose-950/80 text-rose-300 border border-rose-500/40";
+          themeColor = delayMin >= 3 ? "emerald" : "rose";
         }
       } else if (mode === "re10") {
-        btnRe10.className = `${activeClass} text-cyan-300 bg-slate-800 border border-cyan-500/40`;
+        btnRe10.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
         vehicleIcon = "🚆";
         vehicleLabel = "RE10";
         startStationName = "Kempen Bf";
@@ -4878,7 +4881,7 @@ r2RiskEl.className = "text-slate-300";
           targetPlanTime = "16:53";
           targetLiveTime = "AUSFALL";
           targetBadgeText = "AUSFALL in Nieukerk";
-          targetBadgeClass = "bg-rose-950/80 text-rose-400 border-rose-500/40";
+          targetBadgeClass = "bg-rose-950/80 text-rose-300 border border-rose-500/40";
           themeColor = "rose";
         } else if (r2.canCatchEarlier) {
           // SPEED-TIPP: Startet um 16:43 Uhr in Kempen Bf -> Zustieg 16:53 Uhr Nieukerk Bf
@@ -4890,8 +4893,8 @@ r2RiskEl.className = "text-slate-300";
           targetPlanTime = "16:53";
           targetLiveTime = r2.targetDep || "17:00";
           targetBadgeText = `${targetLiveTime} Live (+${delayMin}m Speed-Tipp)`;
-          targetBadgeClass = "bg-cyan-950/80 text-cyan-300 border-cyan-500/40";
-          themeColor = "cyan";
+          targetBadgeClass = "bg-emerald-950/80 text-emerald-300 border border-emerald-500/40";
+          themeColor = "emerald";
         } else {
           // REGULÄRER ZIELZUG: Startet um 17:13 Uhr in Kempen Bf -> Zustieg 17:23 Uhr Nieukerk Bf
           startPlanTime = "17:13";
@@ -4901,11 +4904,11 @@ r2RiskEl.className = "text-slate-300";
           targetPlanTime = "17:23";
           targetLiveTime = "17:23";
           targetBadgeText = "17:23 Live (Zielzug)";
-          targetBadgeClass = "bg-cyan-950/80 text-cyan-300 border-cyan-500/40";
-          themeColor = "cyan";
+          targetBadgeClass = "bg-emerald-950/80 text-emerald-300 border border-emerald-500/40";
+          themeColor = "emerald";
         }
       } else if (mode === "sb41") {
-        btnSb41.className = `${activeClass} text-amber-300 bg-slate-800 border border-amber-500/40`;
+        btnSb41.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
         vehicleIcon = "🚍";
         vehicleLabel = "SB41";
         startStationName = "Wachtendonk / Geldern";
@@ -4920,7 +4923,7 @@ r2RiskEl.className = "text-slate-300";
           startActualTime = "Ausfall";
           targetLiveTime = "AUSFALL";
           targetBadgeText = "AUSFALL in Boekholt";
-          targetBadgeClass = "bg-rose-950/80 text-rose-400 border-rose-500/40";
+          targetBadgeClass = "bg-rose-950/80 text-rose-300 border border-rose-500/40";
           themeColor = "rose";
         } else {
           delayMin = Math.max(0, r2.sb41Delay || 0);
@@ -4928,8 +4931,8 @@ r2RiskEl.className = "text-slate-300";
           startActualTime = delayMin > 0 ? `16:31 (+${delayMin}m)` : "16:31";
           targetLiveTime = r2.sb41Live || "16:49";
           targetBadgeText = delayMin > 0 ? `${targetLiveTime} Live (+${delayMin}m)` : `${targetLiveTime} Live (pünktlich)`;
-          targetBadgeClass = delayMin >= 20 ? "bg-rose-950/80 text-rose-300 border-rose-500/40" : (delayMin >= 5 ? "bg-amber-950/80 text-amber-300 border-amber-500/40" : "bg-emerald-950/80 text-emerald-300 border-emerald-500/40");
-          themeColor = delayMin >= 20 ? "rose" : (delayMin >= 5 ? "amber" : "emerald");
+          targetBadgeClass = delayMin >= 5 ? "bg-rose-950/80 text-rose-300 border border-rose-500/40" : "bg-emerald-950/80 text-emerald-300 border border-emerald-500/40";
+          themeColor = delayMin >= 5 ? "rose" : "emerald";
         }
       }
 
@@ -4997,12 +5000,9 @@ r2RiskEl.className = "text-slate-300";
         statusDesc = `Kommt in ca. ${diffMin} Min • ETA: ${targetLiveTime} Uhr${delayStr}`;
         statusPillText = `In ca. ${diffMin} Min ⏳`;
 
-        if (mode === "re10") {
-          statusBannerClass = "my-3 p-3.5 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all duration-200 bg-slate-900/90 border-cyan-500/40 text-cyan-200 shadow-sm";
-          statusPillClass = "px-3.5 py-2 rounded-xl font-bold font-mono text-xs shrink-0 self-stretch sm:self-auto text-center border shadow-sm bg-cyan-500/20 text-cyan-300 border-cyan-500/30";
-        } else if (delayMin >= 5) {
-          statusBannerClass = "my-3 p-3.5 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all duration-200 bg-slate-900/90 border-amber-500/40 text-amber-200 shadow-sm";
-          statusPillClass = "px-3.5 py-2 rounded-xl font-bold font-mono text-xs shrink-0 self-stretch sm:self-auto text-center border shadow-sm bg-amber-500/20 text-amber-300 border-amber-500/30";
+        if (delayMin >= 5) {
+          statusBannerClass = "my-3 p-3.5 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all duration-200 bg-slate-900/90 border-rose-500/40 text-rose-200 shadow-sm";
+          statusPillClass = "px-3.5 py-2 rounded-xl font-bold font-mono text-xs shrink-0 self-stretch sm:self-auto text-center border shadow-sm bg-rose-500/20 text-rose-300 border-rose-500/30";
         } else {
           statusBannerClass = "my-3 p-3.5 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all duration-200 bg-slate-900/90 border-emerald-500/40 text-emerald-200 shadow-sm";
           statusPillClass = "px-3.5 py-2 rounded-xl font-bold font-mono text-xs shrink-0 self-stretch sm:self-auto text-center border shadow-sm bg-emerald-500/20 text-emerald-300 border-emerald-500/30";
@@ -5026,7 +5026,7 @@ r2RiskEl.className = "text-slate-300";
         if (isBeforeStart) {
           progTargetDot.className = "w-2 h-2 rounded-full bg-slate-500 shrink-0";
         } else {
-          progTargetDot.className = themeColor === "rose" ? "w-2 h-2 rounded-full bg-rose-400 pulse-dot shrink-0" : (themeColor === "amber" ? "w-2 h-2 rounded-full bg-amber-400 pulse-dot shrink-0" : (themeColor === "cyan" ? "w-2 h-2 rounded-full bg-cyan-400 pulse-dot shrink-0" : "w-2 h-2 rounded-full bg-emerald-400 pulse-dot shrink-0"));
+          progTargetDot.className = themeColor === "rose" ? "w-2 h-2 rounded-full bg-rose-400 pulse-dot shrink-0" : "w-2 h-2 rounded-full bg-emerald-400 pulse-dot shrink-0";
         }
       }
 
@@ -5092,12 +5092,12 @@ r2RiskEl.className = "text-slate-300";
       } else {
         progStatStart.textContent = `${startActualTime} ab ${startStationName}`;
         progStatProgress.textContent = `Noch ca. ${diffMin} Min bis ${targetStationName.replace('Straelen ', '')}`;
-        progStatProgress.className = themeColor === "rose" ? "text-rose-400 font-mono font-semibold text-xs mt-0.5 block" : (themeColor === "amber" ? "text-amber-300 font-mono font-semibold text-xs mt-0.5 block" : (themeColor === "cyan" ? "text-cyan-300 font-mono font-semibold text-xs mt-0.5 block" : "text-emerald-400 font-mono font-semibold text-xs mt-0.5 block"));
+        progStatProgress.className = themeColor === "rose" ? "text-rose-400 font-mono font-semibold text-xs mt-0.5 block" : "text-emerald-400 font-mono font-semibold text-xs mt-0.5 block";
         progStatEta.textContent = `${targetLiveTime} Uhr (Live)`;
-        progStatEta.className = themeColor === "rose" ? "text-rose-400 font-mono font-bold text-xs mt-0.5 block" : (themeColor === "amber" ? "text-amber-300 font-mono font-bold text-xs mt-0.5 block" : (themeColor === "cyan" ? "text-cyan-300 font-mono font-bold text-xs mt-0.5 block" : "text-emerald-300 font-mono font-bold text-xs mt-0.5 block"));
+        progStatEta.className = themeColor === "rose" ? "text-rose-400 font-mono font-bold text-xs mt-0.5 block" : "text-emerald-300 font-mono font-bold text-xs mt-0.5 block";
       }
 
-      // Dynamic theme coloring of vehicle marker and glow
+      // Dynamic theme coloring of vehicle marker and glow (Strikt Grün, Rot, Slate)
       if (themeColor === "slate") {
         progVehicleDot.className = "w-7 h-7 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs shadow-md border-2 border-slate-500 select-none leading-none relative z-10";
         progPingRing.className = "hidden";
@@ -5105,19 +5105,11 @@ r2RiskEl.className = "text-slate-300";
       } else if (themeColor === "rose") {
         progVehicleDot.className = "w-7 h-7 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
         progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-rose-400 opacity-60 pointer-events-none";
-        progBarFill.className = "h-full rounded-full bg-gradient-to-r from-slate-700 to-rose-500 transition-all duration-500 shadow-[0_0_12px_rgba(244,63,94,0.5)]";
-      } else if (themeColor === "amber") {
-        progVehicleDot.className = "w-7 h-7 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
-        progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-amber-400 opacity-60 pointer-events-none";
-        progBarFill.className = "h-full rounded-full bg-gradient-to-r from-cyan-500 to-amber-400 transition-all duration-500 shadow-[0_0_12px_rgba(245,158,11,0.5)]";
-      } else if (themeColor === "cyan") {
-        progVehicleDot.className = "w-7 h-7 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
-        progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-cyan-400 opacity-60 pointer-events-none";
-        progBarFill.className = "h-full rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-teal-300 transition-all duration-500 shadow-[0_0_12px_rgba(6,182,212,0.5)]";
+        progBarFill.className = "h-full rounded-full bg-rose-600 transition-all duration-500 shadow-[0_0_12px_rgba(244,63,94,0.5)]";
       } else {
         progVehicleDot.className = "w-7 h-7 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
         progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-emerald-400 opacity-60 pointer-events-none";
-        progBarFill.className = "h-full rounded-full bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]";
+        progBarFill.className = "h-full rounded-full bg-emerald-500 transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.4)]";
       }
 
       // Update Haltestellen-Status Banner
@@ -5138,7 +5130,7 @@ r2RiskEl.className = "text-slate-300";
       }
     }
 
-        function populateDetailTables() {
+    function populateDetailTables() {
       const r1 = state.route1;
       const r2 = state.route2;
 
@@ -5154,7 +5146,7 @@ r2RiskEl.className = "text-slate-300";
           if (match) d = parseInt(match[1], 10);
         }
         if (d > 0) {
-          return `<span class="text-amber-400 font-semibold">+${d}m</span>`;
+          return `<span class="text-rose-400 font-semibold">+${d}m</span>`;
         }
         return `<span class="text-emerald-400 font-medium">pünktlich</span>`;
       }
@@ -5171,13 +5163,13 @@ r2RiskEl.className = "text-slate-300";
           re10CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>`;
         } else if (r2.canCatchEarlier) {
           re10CurrentReason = "Verzögerung im Betriebsablauf – Zug noch erreichbar!";
-          re10CurrentStatusBadge = `<span class="bg-cyan-950/80 text-cyan-400 border border-cyan-500/40 px-2 py-0.5 rounded text-[10px] font-bold">SPEED-TIPP ⚡</span>`;
+          re10CurrentStatusBadge = `<span class="bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">SPEED-TIPP ⚡</span>`;
         } else if (r2.re10Delay > 0) {
           re10CurrentReason = "Warten auf verspätete Zugkreuzung auf eingleisigem Abschnitt";
-          re10CurrentStatusBadge = `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.re10Delay} MIN</span>`;
+          re10CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.re10Delay} MIN</span>`;
         }
 
-        let targetTrainStatusBadge = `<span class="bg-cyan-950/80 text-cyan-400 border border-cyan-500/40 px-2 py-0.5 rounded text-[10px] font-bold">ZIELZUG 🎯</span>`;
+        let targetTrainStatusBadge = `<span class="bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">ZIELZUG 🎯</span>`;
         let targetTrainReason = "Planmäßiger Feierabend-Zielzug – Pünktlich";
         let targetTrainTime = "17:23";
 
@@ -5194,7 +5186,7 @@ r2RiskEl.className = "text-slate-300";
             live: "15:18 (+23m)",
             delay: formatDelayBadge(23),
             reason: "Verzögerung bei der Bereitstellung in Krefeld Hbf",
-            status: `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
+            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
           },
           {
             id: "RE10 (82282)",
@@ -5210,7 +5202,7 @@ r2RiskEl.className = "text-slate-300";
             live: "16:15 (+20m)",
             delay: formatDelayBadge(20),
             reason: "Verspätung eines vorausfahrenden Zuges & Streckenbelegung",
-            status: `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
+            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
           },
           {
             id: "RE10 (82286)",
@@ -5221,7 +5213,7 @@ r2RiskEl.className = "text-slate-300";
             status: `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>`
           },
           {
-            id: `<span class="text-cyan-300 font-bold">RE10 (82288) ⚡</span>`,
+            id: `<span class="text-emerald-300 font-bold">RE10 (82288) ⚡</span>`,
             plan: "16:53",
             live: re10LiveTime,
             delay: formatDelayBadge(r2.re10Delay, r2.re10Cancelled),
@@ -5230,7 +5222,7 @@ r2RiskEl.className = "text-slate-300";
             highlight: true
           },
           {
-            id: `<span class="text-cyan-300 font-bold">RE10 (82290) 🎯</span>`,
+            id: `<span class="text-emerald-300 font-bold">RE10 (82290) 🎯</span>`,
             plan: "17:23",
             live: targetTrainTime,
             delay: formatDelayBadge(0),
@@ -5249,7 +5241,7 @@ r2RiskEl.className = "text-slate-300";
         ];
 
         tbodyRe10.innerHTML = re10Rows.map(r => `
-          <tr class="${r.highlight ? 'bg-cyan-950/30 font-semibold' : 'hover:bg-slate-800/40'} transition">
+          <tr class="${r.highlight ? 'bg-emerald-950/30 font-semibold' : 'hover:bg-slate-800/40'} transition">
             <td class="py-2.5 px-3 text-slate-200 whitespace-nowrap">${r.id}</td>
             <td class="py-2.5 px-2 text-slate-400 whitespace-nowrap">${r.plan}</td>
             <td class="py-2.5 px-2 whitespace-nowrap">${r.live}</td>
@@ -5275,10 +5267,10 @@ r2RiskEl.className = "text-slate-300";
           sb41CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">GEFÄHRDET 🚨</span>`;
         } else if (r2.sb41Delay >= 5) {
           sb41CurrentLage = `Dichter Berufsverkehr B58 Nieukerker Str. / Ankunft Nieukerk ca. ${r2.arrivalNieukerk} Uhr`;
-          sb41CurrentStatusBadge = `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.sb41Delay} MIN</span>`;
+          sb41CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.sb41Delay} MIN</span>`;
         } else if (r2.sb41Delay > 0) {
           sb41CurrentLage = `Leichter Feierabendverkehr B58 / Ankunft Nieukerk ca. ${r2.arrivalNieukerk} Uhr`;
-          sb41CurrentStatusBadge = `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.sb41Delay} MIN</span>`;
+          sb41CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.sb41Delay} MIN</span>`;
         }
 
         const sb41Rows = [
@@ -5288,7 +5280,7 @@ r2RiskEl.className = "text-slate-300";
             live: "15:18 (+23m)",
             delay: formatDelayBadge(23),
             lage: "Schwerer Berufsverkehr & Baustelle B58 Straelen",
-            status: `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
+            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
           },
           {
             id: "SB41 (35473)",
@@ -5304,7 +5296,7 @@ r2RiskEl.className = "text-slate-300";
             live: "16:02 (+7m)",
             delay: formatDelayBadge(7),
             lage: "Dichter Feierabendverkehr B58 / Ortsausgang Straelen",
-            status: `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+7 MIN</span>`
+            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+7 MIN</span>`
           },
           {
             id: "SB41 (35477)",
@@ -5312,10 +5304,10 @@ r2RiskEl.className = "text-slate-300";
             live: "16:28 (+3m)",
             delay: formatDelayBadge(3),
             lage: "Hohes Fahrgastaufkommen Straelen Schulzentrum",
-            status: `<span class="bg-amber-950/80 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+3 MIN</span>`
+            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+3 MIN</span>`
           },
           {
-            id: `<span class="text-amber-300 font-bold">SB41 (35479) 🚌</span>`,
+            id: `<span class="text-emerald-300 font-bold">SB41 (35479) 🚌</span>`,
             plan: r2.sb41Planned || "16:49",
             live: sb41LiveTime,
             delay: formatDelayBadge(r2.sb41Delay, r2.sb41Cancelled),
@@ -5334,7 +5326,7 @@ r2RiskEl.className = "text-slate-300";
         ];
 
         tbodySb41.innerHTML = sb41Rows.map(r => `
-          <tr class="${r.highlight ? 'bg-amber-950/30 font-semibold' : 'hover:bg-slate-800/40'} transition">
+          <tr class="${r.highlight ? 'bg-emerald-950/30 font-semibold' : 'hover:bg-slate-800/40'} transition">
             <td class="py-2.5 px-3 text-slate-200 whitespace-nowrap">${r.id}</td>
             <td class="py-2.5 px-2 text-slate-400 whitespace-nowrap">${r.plan}</td>
             <td class="py-2.5 px-2 whitespace-nowrap">${r.live}</td>
@@ -5414,7 +5406,7 @@ r2RiskEl.className = "text-slate-300";
             live: "17:35",
             delay: formatDelayBadge(0),
             reason: "Pünktlich (Folgefahrt)",
-            feasibility: `<span class="text-cyan-400/90 text-[11px] font-sans">ℹ️ Folgefahrt (Ank. Geldern 17:58)</span>`
+            feasibility: `<span class="text-slate-400 text-[11px] font-sans">ℹ️ Folgefahrt (Ank. Geldern 17:58)</span>`
           }
         ];
 
@@ -5492,7 +5484,7 @@ r2RiskEl.className = "text-slate-300";
 
         titleEl.textContent = "Countdown bis zur 16:25 Uhr Feierabend-Entscheidung";
 
-        countEl.className = "text-4xl sm:text-5xl font-extrabold font-mono text-cyan-400 tracking-tight mt-1";
+        countEl.className = "text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
 
         triggeredToday = false;
 
@@ -5564,7 +5556,7 @@ r2RiskEl.className = "text-slate-300";
 
         titleEl.textContent = "Countdown bis zur 16:25 Uhr Feierabend-Entscheidung";
 
-        countEl.className = "text-4xl sm:text-5xl font-extrabold font-mono text-cyan-400 tracking-tight mt-1";
+        countEl.className = "text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
 
       }
 
@@ -5572,9 +5564,56 @@ r2RiskEl.className = "text-slate-300";
 
 
 
-    // --- 7. EVENT LISTENERS & AUTO REFRESH ---
+    // --- 7. THEME MANAGER & CONTROLS ---
+
+    function updateThemeToggleIcon() {
+      const isLight = document.documentElement.classList.contains("light");
+      const iconEl = document.getElementById("themeToggleIcon");
+      const btnEl = document.getElementById("btnThemeToggle");
+      if (iconEl) iconEl.textContent = isLight ? "🌙" : "☀️";
+      if (btnEl) btnEl.title = isLight ? "Design umschalten (Dunkler Modus)" : "Design umschalten (Heller Modus)";
+    }
+
+    function setTheme(theme, save = false) {
+      if (save) {
+        try { localStorage.setItem("pendler_theme", theme); } catch(e) {}
+      }
+      const isLight = theme === "light";
+      if (isLight) {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.add("light");
+      } else {
+        document.documentElement.classList.add("dark");
+        document.documentElement.classList.remove("light");
+      }
+      updateThemeToggleIcon();
+      const meta = document.getElementById("metaThemeColor");
+      if (meta) meta.content = isLight ? "#FAF7F2" : "#0b0f19";
+    }
+
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains("light");
+      setTheme(isLight ? "dark" : "light", true);
+    }
+
+    // --- 8. EVENT LISTENERS & AUTO REFRESH ---
 
     document.addEventListener("DOMContentLoaded", () => {
+
+      updateThemeToggleIcon();
+
+      const btnTheme = document.getElementById("btnThemeToggle");
+      if (btnTheme) {
+        btnTheme.addEventListener("click", toggleTheme);
+      }
+
+      if (window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
+          if (!localStorage.getItem("pendler_theme")) {
+            setTheme(e.matches ? "light" : "dark", false);
+          }
+        });
+      }
 
       updateNotificationUI();
 
@@ -5664,7 +5703,7 @@ r2RiskEl.className = "text-slate-300";
 
           monitorTable.classList.add("show-re10");
 
-          btnTabRe10.className = "flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition bg-slate-800 text-cyan-300 shadow-sm cursor-pointer";
+          btnTabRe10.className = "flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition bg-slate-800 text-emerald-300 border border-emerald-500/30 shadow-sm cursor-pointer";
 
           btnTabBus63.className = "flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition text-slate-400 hover:text-slate-200 cursor-pointer";
 
