@@ -194,7 +194,7 @@
 
     header {
 
-      padding-top: calc(env(safe-area-inset-top, 0px) + 1.25rem);
+      padding-top: env(safe-area-inset-top, 0px);
 
       padding-left: env(safe-area-inset-left, 0px);
 
@@ -1704,127 +1704,29 @@
 
 
 
-  <!-- TOP BAR / HEADER -->
+  <!-- TOP BAR / HEADER (RADIKAL ENTSCHLACKT: DEZENTE UHRZEIT & THEME-TOGGLE) -->
 
   <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-2 flex flex-wrap items-center justify-between gap-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex items-center justify-between">
 
-      <div class="flex items-center space-x-3">
+      <!-- Live Clock (dezent & unauffällig) -->
 
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-lg shadow-emerald-500/20 flex items-center justify-center shrink-0">
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-lg px-2.5 py-1 flex items-center space-x-2">
 
-          <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
 
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-
-          </svg>
-
-        </div>
-
-        <div>
-
-          <div class="flex items-center space-x-2">
-
-            <h1 class="font-bold text-base sm:text-lg text-white tracking-tight">Pendler-Lotse</h1>
-
-            <span class="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Straelen ➔ Geldern</span>
-
-          </div>
-
-          <div class="flex flex-wrap items-center gap-x-2 text-xs text-slate-400">
-
-            <span class="text-slate-300 font-semibold flex items-center space-x-1">
-
-              <svg class="w-3.5 h-3.5 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-
-              <span>Startort: Kromsteg 29, Straelen</span>
-
-            </span>
-
-            <span class="hidden sm:inline text-slate-600">•</span>
-
-            <span class="hidden sm:inline text-slate-400">16:25 Uhr: Lotsen-Alarm (5 Min vor Feierabend um 16:30 Uhr)</span>
-
-          </div>
-
-        </div>
+        <span id="liveClock" class="font-mono text-xs font-semibold text-slate-200">--:--:--</span>
 
       </div>
 
+      <!-- Theme Toggle Button (Light / Dark) -->
 
+      <button id="btnThemeToggle" title="Design umschalten (Hell / Dunkel)" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition flex items-center justify-center cursor-pointer min-h-[34px] min-w-[34px]">
 
-      <!-- Live Clock & Status -->
+        <span id="themeToggleIcon" class="text-sm select-none">☀️</span>
 
-      <div class="flex items-center space-x-2 sm:space-x-3">
-
-        <!-- Live Clock -->
-
-        <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl px-3 py-1.5 flex items-center space-x-2 min-h-[44px]">
-
-          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
-
-          <span id="liveClock" class="font-mono text-xs sm:text-sm font-semibold text-slate-200">--:--:--</span>
-
-        </div>
-
-        <!-- Theme Toggle Button (Light / Dark) -->
-
-        <button id="btnThemeToggle" title="Design umschalten (Hell / Dunkel)" class="min-h-[44px] min-w-[44px] p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition flex items-center justify-center cursor-pointer">
-
-          <span id="themeToggleIcon" class="text-base select-none">☀️</span>
-
-        </button>
-
-
-
-        <!-- Audio Gong Test Button -->
-
-        <button id="btnTestSound" title="Web-Audio Gong testen" class="min-h-[44px] min-w-[44px] p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition flex items-center justify-center cursor-pointer">
-
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-
-          </svg>
-
-        </button>
-
-
-
-        <!-- Notification Permission Button -->
-
-        <button id="btnNotificationPrompt" class="hidden sm:flex items-center space-x-1.5 min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-medium border transition bg-slate-800 text-slate-300 border-slate-700 hover:text-white hover:bg-slate-700 cursor-pointer">
-
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-
-          </svg>
-
-          <span id="notificationBtnText">Benachrichtigung erlauben</span>
-
-        </button>
-
-
-
-        <!-- Live Refresh Button -->
-
-        <button id="btnRefresh" class="flex items-center space-x-1.5 min-h-[44px] px-3.5 sm:px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs sm:text-sm shadow-lg shadow-emerald-600/20 transition active:scale-95 cursor-pointer">
-
-          <svg id="refreshSpinner" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-
-          </svg>
-
-          <span class="hidden xs:inline sm:inline">Jetzt live prüfen</span>
-
-          <span class="inline xs:hidden sm:hidden">Prüfen</span>
-
-        </button>
-
-      </div>
+      </button>
 
     </div>
 
@@ -1838,17 +1740,12 @@
 
 
 
-    <!-- UPPER 2-COLUMN DASHBOARD (EXACT MOCKUP LAYOUT) -->
+    <!-- UPPER 2-COLUMN DASHBOARD (EMPFEHLUNG DIREKT UNTER TIMER, STÖRUNGS-TABELLE FOLGT) -->
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start lg:items-stretch">
 
-
-
-      <!-- LEFT COLUMN (ca. 1/3 bzw. 380-420px Breite) -->
-
-      <div class="lg:col-span-5 flex flex-col space-y-4">
-
-
+      <!-- LEFT COLUMN (Desktop: 6 Spalten / 50% Breite, Mobile: Oben - Timer, Empfehlung & Live-Zulauf) -->
+      <div class="lg:col-span-6 flex flex-col space-y-4">
 
         <!-- BLOCK 1: FEIERABEND-TIMER -->
 
@@ -1880,237 +1777,41 @@
 
         </div>
 
-
-
-        <!-- BLOCK 2: RE10 & BUS 63 MONITOR (NIEUKERK & FRIEDHOF) -->
-
-        <div class="glass-card p-4 sm:p-5 border-slate-800/80 bg-slate-900/70 flex-1 flex flex-col justify-between">
-
-          <div>
-
-            <!-- Header Icon & Title -->
-
-            <div class="flex items-start space-x-2.5 mb-2">
-
-              <div class="w-5 h-5 rounded-full border border-slate-600 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-
-                !
-
-              </div>
-
-              <div>
-
-                <h3 class="text-sm font-bold text-white tracking-tight">RE10 & Bus 63 Monitor (Nieukerk & Friedhof)</h3>
-
-                <p class="text-[11px] text-slate-400 mt-0.5">Tageshistorie & Feierabendtakt Richtung Geldern / Kleve – Vermeidung von Strandungen</p>
-
-              </div>
-
-            </div>
-
-
-
-            <!-- Summary Badge -->
-
-            <div class="my-2.5">
-
-              <span id="re10SummaryBadge" class="inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-500/40">
-
-                Heute: Keine Ausfälle gemeldet • Regulärer Betrieb
-
-              </span>
-
-            </div>
-
-
-
-            <!-- Mobile Segmented Tab Control (< 640px) -->
-
-            <div class="flex items-center p-1 rounded-xl bg-slate-950/70 border border-slate-800/80 my-2 sm:hidden text-xs">
-
-              <button id="btnTabRe10" type="button" class="flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition bg-slate-800 text-emerald-300 border border-emerald-500/30 shadow-sm cursor-pointer">
-
-                🚆 RE10
-
-              </button>
-
-              <button id="btnTabBus63" type="button" class="flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition text-slate-400 hover:text-slate-200 cursor-pointer">
-
-                🚌 Bus 63
-
-              </button>
-
-            </div>
-
-
-
-            <!-- Side-by-Side Departures Table (RE10 & Bus 63 - Richtung Geldern / Kleve) -->
-
-            <div class="table-scroll-wrapper mt-1 rounded-xl border border-slate-800/80 bg-slate-950/30">
-
-              <table id="monitorTable" class="monitor-table show-re10 w-full text-left text-[11px]">
-
-                <thead>
-
-                  <tr class="border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[9px]">
-
-                    <th class="col-re10 py-1.5 px-2 font-medium">RE10 NIEUKERK</th>
-
-                    <th class="col-re10 py-1.5 px-1 font-medium">PLAN</th>
-
-                    <th class="col-re10 py-1.5 px-1.5 font-medium">STATUS</th>
-
-                    <th class="col-bus63 py-1.5 px-2 font-medium border-l border-slate-800/80">BUS 63 FRIEDHOF</th>
-
-                    <th class="col-bus63 py-1.5 px-1 font-medium">PLAN</th>
-
-                    <th class="col-bus63 py-1.5 px-1.5 font-medium">STATUS</th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody id="monitorTableBody" class="font-mono text-slate-300 divide-y divide-slate-800/40 text-[10px] sm:text-[11px]">
-
-                  <!-- Dynamisch befüllt mit Fahrten Richtung Geldern & Kleve -->
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-
-
-          <!-- BLOCK 3: FOOTER DES LINKEN PANELS -->
-
-          <div class="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-
-            <span class="flex items-center space-x-1.5 text-slate-300">
-
-              <svg class="w-4 h-4 text-emerald-400 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-
-              </svg>
-
-              <span class="text-[11px] font-medium">Auto-Check & Desktop-Alarm aktiv</span>
-
-            </span>
-
-            <span class="text-slate-500 font-mono text-[11px]" id="lastCheckTime">Zuletzt: noch nicht geprüft</span>
-
-          </div>
-
-        </div>
-
-
-
-      </div>
-
-
-
-      <!-- RIGHT COLUMN (ca. 2/3 Breite) -->
-
-      <div class="lg:col-span-7 flex flex-col space-y-4">
-
-
-
-        <!-- 1. LUCAS TRANSIT GMBH MÖGLICH LEISTE -->
-
-        <div class="glass-card p-4 sm:p-5 border-slate-800 bg-slate-900/80 shadow-md">
-
-          <!-- Obere Zeile: Icon, Titel, Status-Badge & iOS Switch rechts -->
-
-          <div class="flex items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
-
-            <div class="flex items-center space-x-3 min-w-0">
-
-              <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xl shrink-0">
-
-                🚗
-
-              </div>
-
-              <div class="min-w-0">
-
-                <div class="flex flex-wrap items-center gap-2">
-
-                  <span class="text-white font-bold text-sm sm:text-base tracking-tight">Lucas Transit GmbH möglich</span>
-
-                  <span id="lucasStatusPill" class="text-[10px] px-2.5 py-0.5 rounded-full font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-
-                    Aktiv (Lucas fährt)
-
-                  </span>
-
+        <!-- BLOCK 2: EMPFEHLUNGSFENSTER (HERO-EMPFEHLUNGSBOX INKLUSIVE LUCAS-TRANSIT-TOGGLE) -->
+        <div class="flex flex-col space-y-3">
+
+        <!-- 1. LUCAS TRANSIT GMBH TOGGLE ("Lucas kann mich mitnehmen") -->
+          <div class="glass-card p-3.5 sm:p-4 border-slate-800 bg-slate-900/80 shadow-md">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center space-x-2.5 sm:space-x-3 min-w-0">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg sm:text-xl shrink-0">
+                  🚗
                 </div>
-
-                <div class="text-[11px] text-slate-400 font-mono mt-0.5 flex items-center space-x-1.5">
-
-                  <span>Startort:</span>
-
-                  <strong class="text-slate-200 font-medium">Kromsteg 29, Straelen</strong>
-
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <span class="text-white font-bold text-xs sm:text-sm tracking-tight">Lucas Transit</span>
+                    <span id="lucasStatusPill" class="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      Aktiv (Lucas fährt)
+                    </span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 font-medium mt-0.5">
+                    Lucas kann mich mitnehmen
+                  </div>
                 </div>
-
               </div>
 
+              <!-- Edler nativer iOS-Switch (48x28px, 22px thumb) -->
+              <div class="flex items-center shrink-0">
+                <label class="ios-switch-container" title="Lucas Transit: Lucas kann mich mitnehmen umschalten">
+                  <input type="checkbox" id="chkLucasTransit" class="sr-only ios-switch-input" checked>
+                  <div class="ios-switch-track"></div>
+                  <span class="ml-2 text-xs font-semibold text-slate-200 hidden sm:inline" id="chkLucasLabel">Mitfahrt</span>
+                </label>
+              </div>
             </div>
-
-
-
-            <!-- Edler nativer iOS-Switch (48x28px, 22px thumb) -->
-
-            <div class="flex items-center shrink-0">
-
-              <label class="ios-switch-container" title="Lucas Transit GmbH Fahrgemeinschaft umschalten">
-
-                <input type="checkbox" id="chkLucasTransit" class="sr-only ios-switch-input" checked>
-
-                <div class="ios-switch-track"></div>
-
-                <span class="ml-2.5 text-xs font-semibold text-slate-200 hidden sm:inline" id="chkLucasLabel">Fahrgemeinschaft</span>
-
-              </label>
-
-            </div>
-
           </div>
 
-
-
-          <!-- Untere Zeile: Aufgeräumte Chips/Pillen für Fahr-/Gehzeiten -->
-
-          <div class="flex flex-wrap items-center gap-2 pt-3 text-xs">
-
-            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/60">
-
-              🚗 Zum Friedhof: ~3–4 Min
-
-            </span>
-
-            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/60">
-
-              🚶 Nach Boekholt: ~5–7 Min
-
-            </span>
-
-            <span class="text-[11px] text-slate-400 sm:ml-auto">
-
-              Status: <span id="chkLucasSub" class="text-slate-300">Bus 63 via Auto verfügbar</span>
-
-            </span>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- 2. GROSSE HERO-EMPFEHLUNGS-KARTE -->
+          <!-- 2. GROSSE HERO-EMPFEHLUNGS-KARTE -->
 
         <div id="heroRecommendation" data-id="heroCard" class="glass-card p-5 sm:p-6 border border-slate-700/80 bg-slate-900/70 flex-1 flex flex-col justify-center shadow-lg transition-all duration-300 hero-early">
 
@@ -2168,113 +1869,63 @@
 
         </div>
 
+        </div>
 
-
-        <!-- 2.1 NEUES FEATURE: LIVE-ZULAUF-ZEITSTRAHL (PROGRESS BAR) -->
-
+        <!-- BLOCK 3: LIVE-ZULAUF-ZEITSTRAHL (PROGRESS BAR) - NUN DIREKT UNTER EMPFEHLUNG -->
         <div id="liveProgressModule" class="glass-card p-4 sm:p-5 border border-slate-700/80 bg-slate-900/80 shadow-md">
 
           <!-- Top Row: Title, Subtitle & Segmented Control -->
-
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 pb-3 border-b border-slate-800/80">
 
             <div class="flex items-center space-x-2.5">
-
               <div class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 font-bold text-sm shrink-0">
-
                 📡
-
               </div>
-
               <div>
-
                 <h3 class="text-sm font-bold text-white tracking-tight flex items-center space-x-2">
-
                   <span>Live-Zulauf & Haltestellen-Status</span>
-
                   <span id="progressLiveDot" class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot inline-block"></span>
-
                 </h3>
-
-                
-
               </div>
-
             </div>
 
-
-
             <!-- Segmented Control for 3 vehicles -->
-
             <div class="inline-flex items-center p-1 rounded-xl bg-slate-950/80 border border-slate-800 text-xs self-start sm:self-auto shrink-0 shadow-inner">
-
               <button id="btnProgBus63" type="button" class="px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer text-emerald-300 bg-slate-800 border border-emerald-500/30 shadow-sm flex items-center space-x-1.5">
-
                 <span>🚌</span>
-
                 <span>Bus 63</span>
-
               </button>
-
               <button id="btnProgRe10" type="button" class="px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer text-slate-400 hover:text-slate-200 border border-transparent flex items-center space-x-1.5">
-
                 <span>🚆</span>
-
                 <span>RE10</span>
-
               </button>
-
               <button id="btnProgSb41" type="button" class="px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer text-slate-400 hover:text-slate-200 border border-transparent flex items-center space-x-1.5">
-
                 <span>🚐</span>
-
                 <span>SB41</span>
-
               </button>
-
             </div>
 
           </div>
 
-
-
           <!-- Main Timeline Section -->
-
           <div class="py-2">
 
             <!-- Route Stations Header -->
-
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs mb-3 font-mono">
-
               <div class="flex items-center space-x-1.5 text-slate-300">
-
                 <span class="w-2 h-2 rounded-full bg-slate-500 shrink-0"></span>
-
                 <span class="font-bold" id="progStartStation">Start: Kempen Bf</span>
-
                 <span class="text-slate-500 text-[11px]" id="progStartTime">(Plan 16:03)</span>
-
               </div>
-
               <div class="flex items-center space-x-2 text-right self-end sm:self-auto">
-
                 <span class="text-slate-400 text-xs">Zustieg:</span>
-
                 <span class="font-bold text-white text-xs sm:text-sm" id="progTargetStation">Straelen Friedhof</span>
-
                 <span id="progLiveTargetBadge" class="px-2.5 py-0.5 rounded-lg text-xs font-bold font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 shadow-sm whitespace-nowrap">
-
                   16:39 Live (+4m)
-
                 </span>
-
                 <span id="progTargetDot" class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot shrink-0"></span>
-
               </div>
-
             </div>
-
-
 
             <!-- Progress Bar Graphic Container -->
             <div class="relative py-4 px-2">
@@ -2295,16 +1946,44 @@
               </div>
 
               <!-- Intermediate Station Dots on the line -->
-
               <div class="relative w-full flex justify-between text-[10px] text-slate-500 mt-2 px-1 font-mono select-none">
-
                 <span id="progStop0">Kempen Bf</span>
-
                 <span id="progStop1" class="text-center">Wachtendonk</span>
-
                 <span id="progStop2" class="text-center">Wankum</span>
-
                 <span id="progStop3" class="text-right text-emerald-400 font-semibold">Straelen Friedhof (16:39 Live)</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN (Desktop: 6 Spalten / 50% Breite, streckt sich über volle Höhe bündig nach unten) -->
+      <div class="lg:col-span-6 flex flex-col h-full">
+
+        <!-- BLOCK 2: RE10 & BUS 63 MONITOR (NIEUKERK & FRIEDHOF) -->
+
+        <div class="glass-card p-4 sm:p-5 border-slate-800/80 bg-slate-900/70 flex-1 flex flex-col justify-between h-full">
+
+          <div class="flex-1 flex flex-col min-h-0">
+
+            <!-- Header Icon & Title -->
+
+            <div class="flex items-start space-x-2.5 mb-2 shrink-0">
+
+              <div class="w-5 h-5 rounded-full border border-slate-600 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+
+                !
+
+              </div>
+
+              <div>
+
+                <h3 class="text-sm font-bold text-white tracking-tight">RE10 & Bus 63 Monitor (Nieukerk & Friedhof)</h3>
+
+                <p class="text-[11px] text-slate-400 mt-0.5">Tageshistorie & Feierabendtakt Richtung Geldern / Kleve – Vermeidung von Strandungen</p>
 
               </div>
 
@@ -2312,21 +1991,107 @@
 
 
 
+            <!-- Summary Badge -->
+
+            <div class="my-2.5 shrink-0">
+
+              <span id="re10SummaryBadge" class="inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-500/40">
+
+                Heute: Keine Ausfälle gemeldet • Regulärer Betrieb
+
+              </span>
+
+            </div>
+
+
+
+            <!-- Mobile Segmented Tab Control (< 640px) -->
+
+            <div class="flex items-center p-1 rounded-xl bg-slate-950/70 border border-slate-800/80 my-2 sm:hidden text-xs shrink-0">
+
+              <button id="btnTabRe10" type="button" class="flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition bg-slate-800 text-emerald-300 border border-emerald-500/30 shadow-sm cursor-pointer">
+
+                🚆 RE10
+
+              </button>
+
+              <button id="btnTabBus63" type="button" class="flex-1 py-1.5 px-2 rounded-lg font-semibold text-center transition text-slate-400 hover:text-slate-200 cursor-pointer">
+
+                🚌 Bus 63
+
+              </button>
+
+            </div>
+
+
+
+            <!-- Side-by-Side Departures Table (RE10 & Bus 63 - Richtung Geldern / Kleve) -->
+
+            <div class="table-scroll-wrapper mt-1 rounded-xl border border-slate-800/80 bg-slate-950/30 flex-1 flex flex-col min-h-0 overflow-x-auto">
+
+              <table id="monitorTable" class="monitor-table show-re10 w-full text-left text-[11px] h-full">
+
+                <thead>
+
+                  <tr class="border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[9px] bg-slate-950/60">
+
+                    <th class="col-re10 py-2 px-2 font-medium">RE10 NIEUKERK</th>
+
+                    <th class="col-re10 py-2 px-1 font-medium">PLAN</th>
+
+                    <th class="col-re10 py-2 px-1.5 font-medium">STATUS</th>
+
+                    <th class="col-bus63 py-2 px-2 font-medium border-l border-slate-800/80">BUS 63 FRIEDHOF</th>
+
+                    <th class="col-bus63 py-2 px-1 font-medium">PLAN</th>
+
+                    <th class="col-bus63 py-2 px-1.5 font-medium">STATUS</th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody id="monitorTableBody" class="font-mono text-slate-300 divide-y divide-slate-800/40 text-[10px] sm:text-[11px]">
+
+                  <!-- Dynamisch befüllt mit Fahrten Richtung Geldern & Kleve -->
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- BLOCK 3: FOOTER DES MONITOR PANELS -->
+
+          <div class="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 shrink-0">
+
+            <span class="flex items-center space-x-1.5 text-slate-300">
+
+              <svg class="w-4 h-4 text-emerald-400 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+
+              </svg>
+
+              <span class="text-[11px] font-medium">Auto-Check & Desktop-Alarm aktiv</span>
+
+            </span>
+
+            <span class="text-slate-500 font-mono text-[11px]" id="lastCheckTime">Zuletzt: noch nicht geprüft</span>
+
           </div>
 
         </div>
 
-
-
-
-
-</div>
-
-
+      </div>
 
     </div>
 
-
+    </div>
 
     <!-- =====================================================================
 
@@ -2629,9 +2394,47 @@
 
   <footer class="border-t border-slate-900 bg-slate-950/80 py-4 text-center text-xs text-slate-500">
 
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
 
       <div>Pendler-Lotse Straelen ➔ Geldern • Startort: Kromsteg 29 • 100% Antivirus-sicher</div>
+
+      <div class="flex items-center gap-2">
+
+        <button id="btnTestSound" title="Web-Audio Gong testen" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition flex items-center justify-center cursor-pointer min-h-[36px] min-w-[36px]" aria-label="Web-Audio Gong testen">
+
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+
+          </svg>
+
+        </button>
+
+        <button id="btnNotificationPrompt" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition bg-slate-800 text-slate-300 border-slate-700 hover:text-white hover:bg-slate-700 cursor-pointer min-h-[36px]">
+
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+
+          </svg>
+
+          <span id="notificationBtnText">Benachrichtigung</span>
+
+        </button>
+
+        <button id="btnRefresh" class="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-md transition active:scale-95 cursor-pointer min-h-[36px]">
+
+          <svg id="refreshSpinner" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+
+          </svg>
+
+          <span>Live prüfen</span>
+
+        </button>
+
+      </div>
 
       <div class="text-[11px] text-slate-600">Daten: HAFAS / Transitous / GTFS-RT NRW • Lokale Web Audio & Notification Engine</div>
 
@@ -3960,15 +3763,15 @@
       if (chkLucas) chkLucas.checked = state.lucasAvailable;
       const lucasPill = document.getElementById("lucasStatusPill");
       const lucasSub = document.getElementById("chkLucasSub");
-      if (lucasPill && lucasSub) {
+      if (lucasPill) {
         if (state.lucasAvailable) {
           lucasPill.className = "text-[10px] px-2.5 py-0.5 rounded-full font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
           lucasPill.textContent = "Fahrgemeinschaft AKTIV";
-          lucasSub.textContent = "Bus 63 via Auto verfügbar";
+          if (lucasSub) lucasSub.textContent = "Bus 63 via Auto verfügbar";
         } else {
           lucasPill.className = "text-[10px] px-2.5 py-0.5 rounded-full font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30";
           lucasPill.textContent = "Lucas fährt heute nicht";
-          lucasSub.textContent = "Friedhof ohne Auto nicht erreichbar";
+          if (lucasSub) lucasSub.textContent = "Friedhof ohne Auto nicht erreichbar";
         }
       }
 
@@ -5396,31 +5199,18 @@
 
 
       // Buttons
-
-      document.getElementById("btnRefresh").addEventListener("click", () => {
-
+      document.getElementById("btnRefresh")?.addEventListener("click", () => {
         sound.init();
-
         loadData();
-
       });
 
-
-
-      document.getElementById("btnTestSound").addEventListener("click", () => {
-
+      document.getElementById("btnTestSound")?.addEventListener("click", () => {
         sound.init();
-
         sound.playNotificationChime();
-
       });
 
-
-
-      document.getElementById("btnNotificationPrompt").addEventListener("click", () => {
-
+      document.getElementById("btnNotificationPrompt")?.addEventListener("click", () => {
         requestNotificationPermission();
-
       });
 
 
