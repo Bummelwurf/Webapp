@@ -962,9 +962,42 @@
     html.light .table-scroll-wrapper::-webkit-scrollbar-thumb {
       background: #D8D2C8 !important;
     }
-    html.light #recommendationHero {
+    html.light #recommendationHero,
+    html.light #heroRecommendation,
+    html.light #heroCard {
       background: #FFFFFF !important;
+    }
+
+    /* Vor 16:00 Uhr: Dezent neutrale graue Umrandung (Dark Mode) */
+    html.dark .hero-early,
+    html.dark #heroRecommendation.hero-early,
+    html.dark #heroCard.hero-early,
+    html.dark #recommendationHero.hero-early {
+      border: 1px solid rgba(100, 116, 139, 0.45) !important;
+      background: rgba(15, 23, 42, 0.7) !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    html.light .hero-early,
+    html.light #heroRecommendation.hero-early,
+    html.light #heroCard.hero-early,
+    html.light #recommendationHero.hero-early {
+      background: #FFFFFF !important;
+      border: 1px solid #D8D2C8 !important;
+      border-color: #D8D2C8 !important;
+      box-shadow: 0 2px 8px -2px rgba(24, 24, 27, 0.05) !important;
+    }
+
+    /* Ab 16:00 Uhr: Dynamische Signalfarben im Light Mode */
+    html.light #heroRecommendation:not(.hero-early),
+    html.light #heroCard:not(.hero-early),
+    html.light #recommendationHero:not(.hero-early) {
       border-color: #86EFAC !important;
+    }
+    html.light #heroRecommendation.border-rose-500\/50:not(.hero-early),
+    html.light #heroCard.border-rose-500\/50:not(.hero-early),
+    html.light #recommendationHero.border-rose-500\/50:not(.hero-early) {
+      border-color: #FCA5A5 !important;
     }
     html.light #btnRefresh {
       background-color: #16A34A !important;
@@ -979,6 +1012,80 @@
     }
     html.light #recActionButton:hover {
       background-color: #15803d !important;
+    }
+
+    /* =====================================================================
+       LIVE-TICKER / STÖRUNGSMELDER STYLES (DARK & LIGHT MODE)
+       ===================================================================== */
+    .live-ticker-bar {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .live-ticker-bar.is-idle {
+      border-color: rgba(51, 65, 85, 0.7);
+    }
+    .live-ticker-bar.has-danger {
+      border-color: rgba(244, 63, 94, 0.5);
+      background: linear-gradient(90deg, rgba(76, 5, 25, 0.4) 0%, rgba(15, 23, 42, 0.85) 45%, rgba(15, 23, 42, 0.7) 100%);
+    }
+    .live-ticker-bar.has-warning {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: linear-gradient(90deg, rgba(69, 26, 3, 0.35) 0%, rgba(15, 23, 42, 0.85) 45%, rgba(15, 23, 42, 0.7) 100%);
+    }
+
+    /* Light Mode Overrides for Live-Ticker */
+    html.light .live-ticker-bar.is-idle {
+      background: #FFFFFF !important;
+      border-color: #E7E2DA !important;
+      color: #27272A !important;
+      box-shadow: 0 2px 8px -1px rgba(24, 24, 27, 0.04) !important;
+    }
+    html.light .live-ticker-bar.is-idle span.text-slate-300,
+    html.light .live-ticker-bar.is-idle .ticker-title {
+      color: #18181B !important;
+    }
+    html.light .live-ticker-bar.is-idle span.text-slate-400 {
+      color: #52525B !important;
+    }
+    html.light .live-ticker-bar.is-idle span.text-slate-500 {
+      color: #71717A !important;
+    }
+    html.light .live-ticker-bar.has-danger {
+      background: #FEF2F2 !important;
+      border-color: #FECACA !important;
+      color: #991B1B !important;
+      box-shadow: 0 4px 14px -2px rgba(220, 38, 38, 0.08) !important;
+    }
+    html.light .live-ticker-bar.has-danger span.text-rose-200,
+    html.light .live-ticker-bar.has-danger span.text-slate-200,
+    html.light .live-ticker-bar.has-danger .ticker-alert-title {
+      color: #7F1D1D !important;
+    }
+    html.light .live-ticker-bar.has-danger span.text-rose-300,
+    html.light .live-ticker-bar.has-danger .ticker-line-tag {
+      color: #991B1B !important;
+    }
+    html.light .live-ticker-bar.has-danger span.text-slate-300,
+    html.light .live-ticker-bar.has-danger .ticker-alert-detail {
+      color: #B91C1C !important;
+    }
+    html.light .live-ticker-bar.has-warning {
+      background: #FFFBEB !important;
+      border-color: #FDE68A !important;
+      color: #92400E !important;
+      box-shadow: 0 4px 14px -2px rgba(217, 119, 6, 0.08) !important;
+    }
+    html.light .live-ticker-bar.has-warning span.text-amber-200,
+    html.light .live-ticker-bar.has-warning span.text-slate-200,
+    html.light .live-ticker-bar.has-warning .ticker-alert-title {
+      color: #78350F !important;
+    }
+    html.light .live-ticker-bar.has-warning span.text-amber-300,
+    html.light .live-ticker-bar.has-warning .ticker-line-tag {
+      color: #92400E !important;
+    }
+    html.light .live-ticker-bar.has-warning span.text-slate-300,
+    html.light .live-ticker-bar.has-warning .ticker-alert-detail {
+      color: #B45309 !important;
     }
 
     /* System Light Preference Media Query */
@@ -1612,7 +1719,7 @@
 
             </span>
 
-            <span class="text-xs text-slate-400 font-medium">Stichtag: 16:25 Uhr</span>
+            <span class="text-xs text-slate-400 font-medium">Stichtag: 16:30 Uhr</span>
 
           </div>
 
@@ -1620,7 +1727,7 @@
 
           <div class="my-1">
 
-            <div id="countdownTitle" class="text-xs text-slate-400">Countdown bis zur 16:25 Uhr Feierabend-Entscheidung</div>
+            <div id="countdownTitle" class="text-xs text-slate-400">Countdown bis zum Feierabend (16:30 Uhr)</div>
 
             <div id="countdownDisplay" class="hero-countdown text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1">--:--:--</div>
 
@@ -1662,9 +1769,9 @@
 
             <div class="my-2.5">
 
-              <span id="re10SummaryBadge" class="inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-rose-950/70 text-rose-300 border border-rose-500/40">
+              <span id="re10SummaryBadge" class="inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-500/40">
 
-                Heute: 1 Ausfall, 4 Verspätungen im Feierabendfenster
+                Heute: Keine Ausfälle gemeldet • Regulärer Betrieb
 
               </span>
 
@@ -1860,98 +1967,58 @@
 
         <!-- 2. GROSSE HERO-EMPFEHLUNGS-KARTE -->
 
-        <div id="recommendationHero" class="glass-card p-5 sm:p-6 border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-slate-950 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300">
+        <div id="heroRecommendation" data-id="heroCard" class="glass-card p-5 sm:p-6 border border-slate-700/80 bg-slate-900/70 flex-1 flex flex-col justify-center shadow-lg transition-all duration-300 hero-early">
 
-          <div>
-
-            <!-- Header: Empfehlungsbadge, Zuverlässigkeit, Ankunft Geldern -->
-
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-
-              <div class="flex items-center space-x-2.5">
-
-                <span id="recBadgePill" class="px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm">
-
-                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-
-                  <span id="recBadgeText">KLARE EMPFEHLUNG: BAHN RE10</span>
-
-                </span>
-
-                <span id="recConfidence" class="text-xs text-slate-400 font-mono">Zuverlässigkeit: 88%</span>
-
-              </div>
-
-              <div id="recSpeedComparison" class="text-xs sm:text-sm font-bold text-emerald-400 font-mono">
-
-                Ankunft Geldern: ca. 17:05 Uhr
-
-              </div>
-
-            </div>
-
-
-
-            <!-- Haupttitel (Bahn RE10 / Bus 63) -->
-
-            <h2 id="recTitle" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
-
-              Bahn RE10
-
+          <!-- 2.A MINIMALISTISCHE STATUSBOX VOR 16:00 UHR -->
+          <div id="heroEarlyView" class="py-6 px-4 flex flex-col items-center justify-center text-center my-auto space-y-2">
+            <h2 id="heroEarlyTitle" class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
+              ⏳ Noch zu früh für Empfehlung
             </h2>
-
-
-
-            <!-- Rote/Grüne Statuszeile -->
-
-            <div id="recStatusLine" class="text-xs sm:text-sm font-semibold text-rose-400 mb-3 flex items-center space-x-1.5">
-
-              <span id="recStatusIcon">❌</span>
-
-              <span id="recStatusText">Nicht machbar (Bus 63 zu pünktlich, mind. 3 Min Verspätung erforderlich).</span>
-
-            </div>
-
-
-
-            <!-- Textblock Empfehlung -->
-
-            <div class="text-xs sm:text-sm text-slate-300 space-y-1 leading-relaxed">
-
-              <div class="font-bold text-white text-xs sm:text-sm">Empfehlung:</div>
-
-              <p id="recExplanation" class="text-slate-300">
-
-                Verlasse Kromsteg 29 um 16:25 Uhr zu Fuß nach Boekholt (ca. 5–7 Min Gehzeit, SB41 fährt um 16:32 Uhr). Sicherer Anschluss an die Bahn RE10 in Nieukerk nach Geldern.
-
-              </p>
-
-            </div>
-
+            <p id="heroEarlyNotice" class="text-xs sm:text-sm text-slate-400 font-medium">
+              Aktiv ab 16:00 Uhr
+            </p>
           </div>
 
+          <!-- 2.B DYNAMISCHE FAHRTEMPFEHLUNG AB 16:00 UHR -->
+          <div id="heroActiveView" class="flex-1 flex flex-col justify-between hidden">
+            <div>
+              <!-- Zeile 1: Oben: Badge & Zuverlässigkeit -->
+              <div class="flex flex-wrap items-center space-x-2.5 mb-2">
+                <span id="recBadgePill" class="px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span id="recBadgeText">KLARE EMPFEHLUNG: BAHN RE10</span>
+                </span>
+                <span id="recConfidence" class="text-xs text-slate-400 font-mono">Zuverlässigkeit: 88%</span>
+              </div>
 
+              <!-- Zeile 2: Ankunft Geldern -->
+              <div id="recSpeedComparison" class="text-xs sm:text-sm font-bold text-emerald-400 font-mono mb-2">
+                Ankunft Geldern: ca. 17:31 Uhr (Zielzug 17:23)
+              </div>
 
-          <!-- Fußleiste der Karte: Icons der Etappen und Aktionsbutton -->
+              <!-- Großer Titel (Bahn RE10 / Bus 63) -->
+              <h2 id="recTitle" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+                Bahn RE10
+              </h2>
 
-          <div class="mt-5 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-300" id="recSummaryPills">
-
-              <span>🚶 Fußweg Boekholt (~5–7 Min)</span>
-
-              <span>🚌 SB41 ➔ Nieukerk</span>
-
-              <span>🚆 Bahn RE10 nach Geldern</span>
-
+              <!-- Status-Zeile mit rotem X -->
+              <div id="recStatusLine" class="text-xs sm:text-sm font-semibold text-rose-400 mb-2 flex items-center space-x-1.5">
+                <span id="recStatusIcon">❌</span>
+                <span id="recStatusText">Bus 63 zu pünktlich</span>
+              </div>
             </div>
 
-            <button id="recActionButton" class="w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center">
-
-              Um 16:25 Uhr zu Fuß nach Boekholt gehen
-
-            </button>
-
+            <!-- Fußleiste der Karte: Unten links Etappen-Icons, Unten rechts Aktionsbutton -->
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-300" id="recSummaryPills">
+                <span>🚶 Fußweg Boekholt (~5–7 Min)</span>
+                <span>🚌 SB41 ➔ Nieukerk</span>
+                <span>🚆 Bahn RE10 nach Geldern</span>
+              </div>
+              <button id="recActionButton" class="w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center">
+                Um 16:25 Uhr zu Fuß nach Boekholt gehen
+              </button>
+            </div>
           </div>
 
         </div>
@@ -1984,7 +2051,7 @@
 
                 </h3>
 
-                <p class="text-[11px] text-slate-400 mt-0.5" id="progressSubTitle">Live-Status an der Haltestelle: Wie lange braucht der Bus noch oder ist er schon weg?</p>
+                
 
               </div>
 
@@ -2100,74 +2167,6 @@
 
 
 
-            <!-- FOKUSSIERTE LIVE-STATUSANZEIGE AN DER HALTESTELLE -->
-
-            <div id="progStopStatusBanner" class="my-3 p-3.5 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all duration-200 bg-slate-900/90 border-emerald-500/40 text-emerald-200 shadow-sm">
-
-              <div class="flex items-start space-x-3 min-w-0">
-
-                <span id="progStopStatusIcon" class="text-2xl shrink-0 mt-0.5 select-none">⏳</span>
-
-                <div class="min-w-0">
-
-                  <div class="flex flex-wrap items-center gap-2">
-
-                    <span id="progStopStatusTitle" class="font-bold tracking-tight text-white text-xs sm:text-sm">Kommt in ca. 8 Minuten an Haltestelle Straelen Friedhof</span>
-
-                  </div>
-
-                  <p id="progStopStatusDesc" class="text-[11px] sm:text-xs text-slate-300 mt-0.5 leading-relaxed">
-
-                    Kommt in ca. 8 Min • ETA: 16:39 Uhr (+4m)
-
-                  </p>
-
-                </div>
-
-              </div>
-
-              <div id="progStopStatusPill" class="px-3.5 py-2 rounded-xl font-bold font-mono text-xs shrink-0 self-stretch sm:self-auto text-center border shadow-sm flex items-center justify-center bg-emerald-500/20 text-emerald-300 border-emerald-500/30 whitespace-nowrap">
-
-                In ca. 8 Min ⏳
-
-              </div>
-
-            </div>
-
-
-
-            <!-- Bottom Status Banner / Metrics -->
-
-            <div class="mt-2 pt-2.5 border-t border-slate-800/60 grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-xs">
-
-              <div class="bg-slate-950/50 p-2.5 rounded-xl border border-slate-800/80">
-
-                <span class="text-[10px] uppercase font-bold text-slate-400 block">Abfahrt Startpunkt</span>
-
-                <span id="progStatStart" class="text-slate-200 font-mono font-semibold text-xs mt-0.5 block">16:03 Uhr (Plan)</span>
-
-              </div>
-
-              <div class="bg-slate-950/50 p-2.5 rounded-xl border border-slate-800/80">
-
-                <span class="text-[10px] uppercase font-bold text-slate-400 block">Haltestellen-Status & Restzeit</span>
-
-                <span id="progStatProgress" class="text-emerald-400 font-mono font-semibold text-xs mt-0.5 block">68% • Noch 11 Min bis Friedhof</span>
-
-              </div>
-
-              <div class="bg-slate-950/50 p-2.5 rounded-xl border border-slate-800/80">
-
-                <span class="text-[10px] uppercase font-bold text-slate-400 block">Reale Live-Eintreffzeit (Live-ETA)</span>
-
-                <span id="progStatEta" class="text-emerald-300 font-mono font-bold text-xs mt-0.5 block">16:39 Uhr (Live)</span>
-
-              </div>
-
-            </div>
-
-
-
           </div>
 
         </div>
@@ -2177,346 +2176,6 @@
 
 
 </div>
-
-
-
-    </div>
-
-
-
-    <!-- DETAIL-KARTEN FÜR BUS 63 UND BAHN RE10 (HARMONISCH DARUNTER PLATZIERT) -->
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-
-
-
-      <!-- BUS 63 CARD (STRAELEN FRIEDHOF VIA LUCAS TRANSIT) -->
-
-      <div id="cardRoute1" class="glass-card p-6 border-slate-700 hover:border-emerald-500/50 transition duration-200 relative flex flex-col justify-between">
-
-        <div>
-
-          <!-- Header -->
-
-          <div class="flex items-start justify-between">
-
-            <div class="flex items-center space-x-3">
-
-              <span class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-bold flex items-center justify-center text-xs">
-
-                63
-
-              </span>
-
-              <div>
-
-                <h3 class="text-lg font-bold text-white">Bus 63</h3>
-
-                <p class="text-xs text-slate-400">Bus 63 (Straelen Friedhof ➔ Geldern)</p>
-
-              </div>
-
-            </div>
-
-</div>
-
-
-
-          <!-- Key Metrics -->
-
-          <div class="grid grid-cols-3 gap-2 my-5 text-center">
-
-            <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-
-              <div class="text-[10px] uppercase font-bold text-slate-400">Plan-Abfahrt</div>
-
-              <div id="r1PlanTime" class="text-base font-bold text-slate-200 mt-0.5">16:35</div>
-
-            </div>
-
-            <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-
-              <div class="text-[10px] uppercase font-bold text-slate-400">Live-Abfahrt</div>
-
-              <div id="r1LiveTime" class="text-base font-bold text-emerald-400 mt-0.5">16:38 <span class="text-xs">(+3)</span></div>
-
-            </div>
-
-            <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-
-              <div class="text-[10px] uppercase font-bold text-slate-400">Ankunft Geldern</div>
-
-              <div id="r1ArrTime" class="text-base font-bold text-slate-200 mt-0.5">16:58</div>
-
-            </div>
-
-          </div>
-
-
-
-          <!-- Unfeasible Alert Banner (visible when bus < 3m delay or Lucas not driving) -->
-
-          <div id="r1UnfeasibleAlert" class="hidden mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 flex items-start space-x-2">
-
-            <span class="text-sm">❌</span>
-
-            <span id="r1UnfeasibleReason" class="font-semibold leading-relaxed">Nicht machbar (Bus 63 zu pünktlich, mind. 3 Min Verspätung erforderlich)</span>
-
-          </div>
-
-
-
-          <!-- Timeline Steps -->
-
-          <div class="space-y-3 my-4 text-xs">
-
-            <div class="flex items-center space-x-3">
-
-              <div class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 text-[10px]">1</div>
-
-              <div class="flex-1">
-
-                <span class="font-medium text-slate-200">16:30 Uhr: Feierabend am Kromsteg 29</span>
-
-                <span id="r1Step1Desc" class="text-slate-400 block text-[11px]">🚗 16:30/16:31 Uhr mit Lucas ins Auto ➔ ca. 3–4 Min zum Friedhof (zu Fuß unmöglich!)</span>
-
-              </div>
-
-              <span id="r1Step1Time" class="text-slate-400 font-mono">ca. 16:34–16:35 Ankunft</span>
-
-            </div>
-
-
-
-            <div class="flex items-center space-x-3">
-
-              <div class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 text-[10px]">2</div>
-
-              <div class="flex-1">
-
-                <span class="font-medium text-slate-200">Wartezeit & Zeitpuffer (mind. +3 Min nötig!)</span>
-
-                <span id="r1BufferText" class="text-slate-400 block text-[11px]">Plan 16:35 Uhr zu knapp! Dank +3 Min Verspätung (16:38 Uhr) erreichbar.</span>
-
-              </div>
-
-              <span id="r1BufferBadge" class="text-emerald-400 font-mono font-semibold">+3 Min Puffer</span>
-
-            </div>
-
-
-
-            <div class="flex items-center space-x-3">
-
-              <div class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-[10px]">3</div>
-
-              <div class="flex-1">
-
-                <span class="font-medium text-slate-200">Busfahrt (Bus 63 Direkt)</span>
-
-                <span class="text-slate-400 block text-[11px]">Direktverbindung ohne Umstieg nach Geldern Bf</span>
-
-              </div>
-
-              <span class="text-slate-400 font-mono">Fahrzeit 20–22 Min</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- Card Footer -->
-
-        <div class="pt-4 mt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
-
-          <span class="text-slate-400">Verlässlichkeit: <strong id="r1Score" class="text-emerald-400">96/100</strong></span>
-
-          <span class="text-slate-400">Status: <span id="r1Risk" class="text-slate-300">Direkt & kein Umstieg</span></span>
-
-        </div>
-
-      </div>
-
-
-
-
-
-      <!-- BAHN RE10 CARD (STRAELEN BOEKHOLT VIA FUSSWEG ➔ NIEUKERK ➔ GELDERN) -->
-
-      <div id="cardRoute2" class="glass-card p-6 border-slate-700 hover:border-slate-500 transition duration-200 relative flex flex-col justify-between">
-
-        <div>
-
-          <!-- Header -->
-
-          <div class="flex items-start justify-between">
-
-            <div class="flex items-center space-x-3">
-
-              <span class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 font-bold flex items-center justify-center text-xs">
-
-                RE10
-
-              </span>
-
-              <div>
-
-                <h3 class="text-lg font-bold text-white">Bahn RE10</h3>
-
-                <p class="text-xs text-slate-400">Bahn RE10 (via SB41 Straelen Boekholt ➔ Nieukerk)</p>
-
-              </div>
-
-            </div>
-
-</div>
-
-
-
-          <!-- Key Metrics -->
-
-          <div class="grid grid-cols-3 gap-2 my-5 text-center">
-
-            <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-
-              <div class="text-[10px] uppercase font-bold text-slate-400">SB41 Boekholt</div>
-
-              <div id="r2Sb41Time" class="text-base font-bold text-slate-200 mt-0.5">16:49 <span class="text-xs text-emerald-400 font-normal">(pünktlich)</span></div>
-
-              <div id="r2Sb41Sub" class="text-[10px] text-emerald-400 mt-0.5 font-medium">Ank. Nieukerk: 16:59</div>
-
-            </div>
-
-            <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-
-              <div id="r2Re10Label" class="text-[10px] uppercase font-bold text-slate-400">RE10 Nieukerk</div>
-
-              <div id="r2Re10Time" class="text-base font-bold text-slate-200 mt-0.5">17:23 <span class="text-xs text-slate-400 font-normal">(Plan)</span></div>
-
-              <div id="r2Re10Sub" class="text-[10px] text-slate-400 mt-0.5">Zielzug</div>
-
-            </div>
-
-            <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-
-              <div class="text-[10px] uppercase font-bold text-slate-400">Ankunft Geldern</div>
-
-              <div id="r2ArrTime" class="text-base font-bold text-slate-200 mt-0.5">17:31</div>
-
-              <div id="r2ArrSub" class="text-[10px] text-slate-400 mt-0.5">Endstation</div>
-
-            </div>
-
-          </div>
-
-
-
-          <!-- SB41 Alert Banner -->
-
-          <div id="r2Sb41Alert" class="hidden mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 flex items-start space-x-2">
-
-            <span id="r2Sb41AlertIcon" class="text-sm">⚠️</span>
-
-            <span id="r2Sb41AlertText" class="font-semibold leading-relaxed">SB41 Statusmeldung</span>
-
-          </div>
-
-
-
-          <!-- RE10 16:53/16:55 Status & Zielzug Info-Box -->
-
-          <div id="r2StatusBox" class="mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-slate-900/80 border-slate-700/80">
-
-            <span id="r2StatusIcon" class="text-base shrink-0">ℹ️</span>
-
-            <div class="flex-1 leading-relaxed">
-
-              <span id="r2StatusTitle" class="font-semibold text-rose-400 block">Status RE10 16:53 Uhr: pünktlich ➔ nicht erreichbar</span>
-
-              <span id="r2StatusDetail" class="text-slate-400 block mt-0.5">Planmäßiger Zielzug: <strong class="text-white">RE10 um 17:23/17:25 Uhr</strong> (Ankunft Geldern: <strong class="text-white">ca. 17:31 Uhr</strong>). 24–26 Min Puffer in Nieukerk.</span>
-
-            </div>
-
-          </div>
-
-
-
-          <!-- Timeline Steps -->
-
-          <div class="space-y-3 my-4 text-xs">
-
-            <div class="flex items-center space-x-3">
-
-              <div class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 text-[10px]">1</div>
-
-              <div class="flex-1">
-
-                <span class="font-medium text-slate-200">16:30 Uhr: Feierabend am Kromsteg 29</span>
-
-                <span class="text-slate-400 block text-[11px]">🚶 ca. 5–7 Min Fußweg nach Haltestelle Straelen Boekholt</span>
-
-              </div>
-
-              <span class="text-slate-400 font-mono">ca. 16:36 Ankunft</span>
-
-            </div>
-
-
-
-            <div class="flex items-center space-x-3">
-
-              <div class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 text-[10px]">2</div>
-
-              <div class="flex-1">
-
-                <span id="r2Sb41StepTitle" class="font-medium text-slate-200">SB41 (16:49 Uhr) ➔ Nieukerk Bf (~16:59 Uhr)</span>
-
-                <span id="r2TransferDesc" class="text-slate-400 block text-[11px]">RE10 16:53 ist pünktlich ➔ nicht erreichbar. Wartezeit auf 17:23/17:25 Uhr Zug.</span>
-
-              </div>
-
-              <span id="r2TransferPill" class="text-slate-400 font-mono font-semibold">+24–26 Min Puffer</span>
-
-            </div>
-
-
-
-            <div class="flex items-center space-x-3">
-
-              <div class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-[10px]">3</div>
-
-              <div class="flex-1">
-
-                <span id="r2TrainTitle" class="font-medium text-slate-200">Planmäßiger RE10 um 17:23/17:25 Uhr nach Geldern</span>
-
-                <span id="r2TrainDesc" class="text-slate-400 block text-[11px]">Abfahrt 17:23/17:25 Uhr ➔ Ankunft Geldern ca. 17:30/17:31 Uhr</span>
-
-              </div>
-
-              <span id="r2TrainDuration" class="text-slate-400 font-mono">6–8 Min Zug</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- Card Footer -->
-
-        <div class="pt-4 mt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
-
-          <span class="text-slate-400">Verlässlichkeit: <strong id="r2Score" class="text-emerald-400">85/100</strong></span>
-
-          <span class="text-slate-400">Status: <span id="r2Risk" class="text-slate-300">Regulärer Zielzug 17:23/17:25 Uhr</span></span>
-
-        </div>
-
-      </div>
 
 
 
@@ -2530,13 +2189,25 @@
 
          ===================================================================== -->
 
-    <section id="deepDiveSection" class="pt-4 space-y-6">
+    <section id="deepDiveSection" class="pt-4 space-y-4 sm:space-y-5">
 
-      
-
-
-
-
+      <!-- =====================================================================
+           LIVE-TICKER / STÖRUNGSMELDER (TEXT-ONLY STRECKEN-NEWS & SONDERVERKEHR)
+           ===================================================================== -->
+      <div id="re10LiveTicker" class="live-ticker-bar is-idle p-3 sm:py-2.5 sm:px-4 rounded-xl border border-slate-800/80 bg-slate-900/70 shadow-sm transition-all duration-300">
+        <div class="flex items-center justify-between gap-3 text-xs">
+          <div class="flex items-center space-x-2.5 min-w-0 flex-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+            <span class="font-bold uppercase tracking-wider text-[10px] sm:text-[11px] text-slate-400 shrink-0">LIVE-TICKER:</span>
+            <span class="ticker-title text-slate-300 font-medium truncate">🟢 Keine aktuellen Streckenstörungen für RE10, Bus 63 oder SB41 bekannt</span>
+          </div>
+          <div class="flex items-center space-x-2 shrink-0 text-[10px] font-mono text-slate-500">
+            <span class="hidden sm:inline">Regelbetrieb</span>
+            <span class="hidden sm:inline">•</span>
+            <span class="select-none">Transitous Live</span>
+          </div>
+        </div>
+      </div>
 
       <!-- TABELLE 1: BAHN RE10 (NIEUKERK ➔ GELDERN / KLEVE) -->
 
@@ -2812,7 +2483,110 @@
 
        ===================================================================== */
 
+    // DOM ALIAS HELPER: Support #heroCard, #heroRecommendation & #recommendationHero seamlessly
+    (function() {
+      if (typeof Document !== "undefined" && Document.prototype) {
+        const _origGetElementById = Document.prototype.getElementById;
+        Document.prototype.getElementById = function(id) {
+          if (id === "heroCard" || id === "recommendationHero") {
+            return _origGetElementById.call(this, "heroRecommendation") || _origGetElementById.call(this, id);
+          }
+          return _origGetElementById.call(this, id);
+        };
+        const _origQuerySelector = Document.prototype.querySelector;
+        Document.prototype.querySelector = function(selector) {
+          if (selector === "#heroCard" || selector === "#recommendationHero") {
+            return _origGetElementById.call(this, "heroRecommendation") || _origQuerySelector.call(this, selector);
+          }
+          return _origQuerySelector.call(this, selector);
+        };
+      }
+    })();
 
+    function getCurrentTime() {
+      if (window.PENDLER_SIM_TIME) {
+        return new Date(window.PENDLER_SIM_TIME);
+      }
+      return (typeof state !== "undefined" && state && state.now) ? state.now : new Date();
+    }
+
+    // TIME CALCULATION HELPER (Bugfix: 16:55 + 20m = 17:15 Uhr, niemals 16:75 Uhr!)
+    function addMinutesToTime(timeStr, delayMinutes) {
+      if (!timeStr || typeof timeStr !== "string") return timeStr || "";
+      const cleanTime = timeStr.trim();
+      const parts = cleanTime.split(":");
+      if (parts.length < 2) return timeStr;
+      const h = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+      if (isNaN(h) || isNaN(m)) return timeStr;
+
+      const delay = parseInt(delayMinutes, 10) || 0;
+      const totalMinutes = h * 60 + m + delay;
+      const normMinutes = ((totalMinutes % 1440) + 1440) % 1440;
+      const newH = Math.floor(normMinutes / 60);
+      const newM = normMinutes % 60;
+      return `${String(newH).padStart(2, "0")}:${String(newM).padStart(2, "0")}`;
+    }
+
+    function timeToMinutes(timeStr) {
+      if (!timeStr || typeof timeStr !== "string") return 0;
+      const parts = timeStr.trim().split(":");
+      if (parts.length < 2) return 0;
+      return (parseInt(parts[0], 10) || 0) * 60 + (parseInt(parts[1], 10) || 0);
+    }
+
+    // MATCHING & REALE DATEN: Ein Zug/Bus ist NUR DANN ein Ausfall, wenn live vom Betreiber gemeldet!
+    function getRe10Item(planTime, defaultId) {
+      const match = (state.liveRe10List || []).find(t => {
+        return t.plan === planTime || Math.abs(timeToMinutes(t.plan) - timeToMinutes(planTime)) <= 6;
+      });
+      if (match) {
+        return {
+          id: match.id || defaultId,
+          plan: match.plan || planTime,
+          live: match.live,
+          delay: match.delay,
+          cancelled: match.cancelled,
+          reason: match.reason,
+          status: match.status
+        };
+      }
+      return {
+        id: defaultId,
+        plan: planTime,
+        live: planTime,
+        delay: 0,
+        cancelled: false,
+        reason: "Pünktlich (Regulärer Takt)",
+        status: "ONTIME"
+      };
+    }
+
+    function getSb41Item(planTime, defaultId) {
+      const match = (state.liveSb41List || []).find(t => {
+        return t.plan === planTime || Math.abs(timeToMinutes(t.plan) - timeToMinutes(planTime)) <= 6;
+      });
+      if (match) {
+        return {
+          id: match.id || defaultId,
+          plan: match.plan || planTime,
+          live: match.live,
+          delay: match.delay,
+          cancelled: match.cancelled,
+          lage: match.lage,
+          status: match.status
+        };
+      }
+      return {
+        id: defaultId,
+        plan: planTime,
+        live: planTime,
+        delay: 0,
+        cancelled: false,
+        lage: "Pünktlich – Freie Fahrt auf der B58",
+        status: "ONTIME"
+      };
+    }
 
     // STATE
 
@@ -2839,6 +2613,12 @@
       r1UnfeasibleMsg: "",
 
       re10History: [],
+
+      liveRe10List: [],
+
+      liveSb41List: [],
+
+      tickerAlerts: [],
 
       route1: {
 
@@ -2881,6 +2661,10 @@
         canCatchEarlier: false,
 
         targetTrainMissed: false,
+
+        targetTrain1723Cancelled: false,
+
+        targetTrain1723Delay: 0,
 
         targetTransferBuffer: 24,
 
@@ -3209,35 +2993,19 @@
 
 
       if (!lucas) {
-
         r1Viable = false;
-
-        r1UnfeasibleMsg = "❌ Nicht machbar (Lucas fährt heute nicht – Friedhof ohne Auto ab Kromsteg 29 zu weit entfernt)";
-
+        r1UnfeasibleMsg = "❌ Lucas fährt heute nicht";
       } else if (r1.cancelled) {
-
         r1Viable = false;
-
-        r1UnfeasibleMsg = "❌ Nicht machbar (Bus 63 um 16:35 Uhr fällt heute aus)";
-
+        r1UnfeasibleMsg = "❌ Bus 63 Ausfall";
       } else if (r1.delayMin < 3) {
-
         r1Viable = false;
-
-        const delayStr = r1.delayMin <= 0 ? "pünktlich (0 Min Verspätung)" : `nur +${r1.delayMin} Min Verspätung`;
-
-        r1UnfeasibleMsg = `❌ Nicht machbar (Bus 63 zu pünktlich [${delayStr}], mind. 3 Min Verspätung erforderlich)`;
-
+        r1UnfeasibleMsg = "❌ Bus 63 zu pünktlich";
       } else {
-
         r1Viable = true;
-
       }
 
-
-
       state.r1Viable = r1Viable;
-
       state.r1UnfeasibleMsg = r1UnfeasibleMsg;
 
 
@@ -3334,7 +3102,7 @@
 
 
 
-      if (r2.re10Cancelled) {
+      if (r2.re10Cancelled || r2.targetTrain1723Cancelled) {
 
         r2.targetTrain = "RE10 (Ausfall)";
 
@@ -3351,26 +3119,9 @@
         r2.arrivalGeldern = "KEINE FAHRT";
 
       } else if (canCatchEarlier) {
-
         r2.targetTrain = `RE10 16:53 (+${r2.re10Delay}m Speed-Tipp)`;
-
-        const depH = 16 + Math.floor(re10EarlyDepMin / 60);
-
-        const depM = re10EarlyDepMin % 60;
-
-        r2.targetDep = `${depH}:${String(depM).padStart(2, "0")}`;
-
-
-
-        // Fahrzeit Nieukerk -> Geldern ca. 7 Min
-
-        const arrMinTotal = re10EarlyDepMin + 7;
-
-        const arrH = 16 + Math.floor(arrMinTotal / 60);
-
-        const arrM = arrMinTotal % 60;
-
-        r2.arrivalGeldern = `${arrH}:${String(arrM).padStart(2, "0")}`;
+        r2.targetDep = addMinutesToTime("16:53", r2.re10Delay);
+        r2.arrivalGeldern = addMinutesToTime(r2.targetDep, 7);
 
       } else if (r2.targetTrainMissed) {
 
@@ -3717,33 +3468,41 @@
 
       try {
         const today = new Date();
-        // Feierabend-Fenster heute dynamisch in lokaler Zeit anlegen:
+        // Feierabend-Fenster heute dynamisch in lokaler Zeit anlegen (ab 14:45 Uhr für vollen Nachmittags-Überblick):
         const dateBus63 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 25, 0);
-        const dateSb41 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 40, 0);
-        const dateRe10 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 50, 0);
+        const dateSb41 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 45, 0);
+        const dateRe10 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 45, 0);
 
         const r1Url = `https://api.transitous.org/api/v1/plan?fromPlace=de-DELFI_de:05154:35479:0:1&toPlace=de-DELFI_de:05154:36117&time=${dateBus63.toISOString()}`;
-        const sb41Url = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:35477:0:1&time=${dateSb41.toISOString()}&n=8`;
-        const re10Url = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:36114:89:1&time=${dateRe10.toISOString()}&n=8`;
+        const sb41Url = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:35477:0:1&time=${dateSb41.toISOString()}&n=16`;
+        const re10Url = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:36114:89:1&time=${dateRe10.toISOString()}&n=16`;
+        const bus63StopsUrl = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:35479:0:1&time=${dateBus63.toISOString()}&n=16`;
+        const kempenUrl = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05166:21005&time=${dateRe10.toISOString()}&n=16`;
 
         let r1Data = null;
         let sb41Data = null;
         let re10Data = null;
+        let bus63StopsData = null;
+        let kempenData = null;
 
         try {
           const controller = new AbortController();
           const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-          const [resp1, respSb41, resp2] = await Promise.all([
+          const [resp1, respSb41, resp2, respB63Stops, respKempen] = await Promise.all([
             fetch(r1Url, { headers: { "User-Agent": "PendlerLotse/1.0" }, signal: controller.signal }).catch(e => null),
             fetch(sb41Url, { headers: { "User-Agent": "PendlerLotse/1.0" }, signal: controller.signal }).catch(e => null),
-            fetch(re10Url, { headers: { "User-Agent": "PendlerLotse/1.0" }, signal: controller.signal }).catch(e => null)
+            fetch(re10Url, { headers: { "User-Agent": "PendlerLotse/1.0" }, signal: controller.signal }).catch(e => null),
+            fetch(bus63StopsUrl, { headers: { "User-Agent": "PendlerLotse/1.0" }, signal: controller.signal }).catch(e => null),
+            fetch(kempenUrl, { headers: { "User-Agent": "PendlerLotse/1.0" }, signal: controller.signal }).catch(e => null)
           ]);
           clearTimeout(timeoutId);
 
           if (resp1 && resp1.ok) r1Data = await resp1.json();
           if (respSb41 && respSb41.ok) sb41Data = await respSb41.json();
           if (resp2 && resp2.ok) re10Data = await resp2.json();
+          if (respB63Stops && respB63Stops.ok) bus63StopsData = await respB63Stops.json();
+          if (respKempen && respKempen.ok) kempenData = await respKempen.json();
         } catch (netErr) {
           console.warn("Transitous API Fetch Warning:", netErr);
         }
@@ -3762,6 +3521,8 @@
             state.route1.delayMin = diffMin;
             state.route1.arrivalGeldern = arrDt.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
             state.route1.cancelled = leg.cancelled || false;
+            state.route1.rawDescription = leg.description || (leg.alerts && leg.alerts[0]?.alertDescriptionText) || "";
+            state.route1.headsign = leg.headsign || "";
           }
         } else {
           // Sensible realistic baseline
@@ -3772,8 +3533,52 @@
             arrivalGeldern: "16:58",
             cancelled: false,
             score: 98,
-            status: "OPTIMAL"
+            status: "OPTIMAL",
+            rawDescription: "",
+            headsign: "Geldern Bahnhof"
           };
+        }
+
+        // Zusätzliche Prüfung auf Hinweise/Ausfälle direkt an Haltestelle Straelen Friedhof
+        if (bus63StopsData && bus63StopsData.stopTimes) {
+          const b63 = bus63StopsData.stopTimes.find(st => {
+            const name = (st.displayName || st.routeShortName || "").toUpperCase();
+            return name.includes("63") || name.includes("063");
+          });
+          if (b63) {
+            if (b63.cancelled || b63.tripCancelled || b63.place?.cancelled) {
+              state.route1.cancelled = true;
+            }
+            const desc = b63.description || (b63.alerts && (b63.alerts[0]?.alertDescriptionText || b63.alerts[0]?.text)) || "";
+            if (desc) {
+              state.route1.rawDescription = (state.route1.rawDescription ? state.route1.rawDescription + " • " : "") + desc;
+            }
+            if (b63.headsign) {
+              state.route1.headsign = b63.headsign;
+            }
+          }
+        }
+
+        // Hilfsfunktion: Echte Störungs- & Hinweistexte aus API-Remarks/Alerts/Description extrahieren
+        // WICHTIG: Niemals die statische Haltestellenbeschreibung (place.description wie "Schienenersatzv." an Steig 89) nutzen!
+        function extractDisruptionRemarks(st) {
+          const parts = [];
+          if (Array.isArray(st.remarks)) {
+            st.remarks.forEach(r => {
+              const txt = typeof r === "string" ? r : (r.text || r.summary || r.description || "");
+              if (txt && txt.trim()) parts.push(txt.trim());
+            });
+          }
+          if (Array.isArray(st.alerts)) {
+            st.alerts.forEach(a => {
+              const txt = typeof a === "string" ? a : (a.headerText || a.descriptionText || a.alertText || a.text || "");
+              if (txt && txt.trim()) parts.push(txt.trim());
+            });
+          }
+          if (st.description && typeof st.description === "string" && st.description.trim()) {
+            parts.push(st.description.trim());
+          }
+          return parts.join(" • ");
         }
 
         // 1. SB41 LIVE-DATEN (Haltestelle Straelen Boekholt - STRENG NUR RICHTUNG NIEUKERK / GELDERN!)
@@ -3781,9 +3586,10 @@
         let sb41Live = "16:49";
         let sb41Delay = 0;
         let sb41Cancelled = false;
+        let liveSb41List = [];
 
         if (sb41Data && sb41Data.stopTimes && sb41Data.stopTimes.length > 0) {
-          const candidates = sb41Data.stopTimes.filter(st => {
+          const sbCandidates = sb41Data.stopTimes.filter(st => {
             const name = (st.displayName || st.routeShortName || "").toUpperCase();
             if (!name.includes("SB41") && !name.includes("SB 41")) return false;
             const headsign = (st.headsign || "").toLowerCase();
@@ -3796,17 +3602,41 @@
             return dest.includes("nieukerk") || dest.includes("geldern") || dest.includes("kerken") || dest.includes("aldekerk");
           });
 
-          if (candidates.length > 0) {
+          liveSb41List = sbCandidates.map(st => {
+            const isCancelled = Boolean(st.cancelled || st.tripCancelled || st.place?.cancelled);
+            let sDate = st.place?.scheduledDeparture ? new Date(st.place.scheduledDeparture) : null;
+            let lDate = st.place?.departure ? new Date(st.place.departure) : sDate;
+            let planTime = sDate ? sDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : "--:--";
+            let liveTime = lDate ? lDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : planTime;
+            let delay = (sDate && lDate) ? Math.round((lDate - sDate) / 60000) : 0;
+            if (delay < 0) delay = 0;
+            const remarksText = extractDisruptionRemarks(st);
+            return {
+              id: st.displayName || st.routeShortName || "SB41",
+              plan: planTime,
+              live: isCancelled ? "AUSFALL" : (delay > 0 ? `${liveTime} (+${delay}m)` : planTime),
+              delay: isCancelled ? 999 : delay,
+              cancelled: isCancelled,
+              lage: isCancelled ? (remarksText || "Fahrtausfall (Ausfallmeldung VRR/NIAG)") : (delay > 0 ? `+${delay} Min Verkehrsverzögerung B58` : "Pünktlich – Freie Fahrt auf der B58"),
+              status: isCancelled ? "CANCEL" : (delay > 0 ? "DELAY" : "ONTIME"),
+              rawDescription: remarksText,
+              remarksText: remarksText,
+              remarks: st.remarks || [],
+              alerts: st.alerts || []
+            };
+          });
+
+          if (sbCandidates.length > 0) {
             // Bevorzuge Fahrt im Feierabendfenster (geplant zwischen 16:35 und 17:15)
-            let targetSb41 = candidates.find(c => {
+            let targetSb41 = sbCandidates.find(c => {
               if (!c.place?.scheduledDeparture) return false;
               const d = new Date(c.place.scheduledDeparture);
               const h = d.getHours();
               const m = d.getMinutes();
               return (h === 16 && m >= 35 && m <= 58) || (h === 17 && m <= 15);
-            }) || candidates[0];
+            }) || sbCandidates[0];
 
-            sb41Cancelled = targetSb41.cancelled || targetSb41.tripCancelled || targetSb41.place?.cancelled || false;
+            sb41Cancelled = Boolean(targetSb41.cancelled || targetSb41.tripCancelled || targetSb41.place?.cancelled);
 
             if (targetSb41.place?.scheduledDeparture) {
               const sDate = new Date(targetSb41.place.scheduledDeparture);
@@ -3822,6 +3652,7 @@
           }
         }
 
+        state.liveSb41List = liveSb41List;
         state.route2.sb41Planned = sb41Planned;
         state.route2.sb41Live = sb41Cancelled ? "AUSFALL" : sb41Live;
         state.route2.sb41Delay = sb41Cancelled ? 999 : Math.max(0, sb41Delay);
@@ -3841,6 +3672,10 @@
         // 2. RE10 LIVE-DATEN (Nieukerk Bahnhof - STRENG NUR RICHTUNG GELDERN / KLEVE!)
         let re10Delay = 0;
         let re10Canc = false;
+        let targetTrain1723Delay = 0;
+        let targetTrain1723Canc = false;
+        let liveRe10List = [];
+
         if (re10Data && re10Data.stopTimes) {
           const trains = re10Data.stopTimes.filter(st => {
             const name = (st.displayName || st.routeShortName || "").toUpperCase();
@@ -3854,20 +3689,62 @@
             // Nur Züge Richtung Geldern, Kleve, Kevelaer, Goch, Bedburg-Hau!
             return dest.includes("kleve") || dest.includes("geldern") || dest.includes("kevelaer") || dest.includes("goch") || dest.includes("bedburg");
           });
-          if (trains.length > 0) {
-            const targetTrain = trains[0];
-            re10Canc = targetTrain.cancelled || targetTrain.tripCancelled || false;
-            if (targetTrain.place && targetTrain.place.departure && targetTrain.place.scheduledDeparture) {
-              const dep = new Date(targetTrain.place.departure);
-              const sdep = new Date(targetTrain.place.scheduledDeparture);
-              re10Delay = Math.round((dep - sdep) / 60000);
-            }
+
+          liveRe10List = trains.map(st => {
+            const isCancelled = Boolean(st.cancelled || st.tripCancelled || st.place?.cancelled);
+            let sDate = st.place?.scheduledDeparture ? new Date(st.place.scheduledDeparture) : null;
+            let lDate = st.place?.departure ? new Date(st.place.departure) : sDate;
+            let planTime = sDate ? sDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : "--:--";
+            let liveTime = lDate ? lDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : planTime;
+            let delay = (sDate && lDate) ? Math.round((lDate - sDate) / 60000) : 0;
+            if (delay < 0) delay = 0;
+            const remarksText = extractDisruptionRemarks(st);
+            const isBusMode = st.mode === "BUS";
+            return {
+              id: st.displayName || st.routeShortName || "RE10",
+              plan: planTime,
+              live: isCancelled ? "AUSFALL" : (delay > 0 ? `${liveTime} (+${delay}m)` : planTime),
+              delay: isCancelled ? 999 : delay,
+              cancelled: isCancelled,
+              reason: isCancelled ? (remarksText || "Fahrtausfall gemeldet (Transitous/VRR/DB)") : (delay > 0 ? `+${delay} Min Verzögerung (Live-Daten DB/VRR)` : "Pünktlich (Planmäßig)"),
+              status: isCancelled ? "CANCEL" : (delay > 0 ? "DELAY" : "ONTIME"),
+              rawDescription: remarksText,
+              remarksText: remarksText,
+              isBusMode: isBusMode,
+              track: st.place?.track || st.place?.scheduledTrack || "",
+              remarks: st.remarks || [],
+              alerts: st.alerts || []
+            };
+          });
+
+          // Ziel-Feierabendzug ca. 16:53 Uhr:
+          const targetTrain = liveRe10List.find(t => {
+            const m = timeToMinutes(t.plan);
+            return m >= 16 * 60 + 45 && m <= 17 * 60 + 5;
+          }) || liveRe10List.find(t => timeToMinutes(t.plan) >= 16 * 60 + 40);
+
+          if (targetTrain) {
+            re10Canc = targetTrain.cancelled;
+            re10Delay = targetTrain.cancelled ? 999 : targetTrain.delay;
+          }
+
+          // Späterer Zielzug 17:23 Uhr:
+          const t1723 = liveRe10List.find(t => {
+            const m = timeToMinutes(t.plan);
+            return m >= 17 * 60 + 15 && m <= 17 * 60 + 35;
+          });
+          if (t1723) {
+            targetTrain1723Canc = t1723.cancelled;
+            targetTrain1723Delay = t1723.cancelled ? 999 : t1723.delay;
           }
         }
 
+        state.liveRe10List = liveRe10List;
         state.route2.re10Delay = Math.max(0, re10Delay);
         state.route2.re10Cancelled = re10Canc;
-        state.route2.re10Live = re10Canc ? "AUSFALL" : (re10Delay > 0 ? `16:${String(53 + state.route2.re10Delay).padStart(2, "0")}` : "16:53");
+        state.route2.re10Live = re10Canc ? "AUSFALL" : (re10Delay > 0 ? addMinutesToTime("16:53", state.route2.re10Delay) : "16:53");
+        state.route2.targetTrain1723Cancelled = targetTrain1723Canc;
+        state.route2.targetTrain1723Delay = targetTrain1723Delay;
 
         // Run decision matrix
         computeDecision();
@@ -3891,776 +3768,138 @@
     // --- 5. RENDER UI ---
 
     function renderUI() {
-
       const r1 = state.route1;
-
       const r2 = state.route2;
-
       const rec = state.recommendation;
 
-
-
       // UPDATE "LUCAS TRANSIT GMBH" STATUS
-
       const chkLucas = document.getElementById("chkLucasTransit");
-
-      chkLucas.checked = state.lucasAvailable;
-
+      if (chkLucas) chkLucas.checked = state.lucasAvailable;
       const lucasPill = document.getElementById("lucasStatusPill");
-
-      const chkLabel = document.getElementById("chkLucasLabel");
-
-      const chkSub = document.getElementById("chkLucasSub");
-
-
-
-      if (state.lucasAvailable) {
-
-        lucasPill.className = "text-[10px] px-2.5 py-0.5 rounded-full font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-
-        lucasPill.textContent = "Aktiv (Lucas fährt)";
-
-        if (chkLabel) chkLabel.textContent = "Fahrgemeinschaft";
-
-        if (chkSub) chkSub.textContent = "Bus 63 via Auto verfügbar";
-
-      } else {
-
-        lucasPill.className = "text-[10px] px-2.5 py-0.5 rounded-full font-semibold bg-rose-500/20 text-rose-400 border border-rose-500/30";
-
-        lucasPill.textContent = "Inaktiv (keine Autofahrt)";
-
-        if (chkLabel) chkLabel.textContent = "Fahrgemeinschaft (Aus)";
-
-        if (chkSub) chkSub.textContent = "Bus 63 ohne Auto unmöglich";
-
+      const lucasSub = document.getElementById("chkLucasSub");
+      if (lucasPill && lucasSub) {
+        if (state.lucasAvailable) {
+          lucasPill.className = "text-[10px] px-2.5 py-0.5 rounded-full font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+          lucasPill.textContent = "Fahrgemeinschaft AKTIV";
+          lucasSub.textContent = "Bus 63 via Auto verfügbar";
+        } else {
+          lucasPill.className = "text-[10px] px-2.5 py-0.5 rounded-full font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30";
+          lucasPill.textContent = "Lucas fährt heute nicht";
+          lucasSub.textContent = "Friedhof ohne Auto nicht erreichbar";
+        }
       }
 
-
-
-      // RECOMMENDATION HERO BANNER
-
-      const hero = document.getElementById("recommendationHero");
-
+      // RECOMMENDATION HERO CARD
+      const hero = document.getElementById("heroRecommendation");
+      const heroEarlyView = document.getElementById("heroEarlyView");
+      const heroActiveView = document.getElementById("heroActiveView");
       const recBadgePill = document.getElementById("recBadgePill");
-
       const recBadgeText = document.getElementById("recBadgeText");
-
       const recConfidence = document.getElementById("recConfidence");
-
       const recSpeed = document.getElementById("recSpeedComparison");
-
       const recTitle = document.getElementById("recTitle");
-
-      const recExpl = document.getElementById("recExplanation");
-
-      const recAction = document.getElementById("recActionButton") || document.getElementById("recActionBadge");
-
+      const recAction = document.getElementById("recActionButton");
       const recSummaryPills = document.getElementById("recSummaryPills");
-
       const recStatusLine = document.getElementById("recStatusLine");
-
       const recStatusIcon = document.getElementById("recStatusIcon");
-
       const recStatusText = document.getElementById("recStatusText");
 
+      // Check if time is before 16:00 Uhr
+      const now = getCurrentTime();
+      const isEarly = now.getHours() < 16;
 
-
-      recConfidence.textContent = `Zuverlässigkeit: ${rec.confidence}`;
-
-
-
-      if (rec.theme === "red") {
-        hero.className = "glass-card p-5 sm:p-6 border-2 border-rose-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-rose-950/30 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300";
-        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-rose-950/70 text-rose-300 border border-rose-500/40 flex items-center space-x-1.5 shadow-sm";
-        recBadgeText.textContent = rec.badge;
-        recSpeed.className = "text-xs sm:text-sm font-bold text-rose-400 font-mono";
-        recSpeed.textContent = `Ankunft: ${rec.arrival}`;
-        recTitle.textContent = rec.type.startsWith("ROUTE_1") ? "Bus 63 (Ausfall-Fallback)" : "Achtung: Störung!";
-
-        if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-rose-400 mb-3 flex items-center space-x-1.5";
-        if (recStatusIcon) recStatusIcon.textContent = "🚨";
-        if (recStatusText) recStatusText.textContent = rec.type === "ROUTE_1_CHAOS_FALLBACK" ? "Bahn RE10 Ausfall in Nieukerk! Nieukerk meiden." : "Störungsmeldung im Feierabendfenster beachten!";
-
-        recExpl.innerHTML = rec.explanation;
-
-        if (recAction) {
-          recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
-          recAction.textContent = rec.type === "ROUTE_1_CHAOS_FALLBACK" ? "Mit Lucas zu Bus 63 fahren" : "Verbindung vor Abgang prüfen";
+      if (isEarly) {
+        // Vor 16:00 Uhr: Minimalistische Statusbox mit dezenter grauer Umrandung
+        if (hero) {
+          hero.classList.add("hero-early");
+          hero.className = "glass-card p-5 sm:p-6 border border-slate-700/80 bg-slate-900/70 flex-1 flex flex-col justify-center items-center shadow-md transition-all duration-300 hero-early";
         }
-        recSummaryPills.innerHTML = `
-          <span class="text-rose-400 font-medium">⚠️ Störungsmeldung beachten</span>
-        `;
+        if (heroEarlyView) heroEarlyView.classList.remove("hidden");
+        if (heroActiveView) heroActiveView.classList.add("hidden");
       } else {
-        // REINE 2-FARBEN-SIGNAL-EMPFEHLUNG: ALLE AKTIVEN EMPFEHLUNGEN IN SATTE/KLARE GRÜNE SIGNALFARBE
-        hero.className = "glass-card p-5 sm:p-6 border-2 border-emerald-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-slate-950 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300";
-        recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm";
-        recBadgeText.textContent = rec.badge;
-        recSpeed.className = "text-xs sm:text-sm font-bold text-emerald-400 font-mono";
-        recSpeed.textContent = `Ankunft Geldern: ${rec.arrival.includes('Ankunft') ? rec.arrival : (rec.arrival.startsWith('ca.') ? rec.arrival : 'ca. ' + rec.arrival)}`;
-        
-        const isBus63 = rec.type === "ROUTE_1";
-        recTitle.textContent = isBus63 ? "Bus 63" : "Bahn RE10";
+        // Ab 16:00 Uhr: Normale dynamische Empfehlungslogik
+        if (hero) hero.classList.remove("hero-early");
+        if (heroEarlyView) heroEarlyView.classList.add("hidden");
+        if (heroActiveView) heroActiveView.classList.remove("hidden");
 
-        if (isBus63) {
-          if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-emerald-400 mb-3 flex items-center space-x-1.5";
-          if (recStatusIcon) recStatusIcon.textContent = "🟢";
-          if (recStatusText) recStatusText.textContent = `Optimal machbar (+${r1.delayMin} Min Verspätung an Straelen Friedhof & Lucas fährt Auto).`;
+        if (recConfidence) recConfidence.textContent = `Zuverlässigkeit: ${rec.confidence}`;
 
-          recExpl.innerHTML = `Feierabend um 16:30 Uhr am Kromsteg 29. Fahre mit Lucas per Auto (ca. 3–4 Min ab Kromsteg 29, Eintreffen Friedhof ~16:35 Uhr) zur Haltestelle Straelen Friedhof. Bus 63 fährt verspätet um ca. <strong>${r1.liveDep} Uhr</strong> ab (Plan 16:35 Uhr, +${r1.delayMin}m). Direkte Ankunft in Geldern bereits um <strong>ca. ${r1.arrivalGeldern} Uhr</strong> – ca. 32–33 Minuten schneller als die reguläre Bahn RE10! Keine Umstiege.`;
-
-          if (recAction) {
-            recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
-            recAction.textContent = "Um 16:30 Uhr mit Lucas zu Bus 63 fahren";
+        if (rec.theme === "red") {
+          if (hero) hero.className = "glass-card p-5 sm:p-6 border-2 border-rose-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-rose-950/30 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300";
+          if (recBadgePill) recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-rose-950/70 text-rose-300 border border-rose-500/40 flex items-center space-x-1.5 shadow-sm";
+          if (recBadgeText) recBadgeText.textContent = rec.badge;
+          if (recSpeed) {
+            recSpeed.className = "text-xs sm:text-sm font-bold text-rose-400 font-mono mb-2";
+            recSpeed.textContent = `Ankunft: ${rec.arrival}`;
           }
-          recSummaryPills.innerHTML = `
-            <span>🚗 Lucas Transit Auto</span>
-            <span>🚌 Bus 63 Direkt</span>
-            <span>🔄 0 Umstiege</span>
-          `;
-        } else {
-          // RE10 Empfehlung (Reine grüne Signalfarbe für die Empfehlung, roter Status für nicht machbaren Bus)
-          if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-rose-400 mb-3 flex items-center space-x-1.5";
+          if (recTitle) recTitle.textContent = rec.type.startsWith("ROUTE_1") ? "Bus 63" : "Achtung: Störung!";
+
+          if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-rose-400 mb-2 flex items-center space-x-1.5";
           if (recStatusIcon) recStatusIcon.textContent = "❌";
-          if (recStatusText) recStatusText.textContent = state.r1UnfeasibleMsg ? state.r1UnfeasibleMsg.replace("❌ ", "") : "Nicht machbar (Bus 63 zu pünktlich, mind. 3 Min Verspätung erforderlich).";
-
-          recExpl.innerHTML = rec.explanation;
+          if (recStatusText) recStatusText.textContent = state.r1UnfeasibleMsg ? state.r1UnfeasibleMsg.replace("❌ ", "") : "Störungsmeldung beachten";
 
           if (recAction) {
-            recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
-            recAction.textContent = "Um 16:25 Uhr zu Fuß nach Boekholt gehen";
+            recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
+            recAction.textContent = rec.type.startsWith("ROUTE_1") ? "Mit Lucas zu Bus 63 fahren" : "Verbindung vor Abgang prüfen";
           }
-          recSummaryPills.innerHTML = `
-            <span>🚶 Fußweg Boekholt (~5–7 Min)</span>
-            <span>🚌 SB41 ➔ Nieukerk</span>
-            <span>🚆 Bahn RE10 nach Geldern</span>
-          `;
-        }
-      }
-
-      // BUS 63 CARD
-
-      const cardR1 = document.getElementById("cardRoute1");
-
-      document.getElementById("r1PlanTime").textContent = r1.plannedDep;
-
-      const r1LiveEl = document.getElementById("r1LiveTime");
-
-      const delaySign = r1.delayMin > 0 ? `(+${r1.delayMin})` : r1.delayMin < 0 ? `(${r1.delayMin})` : "(+0)";
-
-      r1LiveEl.innerHTML = `${r1.liveDep} <span class="text-xs text-slate-400 font-normal">${delaySign}</span>`;
-
-      document.getElementById("r1ArrTime").textContent = r1.arrivalGeldern;
-
-      document.getElementById("r1Score").textContent = `${r1.score}/100`;
-
-
-
-const r1Alert = document.getElementById("r1UnfeasibleAlert");
-
-      const r1Reason = document.getElementById("r1UnfeasibleReason");
-
-      const r1BufText = document.getElementById("r1BufferText");
-
-      const r1BufBadge = document.getElementById("r1BufferBadge");
-
-      const r1Risk = document.getElementById("r1Risk");
-
-
-
-      if (!state.r1Viable) {
-
-        // Unfeasible: either bus < 3m delay OR Lucas doesn't drive OR bus cancelled
-
-        cardR1.classList.add("border-rose-500/40", "bg-rose-950/10");
-
-        r1Alert.classList.remove("hidden");
-
-        r1Reason.textContent = state.r1UnfeasibleMsg.replace("❌ ", "");
-
-
-
-        if (!state.lucasAvailable) {
-
-r1Risk.textContent = "Ohne Auto nicht erreichbar";
-
-        } else if (r1.delayMin < 3) {
-
-r1Risk.textContent = "Bus 63 fährt vor Ankunft ab!";
-
+          if (recSummaryPills) {
+            recSummaryPills.innerHTML = `<span class="text-rose-400 font-medium">⚠️ Störungsmeldung beachten</span>`;
+          }
         } else {
-
-r1Risk.textContent = "Keine Busfahrt";
-
-        }
-
-
-
-        r1BufBadge.className = "text-rose-400 font-mono font-semibold";
-
-        r1BufBadge.textContent = "❌ Nicht machbar";
-
-        r1BufText.textContent = state.lucasAvailable ? "Mindestens 3 Min Verspätung für Erreichen von Bus 63 nötig!" : "Ohne Lucas Transit zu weit vom Kromsteg 29";
-
-
-
-      } else {
-
-        // Viable: Lucas drives AND delay >= 3 min
-
-        cardR1.classList.remove("border-rose-500/40", "bg-rose-950/10");
-
-        r1Alert.classList.add("hidden");
-
-
-
-r1Risk.textContent = "Sehr gering (Direktverbindung)";
-
-
-
-        const bufMin = r1.delayMin;
-
-        r1BufBadge.className = "text-emerald-400 font-mono font-semibold";
-
-        r1BufBadge.textContent = `+${bufMin} Min Puffer`;
-
-        r1BufText.textContent = `${bufMin} Minuten Zeitpuffer bis zur Abfahrt von Bus 63 (Eintreffen Friedhof ca. 16:34–16:35 Uhr)`;
-
-      }
-
-
-
-      // BAHN RE10 CARD
-
-      const cardR2 = document.getElementById("cardRoute2");
-
-      const r2Sb41TimeEl = document.getElementById("r2Sb41Time");
-
-      const r2Sb41SubEl = document.getElementById("r2Sb41Sub");
-
-      const r2Sb41Alert = document.getElementById("r2Sb41Alert");
-
-      const r2Sb41AlertIcon = document.getElementById("r2Sb41AlertIcon");
-
-      const r2Sb41AlertText = document.getElementById("r2Sb41AlertText");
-
-      const r2Sb41StepTitle = document.getElementById("r2Sb41StepTitle");
-
-
-
-      const r2Re10El = document.getElementById("r2Re10Time");
-
-      const r2Re10Label = document.getElementById("r2Re10Label");
-
-      const r2Re10Sub = document.getElementById("r2Re10Sub");
-
-      const r2ArrEl = document.getElementById("r2ArrTime");
-
-      const r2ArrSub = document.getElementById("r2ArrSub");
-
-      const r2ScoreEl = document.getElementById("r2Score");
-
-const r2RiskEl = document.getElementById("r2Risk");
-
-      const r2StatusBox = document.getElementById("r2StatusBox");
-
-      const r2StatusIcon = document.getElementById("r2StatusIcon");
-
-      const r2StatusTitle = document.getElementById("r2StatusTitle");
-
-      const r2StatusDetail = document.getElementById("r2StatusDetail");
-
-      const r2TransferPill = document.getElementById("r2TransferPill");
-
-      const r2TransferDesc = document.getElementById("r2TransferDesc");
-
-      const r2TrainTitle = document.getElementById("r2TrainTitle");
-
-      const r2TrainDesc = document.getElementById("r2TrainDesc");
-
-      const r2TrainDuration = document.getElementById("r2TrainDuration");
-
-
-
-      r2ScoreEl.textContent = `${r2.score}/100`;
-
-
-
-      // 1. SB41 LIVE-STATUS ANZEIGE
-
-      if (r2.sb41Cancelled) {
-
-        r2Sb41TimeEl.innerHTML = `<span class="text-rose-400 font-bold">AUSFALL</span>`;
-
-        if (r2Sb41SubEl) {
-
-          r2Sb41SubEl.className = "text-[10px] text-rose-400 mt-0.5 font-semibold";
-
-          r2Sb41SubEl.textContent = "Keine Fahrt ab Boekholt";
-
-        }
-
-      } else if (r2.sb41Delay > 0) {
-
-        r2Sb41TimeEl.innerHTML = `${r2.sb41Live} <span class="text-xs text-rose-400 font-semibold">(+${r2.sb41Delay}m)</span>`;
-
-        if (r2Sb41SubEl) {
-
-          r2Sb41SubEl.className = "text-[10px] text-rose-300 mt-0.5 font-medium";
-
-          r2Sb41SubEl.textContent = `Ank. Nieukerk: ~${r2.arrivalNieukerk}`;
-
-        }
-
-      } else {
-
-        r2Sb41TimeEl.innerHTML = `${r2.sb41Live} <span class="text-xs text-emerald-400 font-normal">(pünktlich)</span>`;
-
-        if (r2Sb41SubEl) {
-
-          r2Sb41SubEl.className = "text-[10px] text-emerald-400 mt-0.5 font-medium";
-
-          r2Sb41SubEl.textContent = "Ank. Nieukerk: 16:59";
-
-        }
-
-      }
-
-
-
-      // 2. SB41 ALERT BANNER
-
-      if (r2Sb41Alert) {
-
-        if (r2.sb41Cancelled) {
-
-          r2Sb41Alert.className = "mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 flex items-start space-x-2";
-
-          r2Sb41Alert.classList.remove("hidden");
-
-          if (r2Sb41AlertIcon) r2Sb41AlertIcon.textContent = "🚨";
-
-          if (r2Sb41AlertText) r2Sb41AlertText.textContent = "SB41 Ausfall an Haltestelle Straelen Boekholt! Zubringer nach Nieukerk entfällt komplett.";
-
-        } else if (r2.targetTrainMissed) {
-
-          r2Sb41Alert.className = "mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 flex items-start space-x-2";
-
-          r2Sb41Alert.classList.remove("hidden");
-
-          if (r2Sb41AlertIcon) r2Sb41AlertIcon.textContent = "🚨";
-
-          if (r2Sb41AlertText) r2Sb41AlertText.textContent = `Akute Anschlussgefahr: SB41 hat +${r2.sb41Delay} Min Verspätung (Ankunft Nieukerk erst ca. ${r2.arrivalNieukerk} Uhr)! Der Zielzug RE10 um 17:23 Uhr wird verpasst/ist extrem gefährdet!`;
-
-        } else if (r2.sb41Delay >= 5) {
-
-          r2Sb41Alert.className = "mb-4 p-3 rounded-xl bg-rose-950/30 border border-rose-500/40 text-xs text-rose-300 flex items-start space-x-2";
-
-          r2Sb41Alert.classList.remove("hidden");
-
-          if (r2Sb41AlertIcon) r2Sb41AlertIcon.textContent = "⚠️";
-
-          if (r2Sb41AlertText) r2Sb41AlertText.textContent = `SB41 Verspätung (+${r2.sb41Delay} Min, Abfahrt ca. ${r2.sb41Live} Uhr): Ankunft Nieukerk ca. ${r2.arrivalNieukerk} Uhr. Puffer für RE10 17:23 Uhr sinkt auf ${r2.targetTransferBuffer} Min.`;
-
-        } else {
-
-          r2Sb41Alert.classList.add("hidden");
-
-        }
-
-      }
-
-
-
-      // 3. CARD BORDER & STYLING BEI KRITISCHEN ZUSTÄNDEN
-
-      if (cardR2) {
-
-        if (r2.sb41Cancelled || r2.re10Cancelled || r2.targetTrainMissed) {
-
-          cardR2.classList.add("border-rose-500/40", "bg-rose-950/10");
-
-        } else {
-
-          cardR2.classList.remove("border-rose-500/40", "bg-rose-950/10");
-
-        }
-
-      }
-
-
-
-      // 4. TIMELINE SCHRITT 2 (SB41 & PUFFER)
-
-      if (r2Sb41StepTitle) {
-
-        if (r2.sb41Cancelled) {
-
-          r2Sb41StepTitle.textContent = "SB41 (16:49 Uhr) ➔ AUSFALL in Boekholt";
-
-        } else if (r2.sb41Delay > 0) {
-
-          r2Sb41StepTitle.textContent = `SB41 (${r2.sb41Planned} Uhr, +${r2.sb41Delay}m ➔ ${r2.sb41Live} Uhr) ➔ Nieukerk Bf (~${r2.arrivalNieukerk} Uhr)`;
-
-        } else {
-
-          r2Sb41StepTitle.textContent = "SB41 (16:49 Uhr, pünktlich) ➔ Nieukerk Bf (~16:59 Uhr)";
-
-        }
-
-      }
-
-
-
-      // 5. STATUS, RE10 ZUG & ANSCHLUSS AUSWERTUNG
-
-      if (r2.sb41Cancelled) {
-
-        if (r2Re10Label) r2Re10Label.textContent = "RE10 Nieukerk";
-
-        r2Re10El.innerHTML = `<span class="text-rose-400">KEIN ZUBRINGER</span>`;
-
-        r2ArrEl.innerHTML = `<span class="text-rose-400 font-bold">KEINE FAHRT</span>`;
-
-        if (r2Re10Sub) r2Re10Sub.textContent = "SB41 Ausfall";
-
-        if (r2ArrSub) r2ArrSub.textContent = "Blockiert";
-
-
-
-r2RiskEl.className = "text-rose-400 font-bold";
-
-        r2RiskEl.textContent = "Kein Zubringer (SB41 Ausfall)";
-
-
-
-        if (r2StatusBox) {
-
-          r2StatusBox.className = "mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-rose-500/10 border-rose-500/30 text-rose-300";
-
-          if (r2StatusIcon) r2StatusIcon.textContent = "🚨";
-
-          if (r2StatusTitle) {
-
-            r2StatusTitle.className = "font-bold text-rose-300 block";
-
-            r2StatusTitle.textContent = "🚨 ZUBRINGER-AUSFALL: SB41 fährt heute nicht!";
-
+          if (hero) hero.className = "glass-card p-5 sm:p-6 border-2 border-emerald-500/50 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-slate-950 flex-1 flex flex-col justify-between shadow-lg transition-all duration-300";
+          if (recBadgePill) recBadgePill.className = "px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 flex items-center space-x-1.5 shadow-sm";
+          if (recBadgeText) recBadgeText.textContent = rec.badge;
+          if (recSpeed) {
+            recSpeed.className = "text-xs sm:text-sm font-bold text-emerald-400 font-mono mb-2";
+            recSpeed.textContent = rec.arrival.startsWith("Ankunft") ? rec.arrival : `Ankunft Geldern: ${rec.arrival}`;
           }
 
-          if (r2StatusDetail) {
-
-            r2StatusDetail.innerHTML = `Der Zubringer-Bus SB41 an Haltestelle Boekholt ist gestrichen. Nieukerk wird nicht erreicht – keinesfalls nach Boekholt aufbrechen!`;
-
-          }
-
-        }
-
-
-
-        r2TransferPill.className = "text-rose-400 font-mono font-semibold";
-
-        r2TransferPill.textContent = "Kein Zubringer!";
-
-        r2TransferDesc.textContent = "SB41 ist gestrichen. Bitte nicht nach Straelen Boekholt gehen!";
-
-
-
-        if (r2TrainTitle) r2TrainTitle.textContent = "Keine Zugfahrt erreichbar";
-
-        if (r2TrainDesc) r2TrainDesc.textContent = "Wegen Ausfall des SB41 kein Zubringer nach Nieukerk";
-
-        if (r2TrainDuration) r2TrainDuration.textContent = "---";
-
-
-
-      } else if (r2.re10Cancelled) {
-
-        if (r2Re10Label) r2Re10Label.textContent = "RE10 Nieukerk";
-
-        r2Re10El.innerHTML = `<span class="text-rose-400">AUSFALL</span>`;
-
-        r2ArrEl.innerHTML = `<span class="text-rose-400 font-bold">STRANDUNG</span>`;
-
-        if (r2Re10Sub) r2Re10Sub.textContent = "Zug Ausfall";
-
-        if (r2ArrSub) r2ArrSub.textContent = "Strandung";
-
-
-
-r2RiskEl.className = "text-rose-400 font-bold";
-
-        r2RiskEl.textContent = "SEHR HOCH (Strandung in Nieukerk!)";
-
-
-
-        if (r2StatusBox) {
-
-          r2StatusBox.className = "mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-rose-500/10 border-rose-500/30 text-rose-300";
-
-          if (r2StatusIcon) r2StatusIcon.textContent = "🚨";
-
-          if (r2StatusTitle) {
-
-            r2StatusTitle.className = "font-bold text-rose-300 block";
-
-            r2StatusTitle.textContent = "🚨 BAHNCHAOS: RE10 fällt in Nieukerk aus!";
-
-          }
-
-          if (r2StatusDetail) {
-
-            r2StatusDetail.innerHTML = `<span class="text-rose-300 block mt-0.5">Strandungsgefahr in Nieukerk – keinesfalls nach Nieukerk fahren!</span>`;
-
-          }
-
-        }
-
-
-
-        r2TransferPill.className = "text-rose-400 font-mono font-semibold";
-
-        r2TransferPill.textContent = "Kein Anschluss!";
-
-        r2TransferDesc.textContent = "Bahn RE10 ist gestrichen. Bitte nicht nach Nieukerk fahren!";
-
-
-
-        if (r2TrainTitle) r2TrainTitle.textContent = "Kein Zugverkehr";
-
-        if (r2TrainDesc) r2TrainDesc.textContent = "Ausfall der Linie RE10 in Nieukerk";
-
-        if (r2TrainDuration) r2TrainDuration.textContent = "---";
-
-
-
-      } else if (r2.targetTrainMissed) {
-
-        // SB41 massiv verspätet (> 22 Min) -> 17:23 Zug verpasst/akut gefährdet!
-
-        if (r2Re10Label) r2Re10Label.textContent = "RE10 Nieukerk (17:23)";
-
-        r2Re10El.innerHTML = `<span class="text-rose-400">17:23</span> <span class="text-xs text-rose-400 font-semibold">(Verpasst!)</span>`;
-
-        r2ArrEl.innerHTML = `<span class="text-rose-400 font-bold">${r2.arrivalGeldern}</span>`;
-
-        if (r2Re10Sub) r2Re10Sub.textContent = "Verpasst!";
-
-        if (r2ArrSub) r2ArrSub.textContent = "Strandung";
-
-
-
-r2RiskEl.className = "text-rose-400 font-bold";
-
-        r2RiskEl.textContent = "AKUTE ANSCHLUSSGEFAHR (SB41 zu spät)";
-
-
-
-        if (r2StatusBox) {
-
-          r2StatusBox.className = "mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-rose-500/10 border-rose-500/30 text-rose-300";
-
-          if (r2StatusIcon) r2StatusIcon.textContent = "🚨";
-
-          if (r2StatusTitle) {
-
-            r2StatusTitle.className = "font-bold text-rose-300 block";
-
-            r2StatusTitle.textContent = `🚨 ANSCHLUSSGEFAHR: SB41 +${r2.sb41Delay}m Verspätung!`;
-
-          }
-
-          if (r2StatusDetail) {
-
-            r2StatusDetail.innerHTML = `SB41 trifft erst um ca. <strong class="text-white">${r2.arrivalNieukerk} Uhr</strong> in Nieukerk ein. Der reguläre RE10 um 17:23 Uhr fährt vor Eintreffen bzw. ohne Zeitpuffer ab! Strandungsrisiko in Nieukerk! Nächster Zug erst ca. 17:53 Uhr.`;
-
-          }
-
-        }
-
-
-
-        r2TransferPill.className = "text-rose-400 font-mono font-semibold";
-
-        r2TransferPill.textContent = "🚨 Anschluss verpasst!";
-
-        r2TransferDesc.textContent = `SB41 trifft erst um ${r2.arrivalNieukerk} Uhr ein. RE10 um 17:23 Uhr ist bereits weg oder nicht mehr erreichbar!`;
-
-
-
-        if (r2TrainTitle) r2TrainTitle.textContent = "Planmäßiger RE10 um 17:23 Uhr (Verpasst / Gefährdet)";
-
-        if (r2TrainDesc) r2TrainDesc.textContent = "Wegen hoher SB41-Verspätung nicht erreichbar. Nächster Zug erst ca. 17:53 Uhr";
-
-        if (r2TrainDuration) r2TrainDuration.textContent = "---";
-
-
-
-      } else if (r2.canCatchEarlier) {
-
-        // SPEED-TIPP: 16:53 Zug hat Verspätung und wird trotz SB41 erreicht
-
-        if (r2Re10Label) r2Re10Label.textContent = "RE10 Nieukerk (16:53)";
-
-        r2Re10El.innerHTML = `${r2.targetDep} <span class="text-xs text-emerald-400 font-semibold">(+${r2.re10Delay})</span>`;
-
-        r2ArrEl.innerHTML = `${r2.arrivalGeldern} <span class="text-xs text-emerald-400 font-normal">(Express)</span>`;
-
-        if (r2Re10Sub) r2Re10Sub.textContent = "Speed-Tipp!";
-
-        if (r2ArrSub) r2ArrSub.textContent = "Express";
-
-
-
-r2RiskEl.className = "text-emerald-400 font-semibold";
-
-        r2RiskEl.textContent = `Express-Chance (+${r2.re10Delay}m Verspätung)`;
-
-
-
-        const transferMargin = Math.max(1, (53 + r2.re10Delay) - (49 + r2.sb41Delay + 10));
-
-
-
-        if (r2StatusBox) {
-
-          r2StatusBox.className = "mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-emerald-950/30 border-emerald-500/40 text-emerald-200";
-
-          if (r2StatusIcon) r2StatusIcon.textContent = "🚀";
-
-          if (r2StatusTitle) {
-
-            r2StatusTitle.className = "font-bold text-emerald-300 block";
-
-            r2StatusTitle.textContent = `🚀 SPEED-TIPP: RE10 16:53 Uhr erreichbar!`;
-
-          }
-
-          if (r2StatusDetail) {
-
-            r2StatusDetail.innerHTML = `Glücksfall: RE10 16:53 hat Verspätung (+${r2.re10Delay} Min, Abfahrt ca. ${r2.targetDep} Uhr) und wird nach Eintreffen des SB41 (${r2.arrivalNieukerk} Uhr) mit <strong class="text-white">${transferMargin} Min Umsteigezeit</strong> noch erreicht! Spart ca. 24 Minuten Wartezeit! Express-Ankunft Geldern: <strong class="text-emerald-300">ca. ${r2.arrivalGeldern} Uhr</strong>.`;
-
-          }
-
-        }
-
-
-
-        r2TransferPill.className = "text-emerald-400 font-mono font-semibold";
-
-        r2TransferPill.textContent = `${transferMargin} Min Umstiegszeit`;
-
-        r2TransferDesc.textContent = `Glücksfall: RE10 16:53 hat +${r2.re10Delay}m Verspätung und wird nach SB41 (${r2.arrivalNieukerk} Uhr) erreicht!`;
-
-
-
-        if (r2TrainTitle) r2TrainTitle.textContent = `Früherer RE10 um 16:53 (+${r2.re10Delay}m) nach Geldern`;
-
-        if (r2TrainDesc) r2TrainDesc.textContent = `Abfahrt ca. ${r2.targetDep} Uhr ➔ Express-Ankunft Geldern ca. ${r2.arrivalGeldern} Uhr`;
-
-        if (r2TrainDuration) r2TrainDuration.textContent = "6–8 Min Zug";
-
-
-
-      } else {
-
-        // REGULÄRER ZIELZUG: RE10 um 17:23/17:25 Uhr
-
-        if (r2Re10Label) r2Re10Label.textContent = "RE10 Nieukerk (Ziel)";
-
-        r2Re10El.innerHTML = `17:23 <span class="text-xs text-slate-400 font-normal">(Plan)</span>`;
-
-        r2ArrEl.innerHTML = `17:31 <span class="text-xs text-slate-400 font-normal">(Plan)</span>`;
-
-        if (r2Re10Sub) r2Re10Sub.textContent = "Zielzug (Plan)";
-
-        if (r2ArrSub) r2ArrSub.textContent = "Endstation";
-
-
-
-r2RiskEl.className = "text-slate-300";
-
-        r2RiskEl.textContent = "Regulärer Zielzug 17:23/17:25 Uhr";
-
-
-
-        if (r2StatusBox) {
-
-          r2StatusBox.className = "mb-4 p-3 rounded-xl border text-xs flex items-start space-x-2.5 bg-slate-900/80 border-slate-700/80 text-slate-300";
-
-          if (r2StatusIcon) r2StatusIcon.textContent = "ℹ️";
-
-          if (r2StatusTitle) {
-
-            r2StatusTitle.className = "font-semibold text-slate-200 block";
-
-            if (r2.re10Delay >= 5) {
-
-              r2StatusTitle.textContent = `Speed-Tipp verpasst (RE10 16:53 vor SB41-Ankunft abgefahren)`;
-
-            } else {
-
-              r2StatusTitle.textContent = "Status RE10 16:53 Uhr: nicht erreichbar";
-
+          const isBus63 = rec.type === "ROUTE_1";
+          if (recTitle) recTitle.textContent = isBus63 ? "Bus 63" : "Bahn RE10";
+
+          if (isBus63) {
+            if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-emerald-400 mb-2 flex items-center space-x-1.5";
+            if (recStatusIcon) recStatusIcon.textContent = "🟢";
+            if (recStatusText) recStatusText.textContent = r1.delayMin > 0 ? `Bus 63 (+${r1.delayMin} Min Verspätung) machbar` : "Bus 63 machbar";
+
+            if (recAction) {
+              recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
+              recAction.textContent = "Mit Lucas zu Bus 63 fahren";
             }
-
-          }
-
-          if (r2StatusDetail) {
-
-            if (r2.re10Delay >= 5) {
-
-              r2StatusDetail.innerHTML = `RE10 16:53 fährt um ca. 16:${53+r2.re10Delay} Uhr ab, aber SB41 trifft erst um ca. ${r2.arrivalNieukerk} Uhr ein. Planmäßiger Zielzug: <strong class="text-white">RE10 um 17:23 Uhr</strong> (Ankunft Geldern: <strong class="text-white">ca. 17:31 Uhr</strong>) mit ${r2.targetTransferBuffer} Min Puffer in Nieukerk.`;
-
-            } else {
-
-              r2StatusDetail.innerHTML = `Planmäßiger Zielzug: <strong class="text-white">RE10 um 17:23/17:25 Uhr</strong> (Ankunft Geldern: <strong class="text-white">ca. 17:31 Uhr</strong>). ${r2.targetTransferBuffer} Min Puffer in Nieukerk.`;
-
+            if (recSummaryPills) {
+              recSummaryPills.innerHTML = `
+                <span>🚗 Mit Lucas zu Friedhof</span>
+                <span>🚌 Bus 63 nach Geldern</span>
+              `;
             }
+          } else {
+            // RE10 Empfehlung
+            if (recStatusLine) recStatusLine.className = "text-xs sm:text-sm font-semibold text-rose-400 mb-2 flex items-center space-x-1.5";
+            if (recStatusIcon) recStatusIcon.textContent = "❌";
+            const unfeasibleMsg = state.r1UnfeasibleMsg ? state.r1UnfeasibleMsg.replace("❌ ", "") : "Bus 63 zu pünktlich";
+            if (recStatusText) recStatusText.textContent = unfeasibleMsg;
 
+            if (recAction) {
+              recAction.className = "w-full sm:w-auto min-h-[44px] px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition active:scale-95 shrink-0 cursor-pointer flex items-center justify-center";
+              recAction.textContent = "Um 16:25 Uhr zu Fuß nach Boekholt gehen";
+            }
+            if (recSummaryPills) {
+              recSummaryPills.innerHTML = `
+                <span>🚶 Fußweg Boekholt (~5–7 Min)</span>
+                <span>🚌 SB41 ➔ Nieukerk</span>
+                <span>🚆 Bahn RE10 nach Geldern</span>
+              `;
+            }
           }
-
         }
-
-
-
-        r2TransferPill.className = "text-slate-400 font-mono font-semibold";
-
-        r2TransferPill.textContent = `+${r2.targetTransferBuffer} Min Puffer`;
-
-        if (r2.re10Delay >= 5) {
-
-          r2TransferDesc.textContent = `RE10 16:53 fährt vor SB41-Ankunft (${r2.arrivalNieukerk} Uhr) ab. Entspannte Wartezeit (${r2.targetTransferBuffer} Min) auf 17:23 Uhr Zug.`;
-
-        } else {
-
-          r2TransferDesc.textContent = `RE10 16:53 ist vor SB41-Ankunft (${r2.arrivalNieukerk} Uhr) bereits weg. Entspannte Wartezeit (${r2.targetTransferBuffer} Min) auf 17:23 Uhr Zug.`;
-
-        }
-
-
-
-        if (r2TrainTitle) r2TrainTitle.textContent = "Planmäßiger RE10 um 17:23/17:25 Uhr nach Geldern";
-
-        if (r2TrainDesc) r2TrainDesc.textContent = "Abfahrt 17:23/17:25 Uhr ➔ Ankunft Geldern ca. 17:30/17:31 Uhr";
-
-        if (r2TrainDuration) r2TrainDuration.textContent = "6–8 Min Zug";
-
       }
 
-
-
-      // Populate Monitor Table, Detail Tables & Progress Timeline
-
+      // Populate Monitor Table, Detail Tables, Progress Timeline & Live-Ticker
       populateMonitorTable();
-
       populateDetailTables();
-
       renderProgressTimeline();
-
+      renderLiveTicker();
     }
-
-
 
     function populateMonitorTable() {
       const tbody = document.getElementById("monitorTableBody");
@@ -4675,46 +3914,51 @@ r2RiskEl.className = "text-slate-300";
       // Rechts: Bus 63 (Straelen Friedhof Richtung Geldern Bf)
 
       const re10LiveStatus = r2.re10Cancelled ? "CANCEL" : (r2.canCatchEarlier ? "SPEED" : (r2.re10Delay > 0 ? "DELAY" : "ONTIME"));
-      const re10LiveText = r2.re10Cancelled ? "AUSFALL" : (r2.re10Delay > 0 ? `16:${String(53 + r2.re10Delay).padStart(2, "0")} (+${r2.re10Delay}m)` : "16:53");
+      const re10LiveText = r2.re10Cancelled ? "AUSFALL" : (r2.re10Delay > 0 ? `${addMinutesToTime("16:53", r2.re10Delay)} (+${r2.re10Delay}m)` : "16:53");
 
       const bus63LiveStatus = r1.cancelled ? "CANCEL" : (r1.delayMin >= 3 ? "OPTIMAL" : (r1.delayMin > 0 ? "DELAY" : "ONTIME"));
-      const bus63LiveText = r1.cancelled ? "AUSFALL" : (r1.delayMin > 0 ? `${r1.liveDep} (+${r1.delayMin}m)` : "16:35");
+      const bus63LiveText = r1.cancelled ? "AUSFALL" : (r1.delayMin > 0 ? `${r1.liveDep} (+${r1.delayMin}m)` : (r1.plannedDep || "16:36"));
 
       // Zielzug 17:23 Uhr Status für die kleine obere Quick-Tabelle
       let targetTrain1723Status = "ONTIME";
-      let targetTrain1723Live = "17:23 (Ziel)";
-      if (r2.re10Cancelled) {
+      let targetTrain1723Live = "17:23";
+      if (r2.targetTrain1723Cancelled || r2.re10Cancelled) {
         targetTrain1723Status = "CANCEL";
         targetTrain1723Live = "AUSFALL";
       } else if (r2.targetTrainMissed) {
         targetTrain1723Status = "CANCEL";
         targetTrain1723Live = "VERPASST";
+      } else if (r2.targetTrain1723Delay > 0) {
+        targetTrain1723Status = "DELAY";
+        targetTrain1723Live = `${addMinutesToTime("17:23", r2.targetTrain1723Delay)} (+${r2.targetTrain1723Delay}m)`;
       }
 
+      // Dynamische Abfrage ohne fiktive Ausfälle / Verspätungen:
       const rows = [
         {
-          re10: { id: "RE10 (82280)", plan: "14:55", live: "15:18 (+23m)", delay: 23, status: "DELAY" },
+          re10: getRe10Item("14:55", "RE10 (82280)"),
           bus63: { id: "Bus 63 (35418)", plan: "13:35", live: "13:35", delay: 0, status: "ONTIME" }
         },
         {
-          re10: { id: "RE10 (82282)", plan: "15:25", live: "15:25", delay: 0, status: "ONTIME" },
-          bus63: { id: "Bus 63 (35420)", plan: "14:35", live: "14:38 (+3m)", delay: 3, status: "DELAY" }
+          re10: getRe10Item("15:25", "RE10 (82282)"),
+          bus63: { id: "Bus 63 (35420)", plan: "14:35", live: "14:35", delay: 0, status: "ONTIME" }
         },
         {
-          re10: { id: "RE10 (82284)", plan: "15:55", live: "16:15 (+20m)", delay: 20, status: "DELAY" },
-          bus63: { id: "Bus 63 (35422)", plan: "15:35", live: "15:37 (+2m)", delay: 2, status: "DELAY" }
+          re10: getRe10Item("15:55", "RE10 (82284)"),
+          bus63: { id: "Bus 63 (35422)", plan: "15:35", live: "15:35", delay: 0, status: "ONTIME" }
         },
         {
-          re10: { id: "RE10 (82286)", plan: "16:25", live: "AUSFALL", delay: 999, status: "CANCEL" },
-          bus63: { id: "Bus 63 (35424)", plan: r1.plannedDep || "16:35", live: bus63LiveText, delay: r1.delayMin, status: bus63LiveStatus }
+          // 16:25 RE10: NUR AUSFALL WENN REAL VON TRANSITOUS/VRR/DB GEMELDET!
+          re10: getRe10Item("16:25", "RE10 (82286)"),
+          bus63: { id: "Bus 63 (35424)", plan: "16:36 ⭐", live: bus63LiveText, delay: r1.delayMin, status: bus63LiveStatus, cancelled: r1.cancelled }
         },
         {
-          re10: { id: "RE10 (82288)", plan: "16:53", live: re10LiveText, delay: r2.re10Delay, status: re10LiveStatus },
+          re10: { id: "RE10 (82288)", plan: "16:53 ⭐", live: re10LiveText, delay: r2.re10Delay, status: re10LiveStatus, cancelled: r2.re10Cancelled },
           bus63: { id: "Bus 63 (35426)", plan: "17:35", live: "17:35", delay: 0, status: "ONTIME" }
         },
         {
-          // 17:23 UHR ZIELZUG FEST IN DER OBEREN QUICK-TABELLE
-          re10: { id: "RE10 (82290) 🎯", plan: "17:23", live: targetTrain1723Live, delay: 0, status: targetTrain1723Status },
+          // 17:23 UHR ZIELZUG
+          re10: { id: "RE10 (82290)", plan: "17:23 🎯", live: targetTrain1723Live, delay: r2.targetTrain1723Delay || 0, status: targetTrain1723Status, cancelled: r2.targetTrain1723Cancelled },
           bus63: { id: "Bus 63 (35428)", plan: "18:35", live: "18:35", delay: 0, status: "ONTIME" }
         }
       ];
@@ -4739,29 +3983,50 @@ r2RiskEl.className = "text-slate-300";
       tbody.innerHTML = htmlRows;
 
       if (summaryBadge) {
-        if (r2.re10Cancelled || r1.cancelled) {
-          summaryBadge.textContent = "🚨 Akute Störung / Ausfall im aktuellen Feierabendfenster!";
+        let countCancelled = 0;
+        let countDelayed = 0;
+
+        rows.forEach(r => {
+          if (r.re10.cancelled || r.re10.status === "CANCEL") countCancelled++;
+          else if (r.re10.delay >= 3 && r.re10.status !== "ONTIME" && r.re10.status !== "SPEED") countDelayed++;
+
+          if (r.bus63.cancelled || r.bus63.status === "CANCEL") countCancelled++;
+          else if (r.bus63.delay >= 3 && !state.lucasAvailable) countDelayed++;
+        });
+
+        const activeAlerts = extractTickerAlerts();
+        const acuteAlert = activeAlerts.find(a => a.type === "danger");
+
+        if (acuteAlert) {
+          summaryBadge.textContent = `🚨 ${acuteAlert.line}: ${acuteAlert.title}`;
+          summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-rose-950/70 text-rose-300 border border-rose-500/40";
+        } else if (countCancelled > 0) {
+          summaryBadge.textContent = `🚨 Heute: ${countCancelled} ${countCancelled === 1 ? 'Ausfall' : 'Ausfälle'}, ${countDelayed} ${countDelayed === 1 ? 'Verspätung' : 'Verspätungen'} gemeldet`;
           summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-rose-950/70 text-rose-300 border border-rose-500/40";
         } else if (r1.delayMin >= 3 && state.lucasAvailable) {
-          summaryBadge.textContent = `🟢 Bus 63 (+${r1.delayMin}m) & Lucas Auto optimal machbar!`;
+          summaryBadge.textContent = `🟢 Keine Ausfälle gemeldet • Bus 63 (+${r1.delayMin}m) & Lucas Auto optimal machbar!`;
           summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-500/40";
-        } else {
-          summaryBadge.textContent = "Heute: 1 Ausfall, 4 Verspätungen im Feierabendfenster";
+        } else if (countDelayed > 0) {
+          summaryBadge.textContent = `⚠️ Heute: Keine Ausfälle gemeldet • ${countDelayed} ${countDelayed === 1 ? 'Verspätung' : 'Verspätungen'} im Feierabendfenster`;
           summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-rose-950/70 text-rose-300 border border-rose-500/40";
+        } else {
+          summaryBadge.textContent = "🟢 Heute: Keine Ausfälle gemeldet • Regulärer Betrieb";
+          summaryBadge.className = "inline-block text-[10px] sm:text-[11px] px-2.5 py-1 rounded-md font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-500/40";
         }
       }
     }
 
     // 2-FARBEN SIGNALKONZEPT: NUR GRÜN (Pünktlich/Machbar/Zielzug) & ROT (Verspätung/Ausfall/Verpasst)
     function formatStatusBadge(item) {
-      if (item.status === "CANCEL") {
-        return `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${item.live || 'AUSFALL'}</span>`;
+      const cleanLive = String(item.live || "").replace(/[⭐🎯]/g, "").trim();
+      if (item.status === "CANCEL" || item.cancelled) {
+        return `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${cleanLive || 'AUSFALL'}</span>`;
       }
       if (item.status === "DELAY" || item.delay > 0) {
-        return `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium">${item.live}</span>`;
+        return `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium">${cleanLive}</span>`;
       }
       // PÜNKTLICH / ZIELZUG / SPEED / OPTIMAL -> SATTE GRÜNE SIGNALFARBE
-      return `<span class="bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${item.live}</span>`;
+      return `<span class="bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">${cleanLive}</span>`;
     }
 
     function renderProgressTimeline() {
@@ -4789,15 +4054,7 @@ r2RiskEl.className = "text-slate-300";
       const progStop2 = document.getElementById("progStop2");
       const progStop3 = document.getElementById("progStop3");
 
-      const progStopStatusBanner = document.getElementById("progStopStatusBanner");
-      const progStopStatusIcon = document.getElementById("progStopStatusIcon");
-      const progStopStatusTitle = document.getElementById("progStopStatusTitle");
-      const progStopStatusDesc = document.getElementById("progStopStatusDesc");
-      const progStopStatusPill = document.getElementById("progStopStatusPill");
-
-      const progStatStart = document.getElementById("progStatStart");
-      const progStatProgress = document.getElementById("progStatProgress");
-      const progStatEta = document.getElementById("progStatEta");
+// Info-Banner und Kacheln entfernt fuer cleanen Look
 
       if (!progBarFill) return;
 
@@ -4869,14 +4126,14 @@ r2RiskEl.className = "text-slate-300";
         btnRe10.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
         vehicleIcon = "🚆";
         vehicleLabel = "RE10";
-        startStationName = "Kempen Bf";
-        targetStationName = "Nieukerk Bf";
-        stops = ["Kempen Bf", "Aldekerk", "Eyll", "Nieukerk Bf"];
+        startStationName = "Krefeld Hbf";
+        targetStationName = "Nieukerk (Zustieg)";
+        stops = ["Krefeld Hbf", "Kempen", "Aldekerk", "Nieukerk"];
 
         if (r2.re10Cancelled) {
           isCancelled = true;
-          startPlanTime = "16:43";
-          startMin = 43;
+          startPlanTime = "16:25";
+          startMin = 25;
           startActualTime = "Ausfall";
           targetPlanTime = "16:53";
           targetLiveTime = "AUSFALL";
@@ -4884,26 +4141,26 @@ r2RiskEl.className = "text-slate-300";
           targetBadgeClass = "bg-rose-950/80 text-rose-300 border border-rose-500/40";
           themeColor = "rose";
         } else if (r2.canCatchEarlier) {
-          // SPEED-TIPP: Startet um 16:43 Uhr in Kempen Bf -> Zustieg 16:53 Uhr Nieukerk Bf
-          startPlanTime = "16:43";
-          startMin = 43;
+          // SPEED-TIPP: Startet um 16:25 Uhr in Krefeld Hbf -> Zustieg 16:53 Uhr Nieukerk Bf (ca. 28 Min Fahrzeit)
+          startPlanTime = "16:25";
+          startMin = 25;
           delayMin = Math.max(0, r2.re10Delay || 7);
-          endMin = 53 + delayMin; // 16:53 + delay = 17:00
-          startActualTime = `16:43 (+${delayMin}m)`;
+          endMin = 53 + delayMin; // 16:53 + delay
+          startActualTime = delayMin > 0 ? `${addMinutesToTime("16:25", delayMin)} (+${delayMin}m)` : "16:25";
           targetPlanTime = "16:53";
-          targetLiveTime = r2.targetDep || "17:00";
+          targetLiveTime = addMinutesToTime("16:53", delayMin);
           targetBadgeText = `${targetLiveTime} Live (+${delayMin}m Speed-Tipp)`;
           targetBadgeClass = "bg-emerald-950/80 text-emerald-300 border border-emerald-500/40";
           themeColor = "emerald";
         } else {
-          // REGULÄRER ZIELZUG: Startet um 17:13 Uhr in Kempen Bf -> Zustieg 17:23 Uhr Nieukerk Bf
-          startPlanTime = "17:13";
-          startMin = 73; // 17:13 (73 Min nach 16:00)
+          // REGULÄRER ZIELZUG: Startet um 16:55 Uhr in Krefeld Hbf -> Zustieg 17:23 Uhr Nieukerk Bf (ca. 28 Min Fahrzeit)
+          startPlanTime = "16:55";
+          startMin = 55; // 16:55 (55 Min nach 16:00)
           endMin = 83; // 17:23 (83 Min nach 16:00)
-          startActualTime = "17:13 (Plan)";
+          startActualTime = "16:55 (Plan)";
           targetPlanTime = "17:23";
           targetLiveTime = "17:23";
-          targetBadgeText = "17:23 Live (Zielzug)";
+          targetBadgeText = "17:23 Live";
           targetBadgeClass = "bg-emerald-950/80 text-emerald-300 border border-emerald-500/40";
           themeColor = "emerald";
         }
@@ -5063,40 +4320,6 @@ r2RiskEl.className = "text-slate-300";
       // Vehicle icon
       progVehicleDot.textContent = vehicleIcon;
 
-      // Haltestellen-Status Untertitel & Indikatoren
-      if (isCancelled) {
-        progStatStart.textContent = `Ausfall ab ${startStationName}`;
-        progStatProgress.textContent = `Ausfall`;
-        progStatProgress.className = "text-rose-400 font-mono font-semibold text-xs mt-0.5 block";
-        progStatEta.textContent = "AUSFALL";
-        progStatEta.className = "text-rose-400 font-mono font-bold text-xs mt-0.5 block";
-      } else if (isBeforeStart) {
-        const minUntilStart = startMin - refMin;
-        progStatStart.textContent = `${startPlanTime} Uhr (${startStationName})`;
-        progStatProgress.textContent = `Startet in ${minUntilStart} Min in ${startStationName}`;
-        progStatProgress.className = "text-slate-400 font-mono font-semibold text-xs mt-0.5 block";
-        progStatEta.textContent = `${targetPlanTime} Uhr (Plan)`;
-        progStatEta.className = "text-slate-300 font-mono font-bold text-xs mt-0.5 block";
-      } else if (diffMin < 0) {
-        progStatStart.textContent = `${startActualTime} ab ${startStationName}`;
-        progStatProgress.textContent = `Vor ${Math.abs(diffMin)} Min um ${targetLiveTime} abgefahren`;
-        progStatProgress.className = "text-rose-400 font-mono font-semibold text-xs mt-0.5 block";
-        progStatEta.textContent = `${targetLiveTime} Uhr (Abgefahren)`;
-        progStatEta.className = "text-rose-400 font-mono font-bold text-xs mt-0.5 block";
-      } else if (diffMin <= 1) {
-        progStatStart.textContent = `${startActualTime} ab ${startStationName}`;
-        progStatProgress.textContent = `🟢 Fährt JETZT an Haltestelle ein!`;
-        progStatProgress.className = "text-emerald-400 font-mono font-bold text-xs mt-0.5 block animate-pulse";
-        progStatEta.textContent = `${targetLiveTime} Uhr (Live)`;
-        progStatEta.className = "text-emerald-300 font-mono font-bold text-xs mt-0.5 block";
-      } else {
-        progStatStart.textContent = `${startActualTime} ab ${startStationName}`;
-        progStatProgress.textContent = `Noch ca. ${diffMin} Min bis ${targetStationName.replace('Straelen ', '')}`;
-        progStatProgress.className = themeColor === "rose" ? "text-rose-400 font-mono font-semibold text-xs mt-0.5 block" : "text-emerald-400 font-mono font-semibold text-xs mt-0.5 block";
-        progStatEta.textContent = `${targetLiveTime} Uhr (Live)`;
-        progStatEta.className = themeColor === "rose" ? "text-rose-400 font-mono font-bold text-xs mt-0.5 block" : "text-emerald-300 font-mono font-bold text-xs mt-0.5 block";
-      }
-
       // Dynamic theme coloring of vehicle marker and glow (Strikt Grün, Rot, Slate)
       if (themeColor === "slate") {
         progVehicleDot.className = "w-7 h-7 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs shadow-md border-2 border-slate-500 select-none leading-none relative z-10";
@@ -5112,22 +4335,7 @@ r2RiskEl.className = "text-slate-300";
         progBarFill.className = "h-full rounded-full bg-emerald-500 transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.4)]";
       }
 
-      // Update Haltestellen-Status Banner
-      if (progStopStatusBanner) {
-        progStopStatusBanner.className = statusBannerClass;
-        if (progStopStatusIcon) {
-          progStopStatusIcon.textContent = isBeforeStart ? "" : statusIcon;
-          progStopStatusIcon.style.display = isBeforeStart ? "none" : "";
-        }
-        if (progStopStatusTitle) {
-          progStopStatusTitle.textContent = isBeforeStart ? "⏳ Fahrt hat Startbahnhof noch nicht erreicht" : statusTitle;
-        }
-        if (progStopStatusDesc) progStopStatusDesc.textContent = statusDesc;
-        if (progStopStatusPill) {
-          progStopStatusPill.textContent = statusPillText;
-          progStopStatusPill.className = statusPillClass;
-        }
-      }
+
     }
 
     function populateDetailTables() {
@@ -5154,18 +4362,18 @@ r2RiskEl.className = "text-slate-300";
       // 1. DETAIL TABELLE 1: RE10 (Nieukerk ➔ Kleve)
       const tbodyRe10 = document.getElementById("detailRe10Body");
       if (tbodyRe10) {
-        const re10LiveTime = r2.re10Cancelled ? "AUSFALL" : (r2.re10Delay > 0 ? `16:${String(53 + r2.re10Delay).padStart(2, "0")} (+${r2.re10Delay}m)` : "16:53");
+        const re10LiveTime = r2.re10Cancelled ? "AUSFALL" : (r2.re10Delay > 0 ? `${addMinutesToTime("16:53", r2.re10Delay)} (+${r2.re10Delay}m)` : "16:53");
         let re10CurrentReason = "Pünktlich (Für Feierabend 16:30 Uhr zu früh abgefahren)";
         let re10CurrentStatusBadge = `<span class="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`;
 
         if (r2.re10Cancelled) {
-          re10CurrentReason = "Weichenstörung & Fahrzeugausfall in Nieukerk (Achtung Strandungsgefahr!)";
+          re10CurrentReason = "Fahrtausfall gemeldet laut VRR/DB-Livemeldung (Achtung Strandungsgefahr!)";
           re10CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>`;
         } else if (r2.canCatchEarlier) {
           re10CurrentReason = "Verzögerung im Betriebsablauf – Zug noch erreichbar!";
           re10CurrentStatusBadge = `<span class="bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">SPEED-TIPP ⚡</span>`;
         } else if (r2.re10Delay > 0) {
-          re10CurrentReason = "Warten auf verspätete Zugkreuzung auf eingleisigem Abschnitt";
+          re10CurrentReason = `+${r2.re10Delay} Min Verzögerung laut Live-Betriebslage`;
           re10CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.re10Delay} MIN</span>`;
         }
 
@@ -5173,48 +4381,63 @@ r2RiskEl.className = "text-slate-300";
         let targetTrainReason = "Planmäßiger Feierabend-Zielzug – Pünktlich";
         let targetTrainTime = "17:23";
 
-        if (r2.targetTrainMissed) {
+        if (r2.targetTrain1723Cancelled) {
+          targetTrainStatusBadge = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL 🚨</span>`;
+          targetTrainReason = "Fahrtausfall gemeldet laut VRR/DB-Livemeldung";
+          targetTrainTime = `<span class="text-rose-400 font-bold">AUSFALL</span>`;
+        } else if (r2.targetTrainMissed) {
           targetTrainStatusBadge = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERPASST 🚨</span>`;
           targetTrainReason = "SB41-Verspätung verhindert Umstieg – Zug fährt vor Busankunft ab!";
           targetTrainTime = `<span class="text-rose-400 font-bold">17:23 (Verpasst)</span>`;
+        } else if (r2.targetTrain1723Delay > 0) {
+          targetTrainStatusBadge = `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.targetTrain1723Delay} MIN</span>`;
+          targetTrainReason = `+${r2.targetTrain1723Delay} Min Verzögerung laut Live-Betriebslage`;
+          targetTrainTime = `${addMinutesToTime("17:23", r2.targetTrain1723Delay)} (+${r2.targetTrain1723Delay}m)`;
         }
+
+        const re1455 = getRe10Item("14:55", "RE10 (82280)");
+        const re1525 = getRe10Item("15:25", "RE10 (82282)");
+        const re1555 = getRe10Item("15:55", "RE10 (82284)");
+        const re1625 = getRe10Item("16:25", "RE10 (82286)");
+        const re1753 = getRe10Item("17:53", "RE10 (82292)");
 
         const re10Rows = [
           {
-            id: "RE10 (82280)",
+            id: re1455.id,
             plan: "14:55",
-            live: "15:18 (+23m)",
-            delay: formatDelayBadge(23),
-            reason: "Verzögerung bei der Bereitstellung in Krefeld Hbf",
-            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
+            live: re1455.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : re1455.live,
+            delay: formatDelayBadge(re1455.delay, re1455.cancelled),
+            reason: re1455.cancelled ? "Fahrtausfall gemeldet (Transitous/VRR/DB)" : (re1455.delay > 0 ? `+${re1455.delay} Min Verzögerung` : "Pünktlich (Regulärer Takt)"),
+            status: re1455.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (re1455.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
-            id: "RE10 (82282)",
+            id: re1525.id,
             plan: "15:25",
-            live: "15:25",
-            delay: formatDelayBadge(0),
-            reason: "Pünktlich (Regulärer Takt)",
-            status: `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`
+            live: re1525.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : re1525.live,
+            delay: formatDelayBadge(re1525.delay, re1525.cancelled),
+            reason: re1525.cancelled ? "Fahrtausfall gemeldet (Transitous/VRR/DB)" : (re1525.delay > 0 ? `+${re1525.delay} Min Verzögerung` : "Pünktlich (Regulärer Takt)"),
+            status: re1525.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (re1525.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
-            id: "RE10 (82284)",
+            id: re1555.id,
             plan: "15:55",
-            live: "16:15 (+20m)",
-            delay: formatDelayBadge(20),
-            reason: "Verspätung eines vorausfahrenden Zuges & Streckenbelegung",
-            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
+            live: re1555.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : re1555.live,
+            delay: formatDelayBadge(re1555.delay, re1555.cancelled),
+            reason: re1555.cancelled ? "Fahrtausfall gemeldet (Transitous/VRR/DB)" : (re1555.delay > 0 ? `+${re1555.delay} Min Verzögerung` : "Pünktlich (Regulärer Takt)"),
+            status: re1555.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (re1555.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
-            id: "RE10 (82286)",
+            // 16:25 RE10: DYNAMISCH & REELL! KEIN FIKTIVER AUSFALL!
+            id: re1625.id,
             plan: "16:25",
-            live: `<span class="text-rose-400 font-bold">AUSFALL</span>`,
-            delay: formatDelayBadge(0, true),
-            reason: "Reparatur am Triebfahrzeug / Technische Störung am Zug",
-            status: `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>`
+            live: re1625.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : re1625.live,
+            delay: formatDelayBadge(re1625.delay, re1625.cancelled),
+            reason: re1625.cancelled ? (re1625.reason || "Fahrtausfall laut VRR/DB-Livemeldung") : (re1625.delay > 0 ? `+${re1625.delay} Min Verzögerung (Live-Daten DB/VRR)` : "Pünktlich (Regulärer Takt)"),
+            status: re1625.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (re1625.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${re1625.delay} MIN</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
             id: `<span class="text-emerald-300 font-bold">RE10 (82288) ⚡</span>`,
-            plan: "16:53",
+            plan: "16:53 ⭐",
             live: re10LiveTime,
             delay: formatDelayBadge(r2.re10Delay, r2.re10Cancelled),
             reason: re10CurrentReason,
@@ -5223,19 +4446,19 @@ r2RiskEl.className = "text-slate-300";
           },
           {
             id: `<span class="text-emerald-300 font-bold">RE10 (82290) 🎯</span>`,
-            plan: "17:23",
+            plan: "17:23 🎯",
             live: targetTrainTime,
-            delay: formatDelayBadge(0),
+            delay: formatDelayBadge(r2.targetTrain1723Delay || 0, r2.targetTrain1723Cancelled),
             reason: targetTrainReason,
             status: targetTrainStatusBadge,
-            highlight: !r2.canCatchEarlier && !r2.re10Cancelled
+            highlight: !r2.canCatchEarlier && !r2.re10Cancelled && !r2.targetTrain1723Cancelled
           },
           {
-            id: "RE10 (82292)",
+            id: re1753.id,
             plan: "17:53",
-            live: "17:53",
-            delay: formatDelayBadge(0),
-            reason: "Planmäßiger Folgetakt",
+            live: re1753.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : re1753.live,
+            delay: formatDelayBadge(re1753.delay, re1753.cancelled),
+            reason: re1753.cancelled ? "Fahrtausfall gemeldet (Transitous/VRR/DB)" : (re1753.delay > 0 ? `+${re1753.delay} Min Verzögerung` : "Planmäßiger Folgetakt"),
             status: `<span class="text-slate-400 text-[10px] px-2 py-0.5 font-bold">PLANMÄSSIG</span>`
           }
         ];
@@ -5260,7 +4483,7 @@ r2RiskEl.className = "text-slate-300";
         let sb41CurrentStatusBadge = `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`;
 
         if (r2.sb41Cancelled) {
-          sb41CurrentLage = "Fahrtausfall (Technischer Defekt am Zubringer-Bus)";
+          sb41CurrentLage = "Fahrtausfall (Ausfallmeldung am Zubringer-Bus)";
           sb41CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>`;
         } else if (r2.sb41Delay >= 20) {
           sb41CurrentLage = "Massiver Stau & Unfall B58 Straelen – Anschluss RE10 17:23 Uhr verpasst!";
@@ -5273,38 +4496,44 @@ r2RiskEl.className = "text-slate-300";
           sb41CurrentStatusBadge = `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${r2.sb41Delay} MIN</span>`;
         }
 
+        const sb1455 = getSb41Item("14:55", "SB41 (35471)");
+        const sb1525 = getSb41Item("15:25", "SB41 (35473)");
+        const sb1555 = getSb41Item("15:55", "SB41 (35475)");
+        const sb1625 = getSb41Item("16:25", "SB41 (35477)");
+        const sb1719 = getSb41Item("17:19", "SB41 (35481)");
+
         const sb41Rows = [
           {
-            id: "SB41 (35471)",
+            id: sb1455.id,
             plan: "14:55",
-            live: "15:18 (+23m)",
-            delay: formatDelayBadge(23),
-            lage: "Schwerer Berufsverkehr & Baustelle B58 Straelen",
-            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">VERSPÄTET</span>`
+            live: sb1455.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : sb1455.live,
+            delay: formatDelayBadge(sb1455.delay, sb1455.cancelled),
+            lage: sb1455.lage,
+            status: sb1455.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (sb1455.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${sb1455.delay} MIN</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
-            id: "SB41 (35473)",
+            id: sb1525.id,
             plan: "15:25",
-            live: "15:25",
-            delay: formatDelayBadge(0),
-            lage: "Pünktlich – Freie Fahrt auf der B58",
-            status: `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`
+            live: sb1525.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : sb1525.live,
+            delay: formatDelayBadge(sb1525.delay, sb1525.cancelled),
+            lage: sb1525.lage,
+            status: sb1525.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (sb1525.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${sb1525.delay} MIN</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
-            id: "SB41 (35475)",
+            id: sb1555.id,
             plan: "15:55",
-            live: "16:02 (+7m)",
-            delay: formatDelayBadge(7),
-            lage: "Dichter Feierabendverkehr B58 / Ortsausgang Straelen",
-            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+7 MIN</span>`
+            live: sb1555.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : sb1555.live,
+            delay: formatDelayBadge(sb1555.delay, sb1555.cancelled),
+            lage: sb1555.lage,
+            status: sb1555.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (sb1555.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${sb1555.delay} MIN</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
-            id: "SB41 (35477)",
+            id: sb1625.id,
             plan: "16:25",
-            live: "16:28 (+3m)",
-            delay: formatDelayBadge(3),
-            lage: "Hohes Fahrgastaufkommen Straelen Schulzentrum",
-            status: `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+3 MIN</span>`
+            live: sb1625.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : sb1625.live,
+            delay: formatDelayBadge(sb1625.delay, sb1625.cancelled),
+            lage: sb1625.lage,
+            status: sb1625.cancelled ? `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">AUSFALL</span>` : (sb1625.delay > 0 ? `<span class="bg-rose-950/80 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">+${sb1625.delay} MIN</span>` : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold">PÜNKTLICH</span>`)
           },
           {
             id: `<span class="text-emerald-300 font-bold">SB41 (35479) 🚌</span>`,
@@ -5316,11 +4545,11 @@ r2RiskEl.className = "text-slate-300";
             highlight: true
           },
           {
-            id: "SB41 (35481)",
+            id: sb1719.id,
             plan: "17:19",
-            live: "17:19",
-            delay: formatDelayBadge(0),
-            lage: "Planmäßiger Folgetakt",
+            live: sb1719.cancelled ? `<span class="text-rose-400 font-bold">AUSFALL</span>` : sb1719.live,
+            delay: formatDelayBadge(sb1719.delay, sb1719.cancelled),
+            lage: sb1719.lage,
             status: `<span class="text-slate-400 text-[10px] px-2 py-0.5 font-bold">PLANMÄSSIG</span>`
           }
         ];
@@ -5345,7 +4574,7 @@ r2RiskEl.className = "text-slate-300";
         let bus63Feasibility = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">❌ Zu pünktlich (mind. +3m nötig)</span>`;
 
         if (r1.cancelled) {
-          bus63CurrentReason = "Fahrtausfall (Fahrermangel / Umlaufstörung)";
+          bus63CurrentReason = "Fahrtausfall (Ausfallmeldung Bus 63)";
           bus63Feasibility = `<span class="bg-rose-950/80 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-bold">❌ AUSFALL</span>`;
         } else if (!state.lucasAvailable) {
           bus63CurrentReason = r1.delayMin >= 3 ? `Anschlussaufnahme Straelen Markt (+${r1.delayMin}m)` : "Bus verkehrt regulär";
@@ -5378,22 +4607,22 @@ r2RiskEl.className = "text-slate-300";
           {
             id: "Bus 63 (35420)",
             plan: "14:35",
-            live: "14:38 (+3m)",
-            delay: formatDelayBadge(3),
-            reason: "Hohes Fahrgastaufkommen Venloer Tor",
+            live: "14:35",
+            delay: formatDelayBadge(0),
+            reason: "Pünktlich (Regulärer Takt)",
             feasibility: `<span class="text-slate-500 text-[11px] font-sans">Historie (vor Feierabend)</span>`
           },
           {
             id: "Bus 63 (35422)",
             plan: "15:35",
-            live: "15:37 (+2m)",
-            delay: formatDelayBadge(2),
-            reason: "Verzögerung beim Einstieg Straelen Markt",
+            live: "15:35",
+            delay: formatDelayBadge(0),
+            reason: "Pünktlich (Regulärer Takt)",
             feasibility: `<span class="text-slate-500 text-[11px] font-sans">Historie (vor Feierabend)</span>`
           },
           {
             id: `<span class="text-emerald-300 font-bold">Bus 63 (35424) ⚡</span>`,
-            plan: r1.plannedDep || "16:35",
+            plan: "16:36 ⭐",
             live: bus63LiveTime,
             delay: formatDelayBadge(r1.delayMin, r1.cancelled),
             reason: bus63CurrentReason,
@@ -5423,6 +4652,256 @@ r2RiskEl.className = "text-slate-300";
       }
     }
 
+    // --- 5b. LIVE-TICKER & STÖRUNGS-ENGINE ---
+
+    function extractTickerAlerts() {
+      const alerts = [];
+
+      // 1. RE10 (Niers-Express) Analyse
+      const re10List = state.liveRe10List || [];
+      const cancelledRe10 = re10List.filter(t => t.cancelled);
+      const severeDelayRe10 = re10List.filter(t => !t.cancelled && t.delay >= 20);
+
+      // Echte Betriebsstörungen / Akute Ereignisse (Polizei, Notarzt, Streckensperrung, etc.)
+      // WICHTIG: Nur echte Meldungstexte (remarks, alerts, trip description) durchsuchen,
+      // NIEMALS die statische Haltestellen-Bezeichnung (place.description)!
+      const incidentRe10 = re10List.filter(t => {
+        const text = `${t.remarksText || ""} ${t.rawDescription || ""} ${t.reason || ""}`.toLowerCase();
+        return text.includes("feuerwehr") || text.includes("polizei") || text.includes("sperrung") ||
+               text.includes("notarzt") || text.includes("signalstörung") || text.includes("baum im gleis") ||
+               text.includes("personen im gleis") || text.includes("streckenschaden") || text.includes("weichenstörung");
+      });
+
+      // Echter Schienenersatzverkehr (SEV):
+      // Gilt NUR, wenn der Zug als Bus disponiert ist (isBusMode) oder in echten Live-Remarks SEV/Ersatzverkehr steht!
+      // Statische Haltestellen-Beschriftungen ("Schienenersatzv." an Steig 89) sind KEINE Störung!
+      const sevCandidates = re10List.filter(t => {
+        if (t.isBusMode) return true;
+        const text = `${t.remarksText || ""} ${t.rawDescription || ""}`.toLowerCase();
+        return text.includes("schienenersatz") || text.includes("ersatzverkehr") ||
+               text.includes("bus statt bahn") || text.includes("ersatzbus");
+      });
+
+      if (incidentRe10.length > 0) {
+        const primary = incidentRe10[0];
+        const reason = primary.remarksText || primary.rawDescription || primary.reason || "Streckensperrung gemeldet";
+        alerts.push({
+          line: "RE10",
+          type: "danger",
+          icon: "🚨",
+          title: "Streckensperrung / Akuter Einsatz",
+          detail: reason
+        });
+      } else if (cancelledRe10.length >= 2) {
+        const times = cancelledRe10.map(t => t.plan).slice(0, 4).join(", ");
+        alerts.push({
+          line: "RE10",
+          type: "danger",
+          icon: "⚠️",
+          title: "Großstörung / Mehrere Zugausfälle",
+          detail: `${cancelledRe10.length} Züge (u. a. ${times} Uhr) entfallen. Hohes Strandungsrisiko in Nieukerk!`
+        });
+      } else if (cancelledRe10.length === 1) {
+        const c = cancelledRe10[0];
+        alerts.push({
+          line: "RE10",
+          type: "danger",
+          icon: "⚠️",
+          title: `Zugausfall Fahrt ${c.plan} Uhr`,
+          detail: c.remarksText || c.reason || "Fahrtausfall gemeldet via Transitous/VRR"
+        });
+      } else if (severeDelayRe10.length > 0) {
+        const d = severeDelayRe10[0];
+        alerts.push({
+          line: "RE10",
+          type: "warning",
+          icon: "⚠️",
+          title: `Massive Verspätung (+${d.delay} Min)`,
+          detail: `Fahrt ${d.plan} Uhr stark verspätet (${d.live})`
+        });
+      }
+
+      // SEV-Meldungen transparent und mit Streckenabschnitt anzeigen:
+      if (sevCandidates.length > 0 && incidentRe10.length === 0) {
+        const primarySev = sevCandidates[0];
+        const fullMsg = (primarySev.remarksText || primarySev.rawDescription || "").trim();
+        const lowMsg = fullMsg.toLowerCase();
+
+        const isNorthSectionOnly = (lowMsg.includes("kevelaer") || lowMsg.includes("kleve") || lowMsg.includes("goch") || lowMsg.includes("bedburg")) &&
+                                   !lowMsg.includes("nieukerk") && !lowMsg.includes("geldern") && !lowMsg.includes("kempen");
+        const isSouthSectionOnly = (lowMsg.includes("düsseldorf") || lowMsg.includes("krefeld") || lowMsg.includes("neuss")) &&
+                                   !lowMsg.includes("nieukerk") && !lowMsg.includes("geldern");
+        const isCommuterSection = lowMsg.includes("nieukerk") || lowMsg.includes("geldern") || lowMsg.includes("kempen") || primarySev.isBusMode;
+
+        if (isCommuterSection) {
+          alerts.push({
+            line: "RE10",
+            type: "danger",
+            icon: "🚌",
+            title: "SEV aktiv: Nieukerk ↔ Geldern",
+            detail: fullMsg || "Busse statt Bahnen zwischen Nieukerk und Geldern im Einsatz – ca. 15–20 Min längere Fahrzeit einplanen."
+          });
+        } else if (isNorthSectionOnly) {
+          alerts.push({
+            line: "RE10",
+            type: "info",
+            icon: "ℹ️",
+            title: "Zusatzbusse Nordabschnitt (Kevelaer ↔ Kleve)",
+            detail: fullMsg || "Zusatzbusse zur Stabilisierung im Norden. Züge Nieukerk ➔ Geldern fahren planmäßig per Bahn."
+          });
+        } else if (isSouthSectionOnly) {
+          alerts.push({
+            line: "RE10",
+            type: "info",
+            icon: "ℹ️",
+            title: "SEV Südabschnitt (Krefeld ↔ Düsseldorf)",
+            detail: fullMsg || "Teilausfälle im Süden. Pendlerabschnitt Kempen ➔ Nieukerk ➔ Geldern frei."
+          });
+        } else {
+          alerts.push({
+            line: "RE10",
+            type: "warning",
+            icon: "🚌",
+            title: "Schienenersatzverkehr (SEV) gemeldet",
+            detail: fullMsg || "Ersatzverkehr auf der Linie RE10 gemeldet – bitte Streckenabschnitt in VRR-App prüfen."
+          });
+        }
+      }
+
+      // 3. Bus 63 Analyse
+      const r1 = state.route1 || {};
+      const busDesc = `${r1.rawDescription || ""} ${r1.headsign || ""}`.toLowerCase();
+      if (r1.cancelled) {
+        alerts.push({
+          line: "Bus 63",
+          type: "danger",
+          icon: "⚠️",
+          title: "Fahrtausfall",
+          detail: "Feierabend-Fahrt ab Straelen Friedhof entfällt (Ausfallmeldung VRR/NIAG)."
+        });
+      } else if (busDesc.includes("martin") || busDesc.includes("umleitung") || busDesc.includes("südwall") || busDesc.includes("verkürzt")) {
+        alerts.push({
+          line: "Bus 63",
+          type: "info",
+          icon: "ℹ️",
+          title: "Sonderverkehr / Umleitung in Geldern",
+          detail: r1.rawDescription || "Verkürzte Linienführung (z. B. Martinszug / Innenstadtsperrung in Geldern)."
+        });
+      } else if (r1.delayMin >= 15) {
+        alerts.push({
+          line: "Bus 63",
+          type: "warning",
+          icon: "⚠️",
+          title: `Starke Verkehrsverzögerung (+${r1.delayMin} Min)`,
+          detail: "Stau auf der B58 Straelen Richtung Geldern."
+        });
+      }
+
+      // 4. SB41 Analyse
+      const r2 = state.route2 || {};
+      if (r2.sb41Cancelled) {
+        alerts.push({
+          line: "SB41",
+          type: "danger",
+          icon: "⚠️",
+          title: "Fahrtausfall Zubringer",
+          detail: "Fahrt Straelen Boekholt ➔ Nieukerk Bf entfällt – RE10-Anschluss nicht erreichbar."
+        });
+      } else if (r2.sb41Delay >= 15) {
+        alerts.push({
+          line: "SB41",
+          type: "warning",
+          icon: "⚠️",
+          title: `Hohe Zubringer-Verspätung (+${r2.sb41Delay} Min)`,
+          detail: "Stau B58 Straelen – Umstieg auf Zielzug RE10 in Nieukerk akut gefährdet."
+        });
+      }
+
+      return alerts;
+    }
+
+    function renderLiveTicker() {
+      const container = document.getElementById("re10LiveTicker");
+      if (!container) return;
+
+      const alerts = extractTickerAlerts();
+      const hasDanger = alerts.some(a => a.type === "danger");
+      const hasWarning = alerts.some(a => a.type === "warning");
+      const hasInfo = alerts.some(a => a.type === "info");
+
+      // Basis-Klassen zurücksetzen
+      container.className = "live-ticker-bar p-3 sm:py-2.5 sm:px-4 rounded-xl border transition-all duration-300";
+
+      if (alerts.length === 0) {
+        // RUHEZUSTAND / KEINE STÖRUNGEN
+        container.classList.add("is-idle", "bg-slate-900/70", "border-slate-800/80", "text-slate-300", "shadow-sm");
+        container.innerHTML = `
+          <div class="flex items-center justify-between gap-3 text-xs">
+            <div class="flex items-center space-x-2.5 min-w-0 flex-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span class="font-bold uppercase tracking-wider text-[10px] sm:text-[11px] text-slate-400 shrink-0">LIVE-TICKER:</span>
+              <span class="ticker-title text-slate-300 font-medium truncate">🟢 Keine aktuellen Streckenstörungen für RE10, Bus 63 oder SB41 bekannt</span>
+            </div>
+            <div class="flex items-center space-x-2 shrink-0 text-[10px] font-mono text-slate-500">
+              <span class="hidden sm:inline">Regelbetrieb</span>
+              <span class="hidden sm:inline">•</span>
+              <span class="select-none">Transitous Live</span>
+            </div>
+          </div>
+        `;
+      } else {
+        // AKTUELLE STÖRUNGEN
+        if (hasDanger) {
+          container.classList.add("has-danger", "border-rose-500/50", "bg-gradient-to-r", "from-rose-950/40", "via-slate-900/85", "to-slate-900/75", "shadow-md");
+        } else if (hasWarning) {
+          container.classList.add("has-warning", "border-amber-500/50", "bg-gradient-to-r", "from-amber-950/30", "via-slate-900/85", "to-slate-900/75", "shadow-md");
+        } else {
+          container.classList.add("has-info", "border-sky-500/50", "bg-gradient-to-r", "from-sky-950/30", "via-slate-900/85", "to-slate-900/75", "shadow-md");
+        }
+
+        const badgeColor = hasDanger ? "text-rose-300 bg-rose-950/60 border-rose-500/40" : (hasWarning ? "text-amber-300 bg-amber-950/60 border-amber-500/40" : "text-sky-300 bg-sky-950/60 border-sky-500/40");
+        const dotColor = hasDanger ? "bg-rose-500" : (hasWarning ? "bg-amber-400" : "bg-sky-400");
+        const headerTitle = alerts.length === 1 ? "1 aktuelle Meldung" : `${alerts.length} aktuelle Meldungen`;
+
+        let alertsHtml = alerts.map(a => {
+          const isD = a.type === "danger";
+          const isW = a.type === "warning";
+          const lineClass = isD ? "ticker-line-tag text-rose-300 font-bold" : (isW ? "ticker-line-tag text-amber-300 font-bold" : "ticker-line-tag text-sky-300 font-bold");
+          const icon = a.icon || (isD ? "⚠️" : (isW ? "⚠️" : "ℹ️"));
+          return `
+            <div class="flex items-start space-x-2 text-[11px] sm:text-xs">
+              <span class="shrink-0 text-sm leading-none mt-0.5 select-none">${icon}</span>
+              <div class="min-w-0 flex-1 leading-snug">
+                <span class="${lineClass}">${a.line}:</span>
+                <span class="ticker-alert-title font-semibold text-slate-200">${a.title}</span>
+                ${a.detail ? `<span class="ticker-alert-detail opacity-90 block sm:inline sm:ml-1 text-slate-300">${a.detail}</span>` : ""}
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        container.innerHTML = `
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between gap-2 pb-1.5 border-b ${hasDanger ? 'border-rose-500/25' : 'border-amber-500/25'}">
+              <div class="flex items-center space-x-2 min-w-0">
+                <span class="w-2 h-2 rounded-full ${dotColor} animate-pulse shrink-0"></span>
+                <span class="font-bold uppercase tracking-wider text-[10px] sm:text-[11px] ${hasDanger ? 'text-rose-300' : 'text-amber-300'} shrink-0">STRECKEN-TICKER:</span>
+                <span class="ticker-title font-semibold truncate ${hasDanger ? 'text-rose-200' : 'text-amber-200'}">${headerTitle}</span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded border ${badgeColor} shrink-0 select-none">Transitous Live</span>
+            </div>
+            <div class="space-y-1.5">
+              ${alertsHtml}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    window.pendlerLotseTicker = {
+      getAlerts: () => extractTickerAlerts()
+    };
+
 
 
     // --- 6. CLOCK & 16:25 COUNTDOWN TIMER ---
@@ -5432,139 +4911,69 @@ r2RiskEl.className = "text-slate-300";
 
 
     function updateClockAndCountdown() {
-
-      const now = new Date();
-
+      const now = getCurrentTime();
       state.now = now;
 
-
-
       // Update live clock
-
       const timeStr = now.toLocaleTimeString("de-DE", { hour12: false });
+      const liveClockEl = document.getElementById("liveClock");
+      if (liveClockEl) liveClockEl.textContent = timeStr;
 
-      document.getElementById("liveClock").textContent = timeStr;
+      // Check if transitioning across 16:00
+      const currentH = now.getHours();
+      const isEarly = currentH < 16;
+      if (state.lastIsEarly !== undefined && state.lastIsEarly !== isEarly) {
+        renderUI();
+      }
+      state.lastIsEarly = isEarly;
 
       // Update progress timeline live if in transitous_live mode
       if (state.scenario === "transitous_live") {
         renderProgressTimeline();
       }
 
-
-
-      // Target: today 16:25:00
-
-      let target = new Date(now);
-
-      target.setHours(16, 25, 0, 0);
-
-
-
-      let diffMs = target - now;
-
       const countEl = document.getElementById("countdownDisplay");
-
       const titleEl = document.getElementById("countdownTitle");
+      if (!countEl || !titleEl) return;
 
+      const currentM = now.getMinutes();
+      const currentS = now.getSeconds();
+      const currentSeconds = currentH * 3600 + currentM * 60 + currentS;
 
+      // Arbeitszeitfenster: 08:00:00 (28800 Sek) bis 16:30:00 (59400 Sek)
+      const isWorkHours = currentSeconds >= 28800 && currentSeconds < 59400;
 
-      if (diffMs > 0) {
-
-        // Countdown running today towards 16:25
-
-        const totalSec = Math.floor(diffMs / 1000);
-
-        const hours = Math.floor(totalSec / 3600);
-
-        const minutes = Math.floor((totalSec % 3600) / 60);
-
-        const seconds = totalSec % 60;
+      if (isWorkHours) {
+        // Countdown von 08:00 bis 16:30 Uhr
+        const diffSec = 59400 - currentSeconds;
+        const hours = Math.floor(diffSec / 3600);
+        const minutes = Math.floor((diffSec % 3600) / 60);
+        const seconds = diffSec % 60;
 
         countEl.textContent = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        titleEl.textContent = "Countdown bis zum Feierabend (16:30 Uhr)";
+        countEl.className = "hero-countdown text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
 
-        titleEl.textContent = "Countdown bis zur 16:25 Uhr Feierabend-Entscheidung";
-
-        countEl.className = "text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
-
-        triggeredToday = false;
-
-      } else if (diffMs <= 0 && diffMs > -300000) { // Between 16:25 and 16:30
-
-        const secToFeierabend = Math.floor((300000 + diffMs) / 1000);
-
-        const minLeft = Math.floor(secToFeierabend / 60);
-
-        const secLeft = secToFeierabend % 60;
-
-        titleEl.textContent = `Lotsen-Alarm AKTIV: Lucas jetzt Bescheid geben! (Feierabend um 16:30 Uhr in ${minLeft}m ${secLeft}s)`;
-
-        countEl.textContent = "16:25 ALARM!";
-
-        countEl.className = "text-3xl sm:text-4xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1 animate-pulse";
-
-
-
-        // TRIGGER ALARM EXACTLY AT 16:25
-
-        if (!triggeredToday && diffMs > -60000) {
-
+        // Lotsen-Alarm um 16:25 Uhr (5 Min vor Feierabend)
+        if (currentH === 16 && currentM === 25 && !triggeredToday) {
           triggeredToday = true;
-
           loadData().then(() => {
-
             const rec = state.recommendation;
-
             sendDesktopNotification(
-
               `🔔 Lotsen-Alarm (16:25 Uhr – 5 Min vor Feierabend um 16:30 Uhr): ${rec.title}`,
-
-              `${rec.explanation.replace(/<[^>]*>?/gm, '')} • Ankunft Geldern: ${rec.arrival}`
-
+              `Ankunft Geldern: ${rec.arrival}`
             );
-
           });
-
         }
-
-      } else if (diffMs <= -300000 && diffMs > -2100000) { // Between 16:30 and 17:00
-
-        titleEl.textContent = "16:30 UHR: FEIERABEND AKTIV! (Jetzt aufbrechen)";
-
-        countEl.textContent = "JETZT LOSGEHEN!";
-
-        countEl.className = "text-3xl sm:text-4xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
-
       } else {
-
-        // Target is tomorrow 16:25:00
-
-        const tomorrowTarget = new Date(target);
-
-        tomorrowTarget.setDate(tomorrowTarget.getDate() + 1);
-
-        const tomorrowDiff = tomorrowTarget - now;
-
-        const totalSec = Math.floor(tomorrowDiff / 1000);
-
-        const hours = Math.floor(totalSec / 3600);
-
-        const minutes = Math.floor((totalSec % 3600) / 60);
-
-        const seconds = totalSec % 60;
-
-        countEl.textContent = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-        titleEl.textContent = "Countdown bis zur 16:25 Uhr Feierabend-Entscheidung";
-
-        countEl.className = "text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
-
+        // Nach 16:30 Uhr (also zwischen 16:30 Uhr und 08:00 Uhr am nächsten Morgen):
+        // Keine Zähler, keine negativen Zahlen, sondern einfach fett: Feierabend!
+        countEl.textContent = "Feierabend!";
+        countEl.className = "hero-countdown text-4xl sm:text-5xl font-extrabold text-emerald-400 tracking-tight mt-1";
+        titleEl.textContent = "Feierabend!";
+        triggeredToday = false;
       }
-
     }
-
-
-
-    // --- 7. THEME MANAGER & CONTROLS ---
 
     function updateThemeToggleIcon() {
       const isLight = document.documentElement.classList.contains("light");
@@ -5777,10 +5186,7 @@ r2RiskEl.className = "text-slate-300";
 
           sound.playNotificationChime();
 
-          const targetId = state.recommendation.theme === "green" ? "cardRoute1" : "cardRoute2";
-
-          const el = document.getElementById(targetId);
-
+          const el = document.getElementById("liveProgressModule");
           if (el) el.scrollIntoView({ behavior: "smooth" });
 
         });
