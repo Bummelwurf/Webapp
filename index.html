@@ -380,7 +380,7 @@
 
 
 
-    .hidden { display: none !important; }
+    .hidden { display: none; }
 
     .block { display: block; }
 
@@ -1624,7 +1624,13 @@
 
     @media (min-width: 1024px) {
 
+      .lg\:flex { display: flex !important; }
+
+      .lg\:block { display: block !important; }
+
       .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
+
+      .lg\:col-span-6 { grid-column: span 6 / span 6 !important; }
 
       .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
 
@@ -1960,8 +1966,8 @@
 
       </div>
 
-      <!-- RIGHT COLUMN (Desktop: 6 Spalten / 50% Breite, streckt sich über volle Höhe bündig nach unten) -->
-      <div class="lg:col-span-6 flex flex-col h-full">
+      <!-- RIGHT COLUMN (Desktop: 6 Spalten / 50% Breite, streckt sich über volle Höhe bündig nach unten; Mobile: vollständig ausgeblendet) -->
+      <div class="hidden lg:flex lg:col-span-6 flex-col h-full">
 
         <!-- BLOCK 2: RE10 & BUS 63 MONITOR (NIEUKERK & FRIEDHOF) -->
 
@@ -2027,7 +2033,7 @@
 
             <!-- Side-by-Side Departures Table (RE10 & Bus 63 - Richtung Geldern / Kleve) -->
 
-            <div class="table-scroll-wrapper mt-1 rounded-xl border border-slate-800/80 bg-slate-950/30 flex-1 flex flex-col min-h-0 overflow-x-auto">
+            <div class="table-scroll-wrapper mt-1 rounded-xl border border-slate-800/80 bg-slate-950/30 flex-1 flex flex-col min-h-0 overflow-auto">
 
               <table id="monitorTable" class="monitor-table show-re10 w-full text-left text-[11px] h-full">
 
@@ -2035,17 +2041,17 @@
 
                   <tr class="border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[9px] bg-slate-950/60">
 
-                    <th class="col-re10 py-2 px-2 font-medium">RE10 NIEUKERK</th>
+                    <th class="col-re10 py-2 sm:py-2.5 px-2 font-medium">RE10 NIEUKERK</th>
 
-                    <th class="col-re10 py-2 px-1 font-medium">PLAN</th>
+                    <th class="col-re10 py-2 sm:py-2.5 px-1 font-medium">PLAN</th>
 
-                    <th class="col-re10 py-2 px-1.5 font-medium">STATUS</th>
+                    <th class="col-re10 py-2 sm:py-2.5 px-1.5 font-medium">STATUS</th>
 
-                    <th class="col-bus63 py-2 px-2 font-medium border-l border-slate-800/80">BUS 63 FRIEDHOF</th>
+                    <th class="col-bus63 py-2 sm:py-2.5 px-2 font-medium border-l border-slate-800/80">BUS 63 FRIEDHOF</th>
 
-                    <th class="col-bus63 py-2 px-1 font-medium">PLAN</th>
+                    <th class="col-bus63 py-2 sm:py-2.5 px-1 font-medium">PLAN</th>
 
-                    <th class="col-bus63 py-2 px-1.5 font-medium">STATUS</th>
+                    <th class="col-bus63 py-2 sm:py-2.5 px-1.5 font-medium">STATUS</th>
 
                   </tr>
 
@@ -2574,6 +2580,32 @@
       };
     }
 
+    function getBus63Item(planTime, defaultId) {
+      const match = (state.liveBus63List || []).find(t => {
+        return t.plan === planTime || Math.abs(timeToMinutes(t.plan) - timeToMinutes(planTime)) <= 6;
+      });
+      if (match) {
+        return {
+          id: match.id || defaultId,
+          plan: match.plan || planTime,
+          live: match.live,
+          delay: match.delay,
+          cancelled: match.cancelled,
+          reason: match.reason,
+          status: match.status
+        };
+      }
+      return {
+        id: defaultId,
+        plan: planTime,
+        live: planTime,
+        delay: 0,
+        cancelled: false,
+        reason: "Pünktlich (Regulärer Takt)",
+        status: "ONTIME"
+      };
+    }
+
     // STATE
 
     const state = {
@@ -2603,6 +2635,8 @@
       liveRe10List: [],
 
       liveSb41List: [],
+
+      liveBus63List: [],
 
       tickerAlerts: [],
 
@@ -3454,16 +3488,17 @@
 
       try {
         const today = new Date();
-        // Feierabend-Fenster heute dynamisch in lokaler Zeit anlegen (ab 14:45 Uhr für vollen Nachmittags-Überblick):
+        // Feierabend-Fenster heute dynamisch in lokaler Zeit anlegen (ab 11:15 Uhr für vollen Tages-Überblick):
         const dateBus63 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 25, 0);
+        const dateBus63Stops = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 11, 15, 0);
         const dateSb41 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 45, 0);
-        const dateRe10 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 45, 0);
+        const dateRe10 = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 30, 0);
 
         const r1Url = `https://api.transitous.org/api/v1/plan?fromPlace=de-DELFI_de:05154:35479:0:1&toPlace=de-DELFI_de:05154:36117&time=${dateBus63.toISOString()}`;
         const sb41Url = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:35477:0:1&time=${dateSb41.toISOString()}&n=16`;
-        const re10Url = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:36114:89:1&time=${dateRe10.toISOString()}&n=16`;
-        const bus63StopsUrl = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:35479:0:1&time=${dateBus63.toISOString()}&n=16`;
-        const kempenUrl = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05166:21005&time=${dateRe10.toISOString()}&n=16`;
+        const re10Url = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:36114:89:1&time=${dateRe10.toISOString()}&n=24`;
+        const bus63StopsUrl = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05154:35479:0:1&time=${dateBus63Stops.toISOString()}&n=20`;
+        const kempenUrl = `https://api.transitous.org/api/v1/stoptimes?stopId=de-DELFI_de:05166:21005&time=${dateRe10.toISOString()}&n=20`;
 
         let r1Data = null;
         let sb41Data = null;
@@ -3525,8 +3560,41 @@
           };
         }
 
-        // Zusätzliche Prüfung auf Hinweise/Ausfälle direkt an Haltestelle Straelen Friedhof
+        // 0. BUS 63 LIVE-DATEN (Haltestelle Straelen Friedhof - STRENG NUR RICHTUNG GELDERN!)
+        let liveBus63List = [];
         if (bus63StopsData && bus63StopsData.stopTimes) {
+          const buses = bus63StopsData.stopTimes.filter(st => {
+            const name = (st.displayName || st.routeShortName || "").toUpperCase();
+            if (!name.includes("63") && !name.includes("063")) return false;
+            const headsign = (st.headsign || "").toLowerCase();
+            const toName = (st.tripTo?.name || "").toLowerCase();
+            const dest = `${headsign} ${toName}`;
+            if (dest.includes("straelen") && !dest.includes("geldern")) return false;
+            return dest.includes("geldern") || dest.includes("veert") || dest.includes("bahnhof") || dest.includes("bf");
+          });
+
+          liveBus63List = buses.map(st => {
+            const isCancelled = Boolean(st.cancelled || st.tripCancelled || st.place?.cancelled);
+            let sDate = st.place?.scheduledDeparture ? new Date(st.place.scheduledDeparture) : null;
+            let lDate = st.place?.departure ? new Date(st.place.departure) : sDate;
+            let planTime = sDate ? sDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : "--:--";
+            let liveTime = lDate ? lDate.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : planTime;
+            let delay = (sDate && lDate) ? Math.round((lDate - sDate) / 60000) : 0;
+            if (delay < 0) delay = 0;
+            const remarksText = extractDisruptionRemarks(st);
+            return {
+              id: st.displayName || st.routeShortName || "Bus 63",
+              plan: planTime,
+              live: isCancelled ? "AUSFALL" : (delay > 0 ? `${liveTime} (+${delay}m)` : planTime),
+              delay: isCancelled ? 999 : delay,
+              cancelled: isCancelled,
+              reason: isCancelled ? (remarksText || "Fahrtausfall gemeldet") : (delay > 0 ? `+${delay} Min Verzögerung` : "Pünktlich (Planmäßig)"),
+              status: isCancelled ? "CANCEL" : (delay > 0 ? "DELAY" : "ONTIME"),
+              rawDescription: remarksText,
+              remarksText: remarksText
+            };
+          });
+
           const b63 = bus63StopsData.stopTimes.find(st => {
             const name = (st.displayName || st.routeShortName || "").toUpperCase();
             return name.includes("63") || name.includes("063");
@@ -3544,6 +3612,7 @@
             }
           }
         }
+        state.liveBus63List = liveBus63List;
 
         // Hilfsfunktion: Echte Störungs- & Hinweistexte aus API-Remarks/Alerts/Description extrahieren
         // WICHTIG: Niemals die statische Haltestellenbeschreibung (place.description wie "Schienenersatzv." an Steig 89) nutzen!
@@ -3919,19 +3988,27 @@
         targetTrain1723Live = `${addMinutesToTime("17:23", r2.targetTrain1723Delay)} (+${r2.targetTrain1723Delay}m)`;
       }
 
-      // Dynamische Abfrage ohne fiktive Ausfälle / Verspätungen:
+      // Dynamische Abfrage ohne fiktive Ausfälle / Verspätungen (11 Fahrten für perfekte Kachelhöhe):
       const rows = [
         {
+          re10: getRe10Item("13:55", "RE10 (82276)"),
+          bus63: getBus63Item("11:35", "Bus 63 (35414)")
+        },
+        {
+          re10: getRe10Item("14:25", "RE10 (82278)"),
+          bus63: getBus63Item("12:35", "Bus 63 (35416)")
+        },
+        {
           re10: getRe10Item("14:55", "RE10 (82280)"),
-          bus63: { id: "Bus 63 (35418)", plan: "13:35", live: "13:35", delay: 0, status: "ONTIME" }
+          bus63: getBus63Item("13:35", "Bus 63 (35418)")
         },
         {
           re10: getRe10Item("15:25", "RE10 (82282)"),
-          bus63: { id: "Bus 63 (35420)", plan: "14:35", live: "14:35", delay: 0, status: "ONTIME" }
+          bus63: getBus63Item("14:35", "Bus 63 (35420)")
         },
         {
           re10: getRe10Item("15:55", "RE10 (82284)"),
-          bus63: { id: "Bus 63 (35422)", plan: "15:35", live: "15:35", delay: 0, status: "ONTIME" }
+          bus63: getBus63Item("15:35", "Bus 63 (35422)")
         },
         {
           // 16:25 RE10: NUR AUSFALL WENN REAL VON TRANSITOUS/VRR/DB GEMELDET!
@@ -3940,12 +4017,24 @@
         },
         {
           re10: { id: "RE10 (82288)", plan: "16:53 ⭐", live: re10LiveText, delay: r2.re10Delay, status: re10LiveStatus, cancelled: r2.re10Cancelled },
-          bus63: { id: "Bus 63 (35426)", plan: "17:35", live: "17:35", delay: 0, status: "ONTIME" }
+          bus63: getBus63Item("17:35", "Bus 63 (35426)")
         },
         {
           // 17:23 UHR ZIELZUG
           re10: { id: "RE10 (82290)", plan: "17:23 🎯", live: targetTrain1723Live, delay: r2.targetTrain1723Delay || 0, status: targetTrain1723Status, cancelled: r2.targetTrain1723Cancelled },
-          bus63: { id: "Bus 63 (35428)", plan: "18:35", live: "18:35", delay: 0, status: "ONTIME" }
+          bus63: getBus63Item("18:35", "Bus 63 (35428)")
+        },
+        {
+          re10: getRe10Item("17:53", "RE10 (82292)"),
+          bus63: getBus63Item("19:35", "Bus 63 (35430)")
+        },
+        {
+          re10: getRe10Item("18:23", "RE10 (82294)"),
+          bus63: getBus63Item("20:35", "Bus 63 (35432)")
+        },
+        {
+          re10: getRe10Item("18:53", "RE10 (82296)"),
+          bus63: getBus63Item("21:35", "Bus 63 (35434)")
         }
       ];
 
@@ -3954,14 +4043,27 @@
         const reBadge = formatStatusBadge(r.re10);
         const busBadge = formatStatusBadge(r.bus63);
 
+        const isHighlightedRow = r.re10.plan.includes("⭐") || r.re10.plan.includes("🎯") || r.bus63.plan.includes("⭐");
+        const rowClass = isHighlightedRow 
+          ? "bg-emerald-950/20 hover:bg-emerald-950/35 transition font-medium" 
+          : "hover:bg-slate-800/40 transition";
+
+        const rePlanClass = (r.re10.plan.includes("⭐") || r.re10.plan.includes("🎯"))
+          ? "col-re10 py-2 sm:py-2.5 px-1 text-emerald-300 font-bold whitespace-nowrap"
+          : "col-re10 py-2 sm:py-2.5 px-1 text-slate-400 whitespace-nowrap";
+
+        const busPlanClass = r.bus63.plan.includes("⭐")
+          ? "col-bus63 py-2 sm:py-2.5 px-1 text-emerald-300 font-bold whitespace-nowrap"
+          : "col-bus63 py-2 sm:py-2.5 px-1 text-slate-400 whitespace-nowrap";
+
         htmlRows += `
-          <tr class="hover:bg-slate-800/40 transition">
-            <td class="col-re10 py-1.5 px-2 font-semibold text-slate-200 whitespace-nowrap">${r.re10.id}</td>
-            <td class="col-re10 py-1.5 px-1 text-slate-400 whitespace-nowrap">${r.re10.plan}</td>
-            <td class="col-re10 py-1.5 px-1.5 whitespace-nowrap">${reBadge}</td>
-            <td class="col-bus63 py-1.5 px-2 font-semibold text-slate-200 border-l border-slate-800/80 whitespace-nowrap">${r.bus63.id}</td>
-            <td class="col-bus63 py-1.5 px-1 text-slate-400 whitespace-nowrap">${r.bus63.plan}</td>
-            <td class="col-bus63 py-1.5 px-1.5 whitespace-nowrap">${busBadge}</td>
+          <tr class="${rowClass}">
+            <td class="col-re10 py-2 sm:py-2.5 px-2 font-semibold text-slate-200 whitespace-nowrap">${r.re10.id}</td>
+            <td class="${rePlanClass}">${r.re10.plan}</td>
+            <td class="col-re10 py-2 sm:py-2.5 px-1.5 whitespace-nowrap">${reBadge}</td>
+            <td class="col-bus63 py-2 sm:py-2.5 px-2 font-semibold text-slate-200 border-l border-slate-800/80 whitespace-nowrap">${r.bus63.id}</td>
+            <td class="${busPlanClass}">${r.bus63.plan}</td>
+            <td class="col-bus63 py-2 sm:py-2.5 px-1.5 whitespace-nowrap">${busBadge}</td>
           </tr>
         `;
       });
