@@ -146,9 +146,9 @@
 
       text-size-adjust: 100%;
 
-      scroll-behavior: smooth;
+      overflow-x: clip;
 
-      overflow-x: hidden;
+      overflow-y: auto;
 
       width: 100%;
 
@@ -172,9 +172,7 @@
 
       min-height: 100vh;
 
-      min-height: -webkit-fill-available;
-
-      overflow-x: hidden;
+      overflow-x: clip;
 
       width: 100%;
 
@@ -234,11 +232,11 @@
 
       margin-right: auto;
 
-      overflow-x: hidden;
-
       min-width: 0;
 
-      flex: 1 1 0%;
+      flex: 1 0 auto;
+
+      will-change: transform;
 
     }
 
@@ -1702,11 +1700,139 @@
       z-index: 20 !important;
     }
 
+    /* ==========================================================================
+       PULL-TO-REFRESH NATIVE IOS ENGINE (FLÜSSIGE TOUCH-GESTE & ROTIERENDES RAD)
+       ========================================================================== */
+    #ptrIndicator {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 0px) + 52px);
+      left: 50%;
+      transform: translate3d(-50%, -40px, 0) scale(0.85);
+      z-index: 45;
+      pointer-events: none;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: transform, opacity;
+    }
+
+    .ptr-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 15px;
+      border-radius: 9999px;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 16px rgba(16, 185, 129, 0.2);
+      color: #f8fafc;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .ptr-spinner-box {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ptr-spinner-svg {
+      width: 22px;
+      height: 22px;
+      transform-origin: center center;
+      color: #34d399;
+    }
+
+    .ptr-track {
+      stroke: #34d399;
+      opacity: 0.25;
+    }
+
+    .ptr-head {
+      stroke: #34d399;
+    }
+
+    .ptr-spokes {
+      stroke: #34d399;
+      opacity: 0.85;
+    }
+
+    .ptr-capsule.ptr-ready {
+      border-color: rgba(52, 211, 153, 0.95);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.65), 0 0 22px rgba(52, 211, 153, 0.4);
+    }
+
+    .ptr-spinning .ptr-spinner-svg {
+      animation: ptrSpinAnim 0.65s linear infinite !important;
+    }
+
+    @keyframes ptrSpinAnim {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* LIGHT MODE PULL-TO-REFRESH THEMING */
+    html.light .ptr-capsule {
+      background: rgba(255, 255, 255, 0.96) !important;
+      border: 1px solid #86EFAC !important;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+      color: #18181B !important;
+    }
+
+    html.light .ptr-spinner-svg,
+    html.light .ptr-track,
+    html.light .ptr-head,
+    html.light .ptr-spokes {
+      stroke: #15803d !important;
+      color: #15803d !important;
+    }
+
+    html.light .ptr-capsule.ptr-ready {
+      border-color: #16A34A !important;
+      box-shadow: 0 10px 25px -5px rgba(22, 163, 74, 0.22), 0 2px 10px rgba(22, 163, 74, 0.15) !important;
+    }
 </style>
 
 </head>
 
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+  <!-- PULL-TO-REFRESH FLOATING CAPSULE (NATIVE IOS / INSTA FEELING MIT ROTIERENDEM RÄDCHEN) -->
+  <div id="ptrIndicator" class="ptr-indicator" aria-hidden="true">
+    <div id="ptrCapsule" class="ptr-capsule">
+      <div class="ptr-spinner-box">
+        <svg id="ptrSpinnerIcon" class="ptr-spinner-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9.5" stroke-width="2" class="ptr-track" />
+          <path class="ptr-head" d="M12 2.5 A 9.5 9.5 0 0 1 21.5 12" stroke-width="2.5" stroke-linecap="round" />
+          <g class="ptr-spokes" stroke-width="1.8" stroke-linecap="round">
+            <line x1="12" y1="5.5" x2="12" y2="8" />
+            <line x1="12" y1="16" x2="12" y2="18.5" />
+            <line x1="5.5" y1="12" x2="8" y2="12" />
+            <line x1="16" y1="12" x2="18.5" y2="12" />
+            <line x1="7.4" y1="7.4" x2="9.2" y2="9.2" />
+            <line x1="14.8" y1="14.8" x2="16.6" y2="16.6" />
+            <line x1="16.6" y1="7.4" x2="14.8" y2="9.2" />
+            <line x1="9.2" y1="14.8" x2="7.4" y2="16.6" />
+          </g>
+        </svg>
+      </div>
+      <span id="ptrText" class="ptr-text">Nach unten ziehen…</span>
+    </div>
+  </div>
 
 
 
@@ -2094,8 +2220,6 @@
         </div>
 
       </div>
-
-    </div>
 
     </div>
 
@@ -5206,9 +5330,263 @@
       setTheme(isLight ? "dark" : "light", true);
     }
 
+    // --- 9. PULL-TO-REFRESH NATIVE IOS / INSTA TOUCH ENGINE ---
+    function initPullToRefresh() {
+      const ptrIndicator = document.getElementById("ptrIndicator");
+      const ptrCapsule = document.getElementById("ptrCapsule");
+      const ptrSpinner = document.getElementById("ptrSpinnerIcon");
+      const ptrText = document.getElementById("ptrText");
+      const mainEl = document.querySelector("main");
+
+      if (!ptrIndicator || !ptrCapsule || !ptrSpinner || !ptrText) return;
+
+      let touchStartY = null;
+      let touchStartX = null;
+      let isPulling = false;
+      let canRefresh = false;
+      let isRefreshing = false;
+      let hasTriggeredHaptic = false;
+
+      function getScrollTop() {
+        return Math.max(
+          window.pageYOffset || 0,
+          window.scrollY || 0,
+          document.documentElement ? document.documentElement.scrollTop : 0,
+          document.body ? document.body.scrollTop : 0
+        );
+      }
+
+      function isAtTop() {
+        return getScrollTop() <= 2;
+      }
+
+      function applyPullVisuals(dampedDistance, threshold) {
+        const progress = Math.min(1, dampedDistance / threshold);
+        const yOffset = -32 + (progress * 44) + Math.max(0, (dampedDistance - threshold) * 0.35);
+        const scale = 0.85 + (0.15 * progress);
+        const opacity = Math.min(1, dampedDistance / 14);
+        const rotation = (dampedDistance / threshold) * 320;
+
+        ptrIndicator.style.transition = "none";
+        ptrIndicator.style.transform = `translate3d(-50%, ${yOffset}px, 0) scale(${scale})`;
+        ptrIndicator.style.opacity = `${opacity}`;
+        ptrSpinner.style.transform = `rotate(${rotation}deg)`;
+
+        if (mainEl) {
+          mainEl.style.transition = "none";
+          mainEl.style.transform = `translate3d(0, ${dampedDistance}px, 0)`;
+        }
+      }
+
+      function resetPullVisuals(animate = true) {
+        const dur = animate ? "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease" : "none";
+        ptrIndicator.style.transition = dur;
+        ptrIndicator.style.transform = "translate3d(-50%, -40px, 0) scale(0.85)";
+        ptrIndicator.style.opacity = "0";
+        if (mainEl) {
+          mainEl.style.transition = animate ? "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
+          mainEl.style.transform = "translate3d(0, 0px, 0)";
+        }
+      }
+
+      function handleTouchStart(e) {
+        if (isRefreshing) return;
+        if (e.touches && e.touches.length > 1) {
+          handleTouchCancel();
+          return;
+        }
+        const touch = e.touches ? e.touches[0] : e;
+        if (isAtTop()) {
+          touchStartY = touch.clientY;
+          touchStartX = touch.clientX;
+          isPulling = false;
+          canRefresh = false;
+          hasTriggeredHaptic = false;
+        } else {
+          touchStartY = null;
+        }
+      }
+
+      function handleTouchMove(e) {
+        if (isRefreshing) return;
+        if (e.touches && e.touches.length > 1) {
+          handleTouchCancel();
+          return;
+        }
+        const touch = e.touches ? e.touches[0] : e;
+
+        // Falls der Nutzer beim Hochscrollen oben ankommt, Startpunkt dynamisch setzen
+        if (touchStartY === null) {
+          if (isAtTop()) {
+            touchStartY = touch.clientY;
+            touchStartX = touch.clientX;
+          }
+          return;
+        }
+
+        const currentY = touch.clientY;
+        const currentX = touch.clientX;
+        const deltaY = currentY - touchStartY;
+        const deltaX = currentX - touchStartX;
+
+        // Horizontale Wischgesten (z.B. Tabellen) niemals behindern
+        if (!isPulling && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 6) {
+          touchStartY = null;
+          return;
+        }
+
+        // Normales Scrollen nach unten (Finger wischt nach oben -> deltaY < 0) sofort durchlassen
+        if (!isPulling && deltaY <= 0) {
+          return;
+        }
+
+        // Pulling nach unten am Seitenanfang (Sofort bei deltaY > 0 preventDefault für iOS WebKit!)
+        if (deltaY > 0 && isAtTop()) {
+          isPulling = true;
+          if (e.cancelable && typeof e.preventDefault === "function") {
+            e.preventDefault();
+          }
+
+          const rawPull = Math.max(0, deltaY);
+          const dampedDistance = Math.min(rawPull * 0.5, 92);
+          const threshold = 48;
+
+          applyPullVisuals(dampedDistance, threshold);
+
+          if (dampedDistance >= threshold) {
+            if (!canRefresh) {
+              canRefresh = true;
+              ptrCapsule.classList.add("ptr-ready");
+              ptrText.textContent = "Loslassen zum Aktualisieren";
+              if (!hasTriggeredHaptic && typeof navigator !== "undefined" && navigator.vibrate) {
+                try { navigator.vibrate(12); } catch (_) {}
+                hasTriggeredHaptic = true;
+              }
+            }
+          } else {
+            if (canRefresh) {
+              canRefresh = false;
+              ptrCapsule.classList.remove("ptr-ready");
+              ptrText.textContent = "Nach unten ziehen…";
+              hasTriggeredHaptic = false;
+            }
+          }
+        } else if (isPulling && deltaY <= 0) {
+          isPulling = false;
+          canRefresh = false;
+          ptrCapsule.classList.remove("ptr-ready");
+          resetPullVisuals(true);
+        }
+      }
+
+      async function executeRefresh() {
+        if (isRefreshing) return;
+        isRefreshing = true;
+
+        // Kapsel & Content rasten sanft in die Lade-Position ein
+        ptrIndicator.style.transition = "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease";
+        ptrIndicator.style.transform = "translate3d(-50%, 10px, 0) scale(1)";
+        ptrIndicator.style.opacity = "1";
+        ptrIndicator.classList.add("ptr-spinning");
+        ptrText.textContent = "Aktualisiere Live-Daten…";
+
+        if (mainEl) {
+          mainEl.style.transition = "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)";
+          mainEl.style.transform = "translate3d(0, 52px, 0)";
+        }
+
+        if (typeof navigator !== "undefined" && navigator.vibrate) {
+          try { navigator.vibrate(12); } catch (_) {}
+        }
+
+        // Mindestanzeige von ca. 850ms damit sich das Rädchen sichtbar dreht
+        const minWait = new Promise(resolve => setTimeout(resolve, 850));
+
+        try {
+          await Promise.all([
+            typeof loadData === "function" ? loadData() : Promise.resolve(),
+            minWait
+          ]);
+          ptrText.textContent = "Aktualisiert ✓";
+        } catch (err) {
+          console.error("Pull-to-refresh loadData error:", err);
+          ptrText.textContent = "Aktualisiert ✓";
+        } finally {
+          setTimeout(() => {
+            resetPullVisuals(true);
+
+            setTimeout(() => {
+              ptrIndicator.classList.remove("ptr-spinning");
+              ptrCapsule.classList.remove("ptr-ready");
+              ptrIndicator.style.transition = "";
+              ptrIndicator.style.transform = "";
+              ptrIndicator.style.opacity = "";
+              ptrSpinner.style.transform = "";
+              if (mainEl) {
+                mainEl.style.transition = "";
+                mainEl.style.transform = "";
+              }
+              ptrText.textContent = "Nach unten ziehen…";
+              isRefreshing = false;
+              canRefresh = false;
+            }, 320);
+          }, 260);
+        }
+      }
+
+      async function handleTouchEnd() {
+        if (isRefreshing || !isPulling) {
+          touchStartY = null;
+          isPulling = false;
+          return;
+        }
+
+        isPulling = false;
+        touchStartY = null;
+
+        if (canRefresh) {
+          await executeRefresh();
+        } else {
+          ptrCapsule.classList.remove("ptr-ready");
+          resetPullVisuals(true);
+          setTimeout(() => {
+            ptrIndicator.style.transition = "";
+            ptrIndicator.style.transform = "";
+            ptrIndicator.style.opacity = "";
+            ptrSpinner.style.transform = "";
+            if (mainEl) {
+              mainEl.style.transition = "";
+              mainEl.style.transform = "";
+            }
+            ptrText.textContent = "Nach unten ziehen…";
+          }, 300);
+        }
+      }
+
+      function handleTouchCancel() {
+        if (isRefreshing) return;
+        isPulling = false;
+        canRefresh = false;
+        touchStartY = null;
+        ptrCapsule.classList.remove("ptr-ready");
+        resetPullVisuals(true);
+      }
+
+      // Event-Registrierung: Touch-Gesten (iOS Safari & Mobile)
+      window.addEventListener("touchstart", handleTouchStart, { passive: true });
+      window.addEventListener("touchmove", handleTouchMove, { passive: false });
+      window.addEventListener("touchend", handleTouchEnd, { passive: true });
+      window.addEventListener("touchcancel", handleTouchCancel, { passive: true });
+
+      // Programmatischer Trigger
+      window.triggerPullToRefresh = executeRefresh;
+    }
+
     // --- 8. EVENT LISTENERS & AUTO REFRESH ---
 
     document.addEventListener("DOMContentLoaded", () => {
+
+      initPullToRefresh();
 
       updateThemeToggleIcon();
 
