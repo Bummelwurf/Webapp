@@ -1016,9 +1016,19 @@
 
     /* =====================================================================
        LIVE-TICKER / STÖRUNGSMELDER STYLES (DARK & LIGHT MODE)
+       Optimiert für iPhone / Mobile: Marquee-Laufschrift & Tap-to-Expand
        ===================================================================== */
     .live-ticker-bar {
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .live-ticker-bar:focus-visible {
+      outline: 2px solid #22c55e;
+      outline-offset: 2px;
     }
     .live-ticker-bar.is-idle {
       border-color: rgba(51, 65, 85, 0.7);
@@ -1031,6 +1041,88 @@
       border-color: rgba(245, 158, 11, 0.5);
       background: linear-gradient(90deg, rgba(69, 26, 3, 0.35) 0%, rgba(15, 23, 42, 0.85) 45%, rgba(15, 23, 42, 0.7) 100%);
     }
+    .live-ticker-bar.has-info {
+      border-color: rgba(14, 165, 233, 0.5);
+      background: linear-gradient(90deg, rgba(12, 74, 110, 0.35) 0%, rgba(15, 23, 42, 0.85) 45%, rgba(15, 23, 42, 0.7) 100%);
+    }
+
+    /* Marquee / Laufschrift-Engine */
+    .ticker-marquee-viewport {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      width: 100%;
+      min-width: 0;
+      mask-image: linear-gradient(90deg, transparent 0%, black 12px, black calc(100% - 12px), transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 12px, black calc(100% - 12px), transparent 100%);
+    }
+    .ticker-marquee-track {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      will-change: transform;
+      animation: tickerScroll 24s linear infinite;
+    }
+    .ticker-marquee-item {
+      display: inline-flex;
+      align-items: center;
+      padding-right: 2.5rem;
+      flex-shrink: 0;
+    }
+    @keyframes tickerScroll {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
+    .live-ticker-bar:hover .ticker-marquee-track {
+      animation-play-state: paused;
+    }
+    .live-ticker-bar.is-expanded .ticker-marquee-track {
+      animation-play-state: paused;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-marquee-track {
+        animation: none !important;
+      }
+    }
+
+    /* Expand / Collapse Umschaltung */
+    .live-ticker-bar .ticker-expanded-title {
+      display: none;
+    }
+    .live-ticker-bar .ticker-expanded-content {
+      display: none;
+      user-select: text;
+    }
+    .live-ticker-bar.is-expanded .ticker-marquee-viewport {
+      display: none !important;
+    }
+    .live-ticker-bar.is-expanded .ticker-expanded-title {
+      display: block !important;
+    }
+    .live-ticker-bar.is-expanded .ticker-expanded-content {
+      display: block !important;
+      animation: tickerExpandFade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes tickerExpandFade {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .live-ticker-bar .ticker-chevron {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .live-ticker-bar.is-expanded .ticker-chevron {
+      transform: rotate(180deg);
+    }
 
     /* Light Mode Overrides for Live-Ticker */
     html.light .live-ticker-bar.is-idle {
@@ -1040,7 +1132,9 @@
       box-shadow: 0 2px 8px -1px rgba(24, 24, 27, 0.04) !important;
     }
     html.light .live-ticker-bar.is-idle span.text-slate-300,
-    html.light .live-ticker-bar.is-idle .ticker-title {
+    html.light .live-ticker-bar.is-idle .ticker-title,
+    html.light .live-ticker-bar.is-idle .ticker-marquee-item,
+    html.light .live-ticker-bar.is-idle .ticker-expanded-title {
       color: #18181B !important;
     }
     html.light .live-ticker-bar.is-idle span.text-slate-400 {
@@ -1049,6 +1143,17 @@
     html.light .live-ticker-bar.is-idle span.text-slate-500 {
       color: #71717A !important;
     }
+    html.light .live-ticker-bar.is-idle .ticker-expanded-content {
+      border-color: #E2E8F0 !important;
+    }
+    html.light .live-ticker-bar.is-idle .ticker-expanded-content p.text-slate-400 {
+      color: #52525B !important;
+    }
+    html.light .live-ticker-bar.is-idle .ticker-expanded-content p.text-slate-200,
+    html.light .live-ticker-bar.is-idle .ticker-expanded-content div.text-slate-200 {
+      color: #18181B !important;
+    }
+
     html.light .live-ticker-bar.has-danger {
       background: #FEF2F2 !important;
       border-color: #FECACA !important;
@@ -1057,7 +1162,8 @@
     }
     html.light .live-ticker-bar.has-danger span.text-rose-200,
     html.light .live-ticker-bar.has-danger span.text-slate-200,
-    html.light .live-ticker-bar.has-danger .ticker-alert-title {
+    html.light .live-ticker-bar.has-danger .ticker-alert-title,
+    html.light .live-ticker-bar.has-danger .ticker-expanded-title {
       color: #7F1D1D !important;
     }
     html.light .live-ticker-bar.has-danger span.text-rose-300,
@@ -1065,9 +1171,14 @@
       color: #991B1B !important;
     }
     html.light .live-ticker-bar.has-danger span.text-slate-300,
-    html.light .live-ticker-bar.has-danger .ticker-alert-detail {
-      color: #B91C1C !important;
+    html.light .live-ticker-bar.has-danger .ticker-alert-detail,
+    html.light .live-ticker-bar.has-danger .ticker-marquee-item {
+      color: #991B1B !important;
     }
+    html.light .live-ticker-bar.has-danger .ticker-expanded-content {
+      border-color: #FECACA !important;
+    }
+
     html.light .live-ticker-bar.has-warning {
       background: #FFFBEB !important;
       border-color: #FDE68A !important;
@@ -1076,7 +1187,8 @@
     }
     html.light .live-ticker-bar.has-warning span.text-amber-200,
     html.light .live-ticker-bar.has-warning span.text-slate-200,
-    html.light .live-ticker-bar.has-warning .ticker-alert-title {
+    html.light .live-ticker-bar.has-warning .ticker-alert-title,
+    html.light .live-ticker-bar.has-warning .ticker-expanded-title {
       color: #78350F !important;
     }
     html.light .live-ticker-bar.has-warning span.text-amber-300,
@@ -1084,8 +1196,41 @@
       color: #92400E !important;
     }
     html.light .live-ticker-bar.has-warning span.text-slate-300,
-    html.light .live-ticker-bar.has-warning .ticker-alert-detail {
-      color: #B45309 !important;
+    html.light .live-ticker-bar.has-warning .ticker-alert-detail,
+    html.light .live-ticker-bar.has-warning .ticker-marquee-item {
+      color: #92400E !important;
+    }
+    html.light .live-ticker-bar.has-warning .ticker-expanded-content {
+      border-color: #FDE68A !important;
+    }
+
+    html.light .live-ticker-bar.has-info {
+      background: #F0F9FF !important;
+      border-color: #BAE6FD !important;
+      color: #0369A1 !important;
+      box-shadow: 0 4px 14px -2px rgba(14, 165, 233, 0.08) !important;
+    }
+    html.light .live-ticker-bar.has-info span.text-sky-200,
+    html.light .live-ticker-bar.has-info span.text-slate-200,
+    html.light .live-ticker-bar.has-info .ticker-alert-title,
+    html.light .live-ticker-bar.has-info .ticker-expanded-title {
+      color: #0C4A6E !important;
+    }
+    html.light .live-ticker-bar.has-info span.text-sky-300,
+    html.light .live-ticker-bar.has-info .ticker-line-tag {
+      color: #0369A1 !important;
+    }
+    html.light .live-ticker-bar.has-info span.text-slate-300,
+    html.light .live-ticker-bar.has-info .ticker-alert-detail,
+    html.light .live-ticker-bar.has-info .ticker-marquee-item {
+      color: #0284C7 !important;
+    }
+    html.light .live-ticker-bar.has-info .ticker-expanded-content {
+      border-color: #BAE6FD !important;
+    }
+
+    html.light .live-ticker-bar .ticker-chevron {
+      color: #71717A !important;
     }
 
     /* System Light Preference Media Query */
@@ -2194,17 +2339,40 @@
       <!-- =====================================================================
            LIVE-TICKER / STÖRUNGSMELDER (TEXT-ONLY STRECKEN-NEWS & SONDERVERKEHR)
            ===================================================================== -->
-      <div id="re10LiveTicker" class="live-ticker-bar is-idle p-3 sm:py-2.5 sm:px-4 rounded-xl border border-slate-800/80 bg-slate-900/70 shadow-sm transition-all duration-300">
-        <div class="flex items-center justify-between gap-3 text-xs">
-          <div class="flex items-center space-x-2.5 min-w-0 flex-1">
+      <div id="re10LiveTicker" class="live-ticker-bar is-idle p-2.5 sm:py-2.5 sm:px-4 rounded-xl border border-slate-800/80 bg-slate-900/70 shadow-sm transition-all duration-300" role="button" tabindex="0" aria-expanded="false" onclick="toggleLiveTicker(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleLiveTicker(event);}" title="Tippen zum Auf- oder Zuklappen">
+        <div class="flex items-center justify-between gap-2 text-xs">
+          <div class="flex items-center space-x-2 shrink-0">
             <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
             <span class="font-bold uppercase tracking-wider text-[10px] sm:text-[11px] text-slate-400 shrink-0">LIVE-TICKER:</span>
-            <span class="ticker-title text-slate-300 font-medium truncate">🟢 Keine aktuellen Streckenstörungen für RE10, Bus 63 oder SB41 bekannt</span>
           </div>
-          <div class="flex items-center space-x-2 shrink-0 text-[10px] font-mono text-slate-500">
-            <span class="hidden sm:inline">Regelbetrieb</span>
-            <span class="hidden sm:inline">•</span>
-            <span class="select-none">Transitous Live</span>
+          <div class="ticker-marquee-viewport flex-1 min-w-0 mx-2">
+            <div class="ticker-marquee-track" style="animation-duration: 24s;">
+              <span class="ticker-marquee-item text-slate-300 font-medium text-xs">🟢 Keine aktuellen Streckenstörungen für RE10, Bus 63 oder SB41 bekannt +++ Alle Anschlüsse planmäßig +++ Echtzeit-Betrieb aktiv +++</span>
+              <span class="ticker-marquee-item text-slate-300 font-medium text-xs" aria-hidden="true">🟢 Keine aktuellen Streckenstörungen für RE10, Bus 63 oder SB41 bekannt +++ Alle Anschlüsse planmäßig +++ Echtzeit-Betrieb aktiv +++</span>
+            </div>
+          </div>
+          <div class="ticker-expanded-title text-slate-200 font-semibold text-xs truncate flex-1 min-w-0 mx-2">
+            🟢 Regelbetrieb: Alle Anschlüsse planmäßig
+          </div>
+          <div class="flex items-center space-x-1.5 shrink-0 text-slate-400">
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700/60 bg-slate-800/50 hidden sm:inline select-none" onclick="event.stopPropagation()">Transitous Live</span>
+            <span class="ticker-chevron-wrap p-1 -mr-1 rounded hover:bg-white/10 active:scale-95 transition-transform flex items-center justify-center">
+              <svg class="ticker-chevron w-3.5 h-3.5 transform transition-transform duration-300 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="ticker-expanded-content pt-2.5 mt-2 border-t border-slate-700/50 text-slate-300">
+          <div class="text-xs leading-relaxed space-y-1">
+            <p class="font-medium text-slate-200">🟢 Regelbetrieb auf allen Pendler-Verbindungen</p>
+            <p class="text-slate-400 text-[11px] leading-normal">
+              Keine aktuellen Streckenstörungen oder Zugausfälle für RE10 (Niers-Express), Bus 63 oder SB41 gemeldet. Alle Verbindungen zwischen Straelen, Nieukerk und Geldern verkehren planmäßig nach Regelfahrplan.
+            </p>
+          </div>
+          <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] text-slate-500">
+            <span>Echtzeit-Prüfung via Transitous &amp; VRR</span>
+            <span class="text-slate-400 font-medium">Antippen zum Einklappen ⌃</span>
           </div>
         </div>
       </div>
@@ -4820,32 +4988,75 @@
       return alerts;
     }
 
+    function toggleLiveTicker(e) {
+      if (e && e.target && e.target.closest('a')) return;
+      const sel = window.getSelection();
+      if (sel && sel.toString().length > 0) return;
+
+      const container = document.getElementById("re10LiveTicker");
+      if (!container) return;
+      const isExpanded = container.classList.toggle("is-expanded");
+      container.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+    }
+    window.toggleLiveTicker = toggleLiveTicker;
+
     function renderLiveTicker() {
       const container = document.getElementById("re10LiveTicker");
       if (!container) return;
 
+      const wasExpanded = container.classList.contains("is-expanded");
       const alerts = extractTickerAlerts();
       const hasDanger = alerts.some(a => a.type === "danger");
       const hasWarning = alerts.some(a => a.type === "warning");
       const hasInfo = alerts.some(a => a.type === "info");
 
-      // Basis-Klassen zurücksetzen
-      container.className = "live-ticker-bar p-3 sm:py-2.5 sm:px-4 rounded-xl border transition-all duration-300";
+      // Basis-Klassen
+      container.className = "live-ticker-bar p-2.5 sm:py-2.5 sm:px-4 rounded-xl border transition-all duration-300";
+      container.setAttribute("role", "button");
+      container.setAttribute("tabindex", "0");
+      container.setAttribute("title", "Tippen zum Auf- oder Zuklappen");
 
       if (alerts.length === 0) {
         // RUHEZUSTAND / KEINE STÖRUNGEN
         container.classList.add("is-idle", "bg-slate-900/70", "border-slate-800/80", "text-slate-300", "shadow-sm");
+
+        const marqueeText = "🟢 Keine aktuellen Streckenstörungen für RE10, Bus 63 oder SB41 bekannt +++ Alle Anschlüsse planmäßig +++ Echtzeit-Betrieb aktiv +++ ";
+        const duration = 24;
+
         container.innerHTML = `
-          <div class="flex items-center justify-between gap-3 text-xs">
-            <div class="flex items-center space-x-2.5 min-w-0 flex-1">
+          <div class="flex items-center justify-between gap-2 text-xs">
+            <div class="flex items-center space-x-2 shrink-0">
               <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
               <span class="font-bold uppercase tracking-wider text-[10px] sm:text-[11px] text-slate-400 shrink-0">LIVE-TICKER:</span>
-              <span class="ticker-title text-slate-300 font-medium truncate">🟢 Keine aktuellen Streckenstörungen für RE10, Bus 63 oder SB41 bekannt</span>
             </div>
-            <div class="flex items-center space-x-2 shrink-0 text-[10px] font-mono text-slate-500">
-              <span class="hidden sm:inline">Regelbetrieb</span>
-              <span class="hidden sm:inline">•</span>
-              <span class="select-none">Transitous Live</span>
+            <div class="ticker-marquee-viewport flex-1 min-w-0 mx-2">
+              <div class="ticker-marquee-track" style="animation-duration: ${duration}s;">
+                <span class="ticker-marquee-item text-slate-300 font-medium text-xs">${marqueeText}</span>
+                <span class="ticker-marquee-item text-slate-300 font-medium text-xs" aria-hidden="true">${marqueeText}</span>
+              </div>
+            </div>
+            <div class="ticker-expanded-title text-slate-200 font-semibold text-xs truncate flex-1 min-w-0 mx-2">
+              🟢 Regelbetrieb: Alle Anschlüsse planmäßig
+            </div>
+            <div class="flex items-center space-x-1.5 shrink-0 text-slate-400">
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700/60 bg-slate-800/50 hidden sm:inline select-none" onclick="event.stopPropagation()">Transitous Live</span>
+              <span class="ticker-chevron-wrap p-1 -mr-1 rounded hover:bg-white/10 active:scale-95 transition-transform flex items-center justify-center">
+                <svg class="ticker-chevron w-3.5 h-3.5 transform transition-transform duration-300 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="ticker-expanded-content pt-2.5 mt-2 border-t border-slate-700/50 text-slate-300">
+            <div class="text-xs leading-relaxed space-y-1">
+              <p class="font-medium text-slate-200">🟢 Regelbetrieb auf allen Pendler-Verbindungen</p>
+              <p class="text-slate-400 text-[11px] leading-normal">
+                Keine aktuellen Streckenstörungen oder Zugausfälle für RE10 (Niers-Express), Bus 63 oder SB41 gemeldet. Alle Verbindungen zwischen Straelen, Nieukerk und Geldern verkehren planmäßig nach Regelfahrplan.
+              </p>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] text-slate-500">
+              <span>Echtzeit-Prüfung via Transitous &amp; VRR</span>
+              <span class="text-slate-400 font-medium">Antippen zum Einklappen ⌃</span>
             </div>
           </div>
         `;
@@ -4861,7 +5072,17 @@
 
         const badgeColor = hasDanger ? "text-rose-300 bg-rose-950/60 border-rose-500/40" : (hasWarning ? "text-amber-300 bg-amber-950/60 border-amber-500/40" : "text-sky-300 bg-sky-950/60 border-sky-500/40");
         const dotColor = hasDanger ? "bg-rose-500" : (hasWarning ? "bg-amber-400" : "bg-sky-400");
-        const headerTitle = alerts.length === 1 ? "1 aktuelle Meldung" : `${alerts.length} aktuelle Meldungen`;
+        const labelColor = hasDanger ? "text-rose-300" : (hasWarning ? "text-amber-300" : "text-sky-300");
+        const headerTitle = alerts.length === 1 ? `⚠️ 1 Meldung: ${alerts[0].line} ${alerts[0].title}` : `⚠️ ${alerts.length} aktuelle Streckenmeldungen`;
+
+        // Laufschrift-Text zusammenbauen
+        const marqueeParts = alerts.map(a => {
+          const icon = a.icon || (a.type === "danger" ? "🚨" : (a.type === "warning" ? "⚠️" : "ℹ️"));
+          const detailStr = a.detail ? ` (${a.detail})` : "";
+          return `${icon} ${a.line}: ${a.title}${detailStr}`;
+        });
+        const marqueeText = marqueeParts.join(" +++ ") + " +++ ";
+        const duration = Math.max(20, Math.min(50, Math.round(marqueeText.length * 0.22)));
 
         let alertsHtml = alerts.map(a => {
           const isD = a.type === "danger";
@@ -4881,25 +5102,56 @@
         }).join("");
 
         container.innerHTML = `
-          <div class="space-y-2 text-xs">
-            <div class="flex items-center justify-between gap-2 pb-1.5 border-b ${hasDanger ? 'border-rose-500/25' : 'border-amber-500/25'}">
-              <div class="flex items-center space-x-2 min-w-0">
-                <span class="w-2 h-2 rounded-full ${dotColor} animate-pulse shrink-0"></span>
-                <span class="font-bold uppercase tracking-wider text-[10px] sm:text-[11px] ${hasDanger ? 'text-rose-300' : 'text-amber-300'} shrink-0">STRECKEN-TICKER:</span>
-                <span class="ticker-title font-semibold truncate ${hasDanger ? 'text-rose-200' : 'text-amber-200'}">${headerTitle}</span>
-              </div>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded border ${badgeColor} shrink-0 select-none">Transitous Live</span>
+          <div class="flex items-center justify-between gap-2 text-xs">
+            <div class="flex items-center space-x-2 shrink-0">
+              <span class="w-2 h-2 rounded-full ${dotColor} animate-pulse shrink-0"></span>
+              <span class="font-bold uppercase tracking-wider text-[10px] sm:text-[11px] ${labelColor} shrink-0">STRECKEN-TICKER:</span>
             </div>
-            <div class="space-y-1.5">
+            <div class="ticker-marquee-viewport flex-1 min-w-0 mx-2">
+              <div class="ticker-marquee-track" style="animation-duration: ${duration}s;">
+                <span class="ticker-marquee-item text-slate-200 font-medium text-xs">${marqueeText}</span>
+                <span class="ticker-marquee-item text-slate-200 font-medium text-xs" aria-hidden="true">${marqueeText}</span>
+              </div>
+            </div>
+            <div class="ticker-expanded-title ${hasDanger ? 'text-rose-200' : (hasWarning ? 'text-amber-200' : 'text-sky-200')} font-semibold text-xs truncate flex-1 min-w-0 mx-2">
+              ${headerTitle}
+            </div>
+            <div class="flex items-center space-x-1.5 shrink-0">
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded border ${badgeColor} hidden sm:inline select-none" onclick="event.stopPropagation()">Transitous Live</span>
+              <span class="ticker-chevron-wrap p-1 -mr-1 rounded hover:bg-white/10 active:scale-95 transition-transform flex items-center justify-center">
+                <svg class="ticker-chevron w-3.5 h-3.5 transform transition-transform duration-300 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="ticker-expanded-content pt-2.5 mt-2 border-t ${hasDanger ? 'border-rose-500/30' : (hasWarning ? 'border-amber-500/30' : 'border-sky-500/30')}">
+            <div class="space-y-2">
               ${alertsHtml}
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] text-slate-400">
+              <span>Transitous Live-Störungsmeldungen</span>
+              <span class="font-medium text-slate-300">Antippen zum Einklappen ⌃</span>
             </div>
           </div>
         `;
       }
+
+      if (wasExpanded) {
+        container.classList.add("is-expanded");
+        container.setAttribute("aria-expanded", "true");
+      } else {
+        container.setAttribute("aria-expanded", "false");
+      }
     }
 
     window.pendlerLotseTicker = {
-      getAlerts: () => extractTickerAlerts()
+      getAlerts: () => extractTickerAlerts(),
+      toggle: () => window.toggleLiveTicker(),
+      isExpanded: () => {
+        const el = document.getElementById("re10LiveTicker");
+        return el ? el.classList.contains("is-expanded") : false;
+      }
     };
 
 
