@@ -2651,7 +2651,7 @@
 
        ===================================================================== */
 
-    // DOM ALIAS HELPER: Support #heroCard, #heroRecommendation & #recommendationHero seamlessly
+    // DOM ALIAS HELPER: Support #heroCard, #heroRecommendation, #headerTime, #countdownTimer seamlessly
     (function() {
       if (typeof Document !== "undefined" && Document.prototype) {
         const _origGetElementById = Document.prototype.getElementById;
@@ -2659,12 +2659,24 @@
           if (id === "heroCard" || id === "recommendationHero") {
             return _origGetElementById.call(this, "heroRecommendation") || _origGetElementById.call(this, id);
           }
+          if (id === "headerTime") {
+            return _origGetElementById.call(this, "liveClock") || _origGetElementById.call(this, id);
+          }
+          if (id === "countdownTimer") {
+            return _origGetElementById.call(this, "countdownDisplay") || _origGetElementById.call(this, id);
+          }
           return _origGetElementById.call(this, id);
         };
         const _origQuerySelector = Document.prototype.querySelector;
         Document.prototype.querySelector = function(selector) {
           if (selector === "#heroCard" || selector === "#recommendationHero") {
             return _origGetElementById.call(this, "heroRecommendation") || _origQuerySelector.call(this, selector);
+          }
+          if (selector === "#headerTime") {
+            return _origGetElementById.call(this, "liveClock") || _origQuerySelector.call(this, selector);
+          }
+          if (selector === "#countdownTimer") {
+            return _origGetElementById.call(this, "countdownDisplay") || _origQuerySelector.call(this, selector);
           }
           return _origQuerySelector.call(this, selector);
         };
@@ -2675,7 +2687,10 @@
       if (window.PENDLER_SIM_TIME) {
         return new Date(window.PENDLER_SIM_TIME);
       }
-      return (typeof state !== "undefined" && state && state.now) ? state.now : new Date();
+      if (typeof state !== "undefined" && state && state.simTime) {
+        return new Date(state.simTime);
+      }
+      return new Date();
     }
 
     // TIME CALCULATION HELPER (Bugfix: 16:55 + 20m = 17:15 Uhr, niemals 16:75 Uhr!)
@@ -4198,41 +4213,41 @@
     }
 
     function renderProgressTimeline() {
-      const mode = state.progressVehicle || "bus63";
-      const r1 = state.route1;
-      const r2 = state.route2;
+      try {
+        const mode = state.progressVehicle || "bus63";
+        const r1 = state.route1 || {};
+        const r2 = state.route2 || {};
 
-      const btnBus63 = document.getElementById("btnProgBus63");
-      const btnRe10 = document.getElementById("btnProgRe10");
-      const btnSb41 = document.getElementById("btnProgSb41");
+        const btnBus63 = document.getElementById("btnProgBus63");
+        const btnRe10 = document.getElementById("btnProgRe10");
+        const btnSb41 = document.getElementById("btnProgSb41");
 
-      const progStartStation = document.getElementById("progStartStation");
-      const progStartTime = document.getElementById("progStartTime");
-      const progTargetStation = document.getElementById("progTargetStation");
-      const progLiveTargetBadge = document.getElementById("progLiveTargetBadge");
-      const progTargetDot = document.getElementById("progTargetDot");
+        const progStartStation = document.getElementById("progStartStation");
+        const progStartTime = document.getElementById("progStartTime");
+        const progTargetStation = document.getElementById("progTargetStation");
+        const progLiveTargetBadge = document.getElementById("progLiveTargetBadge");
+        const progTargetDot = document.getElementById("progTargetDot");
 
-      const progVehicleMarker = document.getElementById("progVehicleMarker");
-      const progPingRing = document.getElementById("progPingRing");
-      const progVehicleDot = document.getElementById("progVehicleDot");
-      const progBarFill = document.getElementById("progBarFill");
+        const progVehicleMarker = document.getElementById("progVehicleMarker");
+        const progPingRing = document.getElementById("progPingRing");
+        const progVehicleDot = document.getElementById("progVehicleDot");
+        const progBarFill = document.getElementById("progBarFill");
 
-      const progStop0 = document.getElementById("progStop0");
-      const progStop1 = document.getElementById("progStop1");
-      const progStop2 = document.getElementById("progStop2");
-      const progStop3 = document.getElementById("progStop3");
+        const progStop0 = document.getElementById("progStop0");
+        const progStop1 = document.getElementById("progStop1");
+        const progStop2 = document.getElementById("progStop2");
+        const progStop3 = document.getElementById("progStop3");
 
-// Info-Banner und Kacheln entfernt fuer cleanen Look
+        // Info-Banner und Kacheln entfernt fuer cleanen Look
+        if (!progBarFill) return;
 
-      if (!progBarFill) return;
+        // Button styles
+        const activeClass = "px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer shadow-sm flex items-center space-x-1.5";
+        const inactiveClass = "px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer text-slate-400 hover:text-slate-200 border border-transparent flex items-center space-x-1.5";
 
-      // Button styles
-      const activeClass = "px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer shadow-sm flex items-center space-x-1.5";
-      const inactiveClass = "px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer text-slate-400 hover:text-slate-200 border border-transparent flex items-center space-x-1.5";
-
-      btnBus63.className = inactiveClass;
-      btnRe10.className = inactiveClass;
-      btnSb41.className = inactiveClass;
+        if (btnBus63) btnBus63.className = inactiveClass;
+        if (btnRe10) btnRe10.className = inactiveClass;
+        if (btnSb41) btnSb41.className = inactiveClass;
 
       // Evaluation reference minute relative to 16:00 (e.g. 16:31 -> 31)
       const now = new Date();
@@ -4264,7 +4279,7 @@
       let stops = [];
 
       if (mode === "bus63") {
-        btnBus63.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
+        if (btnBus63) btnBus63.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
         vehicleIcon = "🚌";
         vehicleLabel = "Bus 63";
         startStationName = "Kempen Bf";
@@ -4291,7 +4306,7 @@
           themeColor = delayMin >= 3 ? "emerald" : "rose";
         }
       } else if (mode === "re10") {
-        btnRe10.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
+        if (btnRe10) btnRe10.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
         vehicleIcon = "🚆";
         vehicleLabel = "RE10";
         startStationName = "Krefeld Hbf";
@@ -4333,7 +4348,7 @@
           themeColor = "emerald";
         }
       } else if (mode === "sb41") {
-        btnSb41.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
+        if (btnSb41) btnSb41.className = `${activeClass} text-emerald-300 bg-slate-800 border border-emerald-500/40 shadow-sm`;
         vehicleIcon = "🚍";
         vehicleLabel = "SB41";
         startStationName = "Wachtendonk / Geldern";
@@ -4435,9 +4450,9 @@
       }
 
       // Update Header
-      progStartStation.textContent = `Start: ${startStationName}`;
-      progStartTime.textContent = `(Plan ${startPlanTime})`;
-      progTargetStation.textContent = targetStationName;
+      if (progStartStation) progStartStation.textContent = `Start: ${startStationName}`;
+      if (progStartTime) progStartTime.textContent = `(Plan ${startPlanTime})`;
+      if (progTargetStation) progTargetStation.textContent = targetStationName;
       if (progLiveTargetBadge) {
         if (isBeforeStart) {
           progLiveTargetBadge.textContent = `Plan ${targetPlanTime} Uhr`;
@@ -4456,55 +4471,62 @@
       }
 
       // Update intermediate stops
-      if (isBeforeStart) {
-        progStop0.textContent = `${stops[0]} (Start ${startPlanTime})`;
-      } else {
-        progStop0.textContent = stops[0] || "";
+      if (progStop0) {
+        if (isBeforeStart) {
+          progStop0.textContent = `${stops[0]} (Start ${startPlanTime})`;
+        } else {
+          progStop0.textContent = stops[0] || "";
+        }
       }
-      progStop1.textContent = stops[1] || "";
-      progStop2.textContent = stops[2] || "";
-      if (isCancelled) {
-        progStop3.textContent = `${stops[3]} (Ausfall)`;
-      } else if (isBeforeStart) {
-        progStop3.textContent = `${stops[3]} (Plan ${targetPlanTime})`;
-      } else if (diffMin < 0) {
-        progStop3.textContent = `${stops[3]} (Abgefahren ${targetLiveTime})`;
-      } else {
-        progStop3.textContent = `${stops[3]} (${targetLiveTime} Live)`;
+      if (progStop1) progStop1.textContent = stops[1] || "";
+      if (progStop2) progStop2.textContent = stops[2] || "";
+      if (progStop3) {
+        if (isCancelled) {
+          progStop3.textContent = `${stops[3]} (Ausfall)`;
+        } else if (isBeforeStart) {
+          progStop3.textContent = `${stops[3]} (Plan ${targetPlanTime})`;
+        } else if (diffMin < 0) {
+          progStop3.textContent = `${stops[3]} (Abgefahren ${targetLiveTime})`;
+        } else {
+          progStop3.textContent = `${stops[3]} (${targetLiveTime} Live)`;
+        }
       }
 
       // Progress bar fill and marker position (begrenzt zwischen 0% und 100%)
       const clampedPct = Math.max(0, Math.min(100, Math.round(pct)));
-      progBarFill.style.width = `${clampedPct}%`;
-      progVehicleMarker.style.left = `${clampedPct}%`;
-      if (clampedPct === 0) {
-        progVehicleMarker.style.transform = "translate(0, -50%)";
-      } else if (clampedPct >= 98) {
-        progVehicleMarker.style.transform = "translate(-100%, -50%)";
-      } else {
-        progVehicleMarker.style.transform = "translate(-50%, -50%)";
+      if (progBarFill) progBarFill.style.width = `${clampedPct}%`;
+      if (progVehicleMarker) {
+        progVehicleMarker.style.left = `${clampedPct}%`;
+        if (clampedPct === 0) {
+          progVehicleMarker.style.transform = "translate(0, -50%)";
+        } else if (clampedPct >= 98) {
+          progVehicleMarker.style.transform = "translate(-100%, -50%)";
+        } else {
+          progVehicleMarker.style.transform = "translate(-50%, -50%)";
+        }
       }
 
       // Vehicle icon
-      progVehicleDot.textContent = vehicleIcon;
+      if (progVehicleDot) progVehicleDot.textContent = vehicleIcon;
 
       // Dynamic theme coloring of vehicle marker and glow (Strikt Grün, Rot, Slate)
       if (themeColor === "slate") {
-        progVehicleDot.className = "w-7 h-7 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs shadow-md border-2 border-slate-500 select-none leading-none relative z-10";
-        progPingRing.className = "hidden";
-        progBarFill.className = "h-full rounded-full bg-slate-800 transition-all duration-500";
+        if (progVehicleDot) progVehicleDot.className = "w-7 h-7 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs shadow-md border-2 border-slate-500 select-none leading-none relative z-10";
+        if (progPingRing) progPingRing.className = "hidden";
+        if (progBarFill) progBarFill.className = "h-full rounded-full bg-slate-800 transition-all duration-500";
       } else if (themeColor === "rose") {
-        progVehicleDot.className = "w-7 h-7 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
-        progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-rose-400 opacity-60 pointer-events-none";
-        progBarFill.className = "h-full rounded-full bg-rose-600 transition-all duration-500 shadow-[0_0_12px_rgba(244,63,94,0.5)]";
+        if (progVehicleDot) progVehicleDot.className = "w-7 h-7 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
+        if (progPingRing) progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-rose-400 opacity-60 pointer-events-none";
+        if (progBarFill) progBarFill.className = "h-full rounded-full bg-rose-600 transition-all duration-500 shadow-[0_0_12px_rgba(244,63,94,0.5)]";
       } else {
-        progVehicleDot.className = "w-7 h-7 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
-        progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-emerald-400 opacity-60 pointer-events-none";
-        progBarFill.className = "h-full rounded-full bg-emerald-500 transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.4)]";
+        if (progVehicleDot) progVehicleDot.className = "w-7 h-7 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow-md border-2 border-white select-none leading-none relative z-10";
+        if (progPingRing) progPingRing.className = "animate-ping absolute inset-0 rounded-full bg-emerald-400 opacity-60 pointer-events-none";
+        if (progBarFill) progBarFill.className = "h-full rounded-full bg-emerald-500 transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.4)]";
       }
-
-
+    } catch (err) {
+      console.error("Error in renderProgressTimeline:", err);
     }
+  }
 
     function populateDetailTables() {
       const r1 = state.route1;
@@ -5160,70 +5182,92 @@
 
     let triggeredToday = false;
 
-
-
     function updateClockAndCountdown() {
-      const now = getCurrentTime();
-      state.now = now;
-
-      // Update live clock
-      const timeStr = now.toLocaleTimeString("de-DE", { hour12: false });
-      const liveClockEl = document.getElementById("liveClock");
-      if (liveClockEl) liveClockEl.textContent = timeStr;
-
-      // Check if transitioning across 16:00
-      const currentH = now.getHours();
-      const isEarly = currentH < 16;
-      if (state.lastIsEarly !== undefined && state.lastIsEarly !== isEarly) {
-        renderUI();
-      }
-      state.lastIsEarly = isEarly;
-
-      // Update progress timeline live if in transitous_live mode
-      if (state.scenario === "transitous_live") {
-        renderProgressTimeline();
-      }
-
-      const countEl = document.getElementById("countdownDisplay");
-      const titleEl = document.getElementById("countdownTitle");
-      if (!countEl || !titleEl) return;
-
-      const currentM = now.getMinutes();
-      const currentS = now.getSeconds();
-      const currentSeconds = currentH * 3600 + currentM * 60 + currentS;
-
-      // Arbeitszeitfenster: 08:00:00 (28800 Sek) bis 16:30:00 (59400 Sek)
-      const isWorkHours = currentSeconds >= 28800 && currentSeconds < 59400;
-
-      if (isWorkHours) {
-        // Countdown von 08:00 bis 16:30 Uhr
-        const diffSec = 59400 - currentSeconds;
-        const hours = Math.floor(diffSec / 3600);
-        const minutes = Math.floor((diffSec % 3600) / 60);
-        const seconds = diffSec % 60;
-
-        countEl.textContent = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-        titleEl.textContent = "Countdown bis zum Feierabend (16:30 Uhr)";
-        countEl.className = "hero-countdown text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
-
-        // Lotsen-Alarm um 16:25 Uhr (5 Min vor Feierabend)
-        if (currentH === 16 && currentM === 25 && !triggeredToday) {
-          triggeredToday = true;
-          loadData().then(() => {
-            const rec = state.recommendation;
-            sendDesktopNotification(
-              `🔔 Lotsen-Alarm (16:25 Uhr – 5 Min vor Feierabend um 16:30 Uhr): ${rec.title}`,
-              `Ankunft Geldern: ${rec.arrival}`
-            );
-          });
+      try {
+        const now = getCurrentTime();
+        if (typeof state !== "undefined" && state) {
+          state.now = now;
         }
-      } else {
-        // Nach 16:30 Uhr (also zwischen 16:30 Uhr und 08:00 Uhr am nächsten Morgen):
-        // Keine Zähler, keine negativen Zahlen, sondern einfach fett: Feierabend!
-        countEl.textContent = "Feierabend!";
-        countEl.className = "hero-countdown text-4xl sm:text-5xl font-extrabold text-emerald-400 tracking-tight mt-1";
-        titleEl.textContent = "Feierabend!";
-        triggeredToday = false;
+
+        // 1. Update live clock & headerTime
+        const timeStr = now.toLocaleTimeString("de-DE", { hour12: false });
+        const liveClockEl = document.getElementById("liveClock");
+        if (liveClockEl) liveClockEl.textContent = timeStr;
+        const headerTimeEl = document.getElementById("headerTime");
+        if (headerTimeEl && headerTimeEl !== liveClockEl) headerTimeEl.textContent = timeStr;
+
+        // 2. Check if transitioning across 16:00
+        const currentH = now.getHours();
+        const isEarly = currentH < 16;
+        if (typeof state !== "undefined" && state) {
+          if (state.lastIsEarly !== undefined && state.lastIsEarly !== isEarly) {
+            try {
+              renderUI();
+            } catch (e) {
+              console.error("renderUI error on 16:00 transition:", e);
+            }
+          }
+          state.lastIsEarly = isEarly;
+        }
+
+        // 3. Update progress timeline live if in transitous_live mode
+        if (typeof state !== "undefined" && state && state.scenario === "transitous_live") {
+          try {
+            renderProgressTimeline();
+          } catch (e) {
+            console.error("renderProgressTimeline tick error:", e);
+          }
+        }
+
+        // 4. Update Countdown Display
+        const countEl = document.getElementById("countdownDisplay") || document.getElementById("countdownTimer");
+        const titleEl = document.getElementById("countdownTitle");
+        if (!countEl || !titleEl) return;
+
+        const currentM = now.getMinutes();
+        const currentS = now.getSeconds();
+        const currentSeconds = currentH * 3600 + currentM * 60 + currentS;
+
+        // Arbeitszeitfenster: 08:00:00 (28800 Sek) bis 16:30:00 (59400 Sek)
+        const isWorkHours = currentSeconds >= 28800 && currentSeconds < 59400;
+
+        if (isWorkHours) {
+          // Countdown von 08:00 bis 16:30 Uhr
+          const diffSec = 59400 - currentSeconds;
+          const hours = Math.floor(diffSec / 3600);
+          const minutes = Math.floor((diffSec % 3600) / 60);
+          const seconds = diffSec % 60;
+
+          const timeFormatted = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+          countEl.textContent = timeFormatted;
+          titleEl.textContent = "Countdown bis zum Feierabend (16:30 Uhr)";
+          countEl.className = "hero-countdown text-4xl sm:text-5xl font-extrabold font-mono text-emerald-400 tracking-tight mt-1";
+
+          // Lotsen-Alarm um 16:25 Uhr (5 Min vor Feierabend)
+          if (currentH === 16 && currentM === 25 && !triggeredToday) {
+            triggeredToday = true;
+            if (typeof loadData === "function") {
+              loadData().then(() => {
+                const rec = state.recommendation;
+                if (rec && typeof sendDesktopNotification === "function") {
+                  sendDesktopNotification(
+                    `🔔 Lotsen-Alarm (16:25 Uhr – 5 Min vor Feierabend um 16:30 Uhr): ${rec.title || ""}`,
+                    `Ankunft Geldern: ${rec.arrival || ""}`
+                  );
+                }
+              }).catch(e => console.error("Alarm error:", e));
+            }
+          }
+        } else {
+          // Nach 16:30 Uhr (also zwischen 16:30 Uhr und 08:00 Uhr am nächsten Morgen):
+          // Keine Zähler, keine negativen Zahlen, sondern einfach fett: Feierabend!
+          countEl.textContent = "Feierabend!";
+          countEl.className = "hero-countdown text-4xl sm:text-5xl font-extrabold text-emerald-400 tracking-tight mt-1";
+          titleEl.textContent = "Feierabend!";
+          triggeredToday = false;
+        }
+      } catch (err) {
+        console.error("Critical error in updateClockAndCountdown:", err);
       }
     }
 
@@ -5280,22 +5324,57 @@
 
       loadData();
 
+      // Robust clock interval & iOS Safari / mobile background handler
+      let clockIntervalId = null;
+
+      function startClockInterval() {
+        if (clockIntervalId) {
+          clearInterval(clockIntervalId);
+          clockIntervalId = null;
+        }
+        clockIntervalId = setInterval(() => {
+          try {
+            updateClockAndCountdown();
+          } catch (err) {
+            console.error("Timer interval tick error:", err);
+          }
+        }, 1000);
+      }
+
       updateClockAndCountdown();
+      startClockInterval();
 
+      // iOS Safari / Background / Visibility Handling
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          try {
+            updateClockAndCountdown();
+          } catch (e) {}
+          startClockInterval();
+        }
+      });
 
+      window.addEventListener("focus", () => {
+        try {
+          updateClockAndCountdown();
+        } catch (e) {}
+        startClockInterval();
+      });
 
-      // Clock tick every 1 sec
-
-      setInterval(updateClockAndCountdown, 1000);
-
-
+      window.addEventListener("pageshow", () => {
+        try {
+          updateClockAndCountdown();
+        } catch (e) {}
+        startClockInterval();
+      });
 
       // Periodic Live-Data Refresh every 2.5 minutes
-
       setInterval(() => {
-
-        loadData();
-
+        try {
+          loadData();
+        } catch (e) {
+          console.error("Periodic loadData error:", e);
+        }
       }, 150000);
 
 
